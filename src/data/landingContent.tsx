@@ -19,12 +19,12 @@ export const supportedLocales: Locale[] = ["en", "ko", "ja", "de", "fr", "es", "
 
 export const localeRoutes: Array<{ code: Locale; nativeLabel: string; path: string }> = [
     { code: "en", nativeLabel: "English", path: "/" },
-    { code: "ko", nativeLabel: "한국어", path: "/ko" },
-    { code: "ja", nativeLabel: "日本語", path: "/ja" },
-    { code: "de", nativeLabel: "Deutsch", path: "/de" },
-    { code: "fr", nativeLabel: "Français", path: "/fr" },
-    { code: "es", nativeLabel: "Español", path: "/es" },
-    { code: "zh-TW", nativeLabel: "繁體中文", path: "/zh-TW" },
+    { code: "ko", nativeLabel: "한국어", path: "/ko/" },
+    { code: "ja", nativeLabel: "日本語", path: "/ja/" },
+    { code: "de", nativeLabel: "Deutsch", path: "/de/" },
+    { code: "fr", nativeLabel: "Français", path: "/fr/" },
+    { code: "es", nativeLabel: "Español", path: "/es/" },
+    { code: "zh-TW", nativeLabel: "繁體中文", path: "/zh-TW/" },
 ];
 
 export const localePathFor = (locale: Locale): string => {

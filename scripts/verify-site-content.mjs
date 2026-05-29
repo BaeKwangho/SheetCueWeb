@@ -37,6 +37,10 @@ if (!nextConfig.includes("qualities") || !nextConfig.includes("100")) {
   throw new Error("Next image config must allow quality={100}.");
 }
 
+if (!nextConfig.includes("trailingSlash: true")) {
+  throw new Error("Next static export must use trailingSlash: true so GitHub Pages serves localized routes as directories.");
+}
+
 const koreanPage = readFileSync(join(root, "src/app/ko/page.tsx"), "utf8");
 if (!koreanPage.includes("metadata") || !koreanPage.includes("landingContent.ko.metadata")) {
   throw new Error("Korean page must define localized metadata.");
@@ -57,8 +61,8 @@ for (const locale of expectedLocales.filter((locale) => locale !== "en")) {
     throw new Error(`${locale} page must define localized metadata.`);
   }
 
-  if (page.includes(`\${siteDetails.siteUrl}${locale}/`)) {
-    throw new Error(`${locale} page metadata must use GitHub Pages-compatible extensionless URLs without a trailing slash.`);
+  if (page.includes(`\${siteDetails.siteUrl}${locale}.html`)) {
+    throw new Error(`${locale} page metadata must not use .html canonical URLs.`);
   }
 }
 
