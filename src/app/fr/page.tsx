@@ -8,12 +8,12 @@ export const metadata: Metadata = {
   title: landingContent.fr.metadata.title,
   description: landingContent.fr.metadata.description,
   alternates: {
-    canonical: `${siteDetails.siteUrl}fr/`,
+    canonical: `${siteDetails.siteUrl}fr`,
   },
   openGraph: {
     title: landingContent.fr.metadata.title,
     description: landingContent.fr.metadata.description,
-    url: `${siteDetails.siteUrl}fr/`,
+    url: `${siteDetails.siteUrl}fr`,
     type: "website",
     locale: "fr_FR",
     images: [

@@ -8,16 +8,16 @@ export const metadata: Metadata = {
   title: landingContent.ko.metadata.title,
   description: landingContent.ko.metadata.description,
   alternates: {
-    canonical: `${siteDetails.siteUrl}ko/`,
+    canonical: `${siteDetails.siteUrl}ko`,
     languages: {
       en: siteDetails.siteUrl,
-      ko: `${siteDetails.siteUrl}ko/`,
+      ko: `${siteDetails.siteUrl}ko`,
     },
   },
   openGraph: {
     title: landingContent.ko.metadata.title,
     description: landingContent.ko.metadata.description,
-    url: `${siteDetails.siteUrl}ko/`,
+    url: `${siteDetails.siteUrl}ko`,
     type: "website",
     locale: "ko_KR",
     images: [

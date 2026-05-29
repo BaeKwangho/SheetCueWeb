@@ -8,12 +8,12 @@ export const metadata: Metadata = {
   title: landingContent["zh-TW"].metadata.title,
   description: landingContent["zh-TW"].metadata.description,
   alternates: {
-    canonical: `${siteDetails.siteUrl}zh-TW/`,
+    canonical: `${siteDetails.siteUrl}zh-TW`,
   },
   openGraph: {
     title: landingContent["zh-TW"].metadata.title,
     description: landingContent["zh-TW"].metadata.description,
-    url: `${siteDetails.siteUrl}zh-TW/`,
+    url: `${siteDetails.siteUrl}zh-TW`,
     type: "website",
     locale: "zh_TW",
     images: [

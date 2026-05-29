@@ -21,12 +21,12 @@ export const metadata: Metadata = {
     canonical: siteDetails.siteUrl,
     languages: {
       en: siteDetails.siteUrl,
-      ko: `${siteDetails.siteUrl}ko/`,
-      ja: `${siteDetails.siteUrl}ja/`,
-      de: `${siteDetails.siteUrl}de/`,
-      fr: `${siteDetails.siteUrl}fr/`,
-      es: `${siteDetails.siteUrl}es/`,
-      "zh-TW": `${siteDetails.siteUrl}zh-TW/`,
+      ko: `${siteDetails.siteUrl}ko`,
+      ja: `${siteDetails.siteUrl}ja`,
+      de: `${siteDetails.siteUrl}de`,
+      fr: `${siteDetails.siteUrl}fr`,
+      es: `${siteDetails.siteUrl}es`,
+      "zh-TW": `${siteDetails.siteUrl}zh-TW`,
     },
   },
   openGraph: {

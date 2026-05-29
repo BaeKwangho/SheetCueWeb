@@ -56,6 +56,10 @@ for (const locale of expectedLocales.filter((locale) => locale !== "en")) {
   if (!page.includes("metadata") || !page.includes(accessor)) {
     throw new Error(`${locale} page must define localized metadata.`);
   }
+
+  if (page.includes(`\${siteDetails.siteUrl}${locale}/`)) {
+    throw new Error(`${locale} page metadata must use GitHub Pages-compatible extensionless URLs without a trailing slash.`);
+  }
 }
 
 const benefitSection = readFileSync(join(root, "src/components/Benefits/BenefitSection.tsx"), "utf8");
