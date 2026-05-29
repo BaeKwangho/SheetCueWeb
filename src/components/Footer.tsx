@@ -1,31 +1,39 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 import { FiMusic } from 'react-icons/fi';
 
 import { siteDetails } from '@/data/siteDetails';
-import { footerDetails } from '@/data/footer';
+import { getLocaleFromPathname, landingContent } from '@/data/landingContent';
 import { withBasePath } from '@/data/paths';
 import { getPlatformIconByName } from '@/utils';
 
 const Footer: React.FC = () => {
+    const pathname = usePathname();
+    const locale = getLocaleFromPathname(pathname);
+    const footer = landingContent[locale].footer;
+    const homeUrl = locale === "ko" ? "/ko" : "/";
+
     return (
         <footer className="bg-hero-background text-foreground py-10">
             <div className="max-w-7xl w-full mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10">
                 <div>
-                    <Link href="/" className="flex items-center gap-2">
+                    <Link href={homeUrl} className="flex items-center gap-2">
                         <FiMusic className="min-w-fit w-5 h-5 md:w-7 md:h-7 text-secondary" />
                         <h3 className="manrope text-xl font-semibold cursor-pointer">
                             {siteDetails.siteName}
                         </h3>
                     </Link>
                     <p className="mt-3.5 text-foreground-accent">
-                        {footerDetails.subheading}
+                        {footer.subheading}
                     </p>
                 </div>
                 <div>
-                    <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+                    <h4 className="text-lg font-semibold mb-4">{footer.quickLinksTitle}</h4>
                     <ul className="text-foreground-accent">
-                        {footerDetails.quickLinks.map(link => (
+                        {footer.quickLinks.map(link => (
                             <li key={link.text} className="mb-2">
                                 <Link href={link.url} className="hover:text-foreground">{link.text}</Link>
                             </li>
@@ -33,22 +41,23 @@ const Footer: React.FC = () => {
                     </ul>
                 </div>
                 <div>
-                    <h4 className="text-lg font-semibold mb-4">Trust Links</h4>
+                    <h4 className="text-lg font-semibold mb-4">{footer.trustLinksTitle}</h4>
 
-                    <a href={withBasePath("/privacy/privacy-policy.html")} className="block text-foreground-accent hover:text-foreground">Privacy Policy</a>
-                    <a href={withBasePath("/privacy/support.html")} className="block text-foreground-accent hover:text-foreground">Support</a>
-                    <a href={withBasePath("/privacy/support.html")} className="block text-foreground-accent hover:text-foreground">Contact</a>
+                    <a href={withBasePath(`/privacy/privacy-policy.html#${locale}`)} className="block text-foreground-accent hover:text-foreground">{footer.privacyPolicy}</a>
+                    <a href={withBasePath(`/privacy/support.html#${locale}`)} className="block text-foreground-accent hover:text-foreground">{footer.support}</a>
+                    <a href={withBasePath(`/privacy/support.html#${locale}`)} className="block text-foreground-accent hover:text-foreground">{footer.contact}</a>
 
-                    {footerDetails.email && <a href={`mailto:${footerDetails.email}`}  className="block text-foreground-accent hover:text-foreground">Email: {footerDetails.email}</a>}
-                    {footerDetails.telephone && <a href={`tel:${footerDetails.telephone}`} className="block text-foreground-accent hover:text-foreground">Phone: {footerDetails.telephone}</a>}
+                    {footer.email && <a href={`mailto:${footer.email}`}  className="block text-foreground-accent hover:text-foreground">Email: {footer.email}</a>}
+                    {footer.telephone && <a href={`tel:${footer.telephone}`} className="block text-foreground-accent hover:text-foreground">Phone: {footer.telephone}</a>}
 
-                    {footerDetails.socials && (
+                    {footer.socials && (
                         <div className="mt-5 flex items-center gap-5 flex-wrap">
-                            {Object.keys(footerDetails.socials).map(platformName => {
-                                if (platformName && footerDetails.socials[platformName]) {
+                            {Object.keys(footer.socials).map(platformName => {
+                                const socialUrl = footer.socials[platformName];
+                                if (platformName && socialUrl) {
                                     return (
                                         <Link
-                                            href={footerDetails.socials[platformName]}
+                                            href={socialUrl}
                                             key={platformName}
                                             aria-label={platformName}
                                         >
@@ -62,7 +71,7 @@ const Footer: React.FC = () => {
                 </div>
             </div>
             <div className="mt-8 md:text-center text-foreground-accent px-6">
-                <p>Copyright &copy; {new Date().getFullYear()} {siteDetails.siteName}. All rights reserved.</p>
+                <p>Copyright &copy; {new Date().getFullYear()} {siteDetails.siteName}. {footer.copyright}</p>
             </div>
         </footer>
     );

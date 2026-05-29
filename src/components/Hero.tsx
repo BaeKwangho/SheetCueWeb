@@ -1,10 +1,13 @@
 import React from 'react';
 import Image from 'next/image';
 
-import { heroDetails } from '@/data/hero';
-import { withBasePath } from '@/data/paths';
+import { IHeroDetails } from '@/types';
 
-const Hero: React.FC = () => {
+interface Props {
+    hero: IHeroDetails;
+}
+
+const Hero: React.FC<Props> = ({ hero }) => {
     return (
         <section
             id="hero"
@@ -19,27 +22,28 @@ const Hero: React.FC = () => {
             </div>
 
             <div className="w-full text-center max-w-6xl">
-                <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-secondary">Editable score rehearsal</p>
-                <h1 className="text-4xl md:text-6xl md:leading-tight font-bold text-foreground max-w-lg md:max-w-3xl mx-auto">{heroDetails.heading}</h1>
-                <p className="mt-4 text-foreground max-w-2xl mx-auto">{heroDetails.subheading}</p>
-                <p className="mt-3 text-foreground-accent max-w-2xl mx-auto">Not just a PDF viewer. SheetCue turns static pages into editable measure cues.</p>
+                <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-secondary">{hero.eyebrow}</p>
+                <h1 className="text-4xl md:text-6xl md:leading-tight font-bold text-foreground max-w-lg md:max-w-3xl mx-auto">{hero.heading}</h1>
+                <p className="mt-4 text-foreground max-w-2xl mx-auto">{hero.subheading}</p>
+                <p className="mt-3 text-foreground-accent max-w-2xl mx-auto">{hero.secondarySubheading}</p>
                 <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-3 w-full mx-auto">
                     <a href="#release" className="flex min-h-14 w-full sm:w-fit items-center justify-center rounded-full bg-foreground px-7 font-semibold text-white">
-                        Get release updates
+                        {hero.primaryCta}
                     </a>
-                    <a href={withBasePath("/privacy/privacy-policy.html")} className="flex min-h-14 w-full sm:w-fit items-center justify-center rounded-full border border-black/10 bg-white px-7 font-semibold text-foreground">
-                        Read privacy policy
+                    <a href={hero.secondaryCtaUrl} className="flex min-h-14 w-full sm:w-fit items-center justify-center rounded-full border border-black/10 bg-white px-7 font-semibold text-foreground">
+                        {hero.secondaryCta}
                     </a>
                 </div>
                 <Image
-                    src={heroDetails.centerImageSrc}
+                    src={hero.centerImageSrc}
                     width={1000}
                     height={608}
                     quality={100}
                     sizes="(max-width: 768px) 100vw, 1000px"
                     priority={true}
-                    alt="Sketch of importing a score PDF, editing measure boxes, and rehearsing from playback cues"
-                    className='relative mt-12 md:mt-16 mx-auto z-10 w-full max-w-[1000px] h-auto rounded-3xl border border-black/10 bg-white shadow-2xl'
+                    loading="eager"
+                    alt={hero.imageAlt}
+                    className='relative mt-12 md:mt-16 mx-auto z-10 w-full max-w-[1000px] h-auto rounded-2xl border border-black/10 bg-white shadow-2xl'
                 />
             </div>
         </section>

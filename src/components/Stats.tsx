@@ -1,6 +1,10 @@
-import { stats } from "@/data/stats"
+import { IStats } from "@/types"
 
-const Stats: React.FC = () => {
+interface Props {
+    stats: IStats[];
+}
+
+const Stats: React.FC<Props> = ({ stats }) => {
     return (
         <section id="stats" className="py-10 lg:py-20">
             <div className="grid sm:grid-cols-3 gap-8">

@@ -11,6 +11,7 @@ const nextConfig = {
   assetPrefix: basePath || undefined,
   images: {
     unoptimized: true,
+    qualities: [75, 100],
   },
   turbopack: {
     root: __dirname,

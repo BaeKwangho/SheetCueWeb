@@ -3,6 +3,20 @@ export interface IMenuItem {
     url: string;
 }
 
+export type Locale = "en" | "ko";
+
+export interface IHeroDetails {
+    eyebrow: string;
+    heading: string;
+    subheading: string;
+    secondarySubheading: string;
+    primaryCta: string;
+    secondaryCta: string;
+    secondaryCtaUrl: string;
+    centerImageSrc: string;
+    imageAlt: string;
+}
+
 export interface IBenefit {
     title: string;
     description: string;
@@ -37,4 +51,68 @@ export interface ISocials {
     youtube?: string;
     x?: string;
     [key: string]: string | undefined;
+}
+
+export interface IWorkflowStep {
+    number: string;
+    title: string;
+    description: string;
+}
+
+export interface ISectionContent {
+    id: string;
+    title: string;
+    description: string;
+}
+
+export interface ILandingContent {
+    locale: Locale;
+    metadata: {
+        title: string;
+        description: string;
+    };
+    nav: {
+        menuItems: IMenuItem[];
+        releaseCta: string;
+        languageLabel: string;
+        languageUrl: string;
+    };
+    hero: IHeroDetails;
+    stats: IStats[];
+    benefits: IBenefit[];
+    workflow: ISectionContent & {
+        steps: IWorkflowStep[];
+    };
+    privacy: ISectionContent & {
+        points: string[];
+    };
+    faq: {
+        eyebrow: string;
+        title: string;
+        supportPrompt: string;
+        supportLink: string;
+        supportUrl: string;
+        items: IFAQ[];
+    };
+    cta: {
+        heading: string;
+        subheading: string;
+        releaseUrl: string;
+        privacyUrl: string;
+        releaseLabel: string;
+        privacyLabel: string;
+    };
+    footer: {
+        subheading: string;
+        quickLinksTitle: string;
+        trustLinksTitle: string;
+        privacyPolicy: string;
+        support: string;
+        contact: string;
+        quickLinks: IMenuItem[];
+        email: string;
+        telephone: string;
+        socials: ISocials;
+        copyright: string;
+    };
 }

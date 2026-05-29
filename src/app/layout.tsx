@@ -4,6 +4,8 @@ import { Source_Sans_3, Manrope } from "next/font/google";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import LocaleDocument from "@/components/LocaleDocument";
+import { landingContent } from "@/data/landingContent";
 import { siteDetails } from '@/data/siteDetails';
 
 import "./globals.css";
@@ -13,13 +15,22 @@ const sourceSans = Source_Sans_3({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteDetails.siteUrl),
-  title: siteDetails.metadata.title,
-  description: siteDetails.metadata.description,
+  title: landingContent.en.metadata.title,
+  description: landingContent.en.metadata.description,
+  alternates: {
+    canonical: siteDetails.siteUrl,
+    languages: {
+      en: siteDetails.siteUrl,
+      ko: `${siteDetails.siteUrl}ko/`,
+    },
+  },
   openGraph: {
-    title: siteDetails.metadata.title,
-    description: siteDetails.metadata.description,
+    title: landingContent.en.metadata.title,
+    description: landingContent.en.metadata.description,
     url: siteDetails.siteUrl,
     type: 'website',
+    locale: 'en_US',
+    alternateLocale: ['ko_KR'],
     images: [
       {
         url: '/images/sheetcue-hero.png',
@@ -31,8 +42,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: siteDetails.metadata.title,
-    description: siteDetails.metadata.description,
+    title: landingContent.en.metadata.title,
+    description: landingContent.en.metadata.description,
     images: ['/images/sheetcue-hero.png'],
   },
 };
@@ -47,6 +58,7 @@ export default function RootLayout({
       <body
         className={`${manrope.className} ${sourceSans.className} antialiased`}
       >
+        <LocaleDocument />
         {siteDetails.googleAnalyticsId && <GoogleAnalytics gaId={siteDetails.googleAnalyticsId} />}
         <Header />
         <main>

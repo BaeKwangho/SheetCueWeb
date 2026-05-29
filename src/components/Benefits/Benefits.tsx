@@ -1,11 +1,16 @@
 import BenefitSection from "./BenefitSection"
 
-import { benefits } from "@/data/benefits"
+import { IBenefit } from "@/types"
 
-const Benefits: React.FC = () => {
+interface Props {
+    benefits: IBenefit[];
+    label: string;
+}
+
+const Benefits: React.FC<Props> = ({ benefits, label }) => {
     return (
         <div id="features">
-            <h2 className="sr-only">Features</h2>
+            <h2 className="sr-only">{label}</h2>
             {benefits.map((item, index) => {
                 return <BenefitSection key={index} benefit={item} imageAtRight={index % 2 !== 0} />
             })}
