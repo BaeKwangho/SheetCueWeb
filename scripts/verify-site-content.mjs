@@ -7,6 +7,7 @@ const requiredFiles = [
   "src/app/ko/page.tsx",
   "src/components/CTA.tsx",
   "src/components/FAQ.tsx",
+  "src/components/Benefits/BenefitSection.tsx",
   "next.config.mjs",
 ];
 
@@ -33,6 +34,11 @@ if (!nextConfig.includes("qualities") || !nextConfig.includes("100")) {
 const koreanPage = readFileSync(join(root, "src/app/ko/page.tsx"), "utf8");
 if (!koreanPage.includes("metadata") || !koreanPage.includes("landingContent.ko.metadata")) {
   throw new Error("Korean page must define localized metadata.");
+}
+
+const benefitSection = readFileSync(join(root, "src/components/Benefits/BenefitSection.tsx"), "utf8");
+if (benefitSection.includes('initial="offscreen"')) {
+  throw new Error("Benefit sections must render visible by default for full-page captures and no-JS fallback.");
 }
 
 console.log("Site content checks passed.");

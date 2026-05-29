@@ -54,7 +54,6 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
             <motion.div
                 className="flex flex-wrap flex-col items-center justify-center gap-2 lg:flex-row lg:gap-20 lg:flex-nowrap mb-24"
                 variants={containerVariants}
-                initial="offscreen"
                 whileInView="onscreen"
                 viewport={{ once: true }}
             >
