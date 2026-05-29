@@ -4,6 +4,7 @@ import { BiMinus, BiPlus } from "react-icons/bi";
 
 import SectionTitle from "./SectionTitle";
 import { faqs } from "@/data/faq";
+import { withBasePath } from "@/data/paths";
 
 const FAQ: React.FC = () => {
     return (
@@ -17,7 +18,7 @@ const FAQ: React.FC = () => {
                     <p className="lg:mt-10 text-foreground-accent text-center lg:text-left">
                         Need policy or support details?
                     </p>
-                    <a href="/privacy/support.html" className="mt-3 block text-xl lg:text-4xl text-secondary font-semibold hover:underline text-center lg:text-left">SheetCue support</a>
+                    <a href={withBasePath("/privacy/support.html")} className="mt-3 block text-xl lg:text-4xl text-secondary font-semibold hover:underline text-center lg:text-left">SheetCue support</a>
                 </div>
 
                 <div className="w-full lg:max-w-2xl mx-auto border-b">

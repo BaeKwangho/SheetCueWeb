@@ -4,6 +4,7 @@ import { FiMusic } from 'react-icons/fi';
 
 import { siteDetails } from '@/data/siteDetails';
 import { footerDetails } from '@/data/footer';
+import { withBasePath } from '@/data/paths';
 import { getPlatformIconByName } from '@/utils';
 
 const Footer: React.FC = () => {
@@ -34,9 +35,9 @@ const Footer: React.FC = () => {
                 <div>
                     <h4 className="text-lg font-semibold mb-4">Trust Links</h4>
 
-                    <a href="/privacy/privacy-policy.html" className="block text-foreground-accent hover:text-foreground">Privacy Policy</a>
-                    <a href="/privacy/support.html" className="block text-foreground-accent hover:text-foreground">Support</a>
-                    <a href="/privacy/support.html" className="block text-foreground-accent hover:text-foreground">Contact</a>
+                    <a href={withBasePath("/privacy/privacy-policy.html")} className="block text-foreground-accent hover:text-foreground">Privacy Policy</a>
+                    <a href={withBasePath("/privacy/support.html")} className="block text-foreground-accent hover:text-foreground">Support</a>
+                    <a href={withBasePath("/privacy/support.html")} className="block text-foreground-accent hover:text-foreground">Contact</a>
 
                     {footerDetails.email && <a href={`mailto:${footerDetails.email}`}  className="block text-foreground-accent hover:text-foreground">Email: {footerDetails.email}</a>}
                     {footerDetails.telephone && <a href={`tel:${footerDetails.telephone}`} className="block text-foreground-accent hover:text-foreground">Phone: {footerDetails.telephone}</a>}

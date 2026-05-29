@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 
 import { heroDetails } from '@/data/hero';
+import { withBasePath } from '@/data/paths';
 
 const Hero: React.FC = () => {
     return (
@@ -26,7 +27,7 @@ const Hero: React.FC = () => {
                     <a href="#release" className="flex min-h-14 w-full sm:w-fit items-center justify-center rounded-full bg-foreground px-7 font-semibold text-white">
                         Get release updates
                     </a>
-                    <a href="/privacy/privacy-policy.html" className="flex min-h-14 w-full sm:w-fit items-center justify-center rounded-full border border-black/10 bg-white px-7 font-semibold text-foreground">
+                    <a href={withBasePath("/privacy/privacy-policy.html")} className="flex min-h-14 w-full sm:w-fit items-center justify-center rounded-full border border-black/10 bg-white px-7 font-semibold text-foreground">
                         Read privacy policy
                     </a>
                 </div>
