@@ -18,7 +18,7 @@ const Hero: React.FC = () => {
             <div className="absolute left-0 right-0 bottom-0 backdrop-blur-[2px] h-40 bg-gradient-to-b from-transparent via-[rgba(233,248,244,0.5)] to-[rgba(216,232,228,0.5)]">
             </div>
 
-            <div className="text-center max-w-6xl">
+            <div className="w-full text-center max-w-6xl">
                 <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-secondary">Editable score rehearsal</p>
                 <h1 className="text-4xl md:text-6xl md:leading-tight font-bold text-foreground max-w-lg md:max-w-3xl mx-auto">{heroDetails.heading}</h1>
                 <p className="mt-4 text-foreground max-w-2xl mx-auto">{heroDetails.subheading}</p>
@@ -39,7 +39,7 @@ const Hero: React.FC = () => {
                     sizes="(max-width: 768px) 100vw, 1000px"
                     priority={true}
                     alt="Sketch of importing a score PDF, editing measure boxes, and rehearsing from playback cues"
-                    className='relative mt-12 md:mt-16 mx-auto z-10 rounded-3xl border border-black/10 bg-white shadow-2xl'
+                    className='relative mt-12 md:mt-16 mx-auto z-10 w-full max-w-[1000px] h-auto rounded-3xl border border-black/10 bg-white shadow-2xl'
                 />
             </div>
         </section>

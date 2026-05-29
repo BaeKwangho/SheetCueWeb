@@ -1,6 +1,7 @@
 import { FiEdit3, FiFileText, FiList, FiLock, FiRepeat, FiSliders, FiTarget, FiUpload, FiVolume2 } from "react-icons/fi";
 
 import { IBenefit } from "@/types"
+import { withBasePath } from "./paths";
 
 export const benefits: IBenefit[] = [
     {
@@ -23,7 +24,7 @@ export const benefits: IBenefit[] = [
                 icon: <FiList size={26} />
             }
         ],
-        imageSrc: "/images/sheetcue-hero.png"
+        imageSrc: withBasePath("/images/sheetcue-hero.png")
     },
     {
         title: "Practice flow from a static PDF",
@@ -45,7 +46,7 @@ export const benefits: IBenefit[] = [
                 icon: <FiVolume2 size={26} />
             }
         ],
-        imageSrc: "/images/sheetcue-hero.png"
+        imageSrc: withBasePath("/images/sheetcue-hero.png")
     },
     {
         title: "Local-first score handling",
@@ -67,6 +68,6 @@ export const benefits: IBenefit[] = [
                 icon: <FiFileText size={26} />
             }
         ],
-        imageSrc: "/images/sheetcue-hero.png"
+        imageSrc: withBasePath("/images/sheetcue-hero.png")
     },
 ]
