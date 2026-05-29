@@ -2,9 +2,15 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const root = process.cwd();
+const expectedLocales = ["en", "ko", "ja", "de", "fr", "es", "zh-TW"];
 const requiredFiles = [
   "src/app/page.tsx",
   "src/app/ko/page.tsx",
+  "src/app/ja/page.tsx",
+  "src/app/de/page.tsx",
+  "src/app/fr/page.tsx",
+  "src/app/es/page.tsx",
+  "src/app/zh-TW/page.tsx",
   "src/components/CTA.tsx",
   "src/components/FAQ.tsx",
   "src/components/Benefits/BenefitSection.tsx",
@@ -34,6 +40,22 @@ if (!nextConfig.includes("qualities") || !nextConfig.includes("100")) {
 const koreanPage = readFileSync(join(root, "src/app/ko/page.tsx"), "utf8");
 if (!koreanPage.includes("metadata") || !koreanPage.includes("landingContent.ko.metadata")) {
   throw new Error("Korean page must define localized metadata.");
+}
+
+const content = readFileSync(join(root, "src/data/landingContent.tsx"), "utf8");
+for (const locale of expectedLocales) {
+  if (!content.includes(`"${locale}"`)) {
+    throw new Error(`Landing content must include locale ${locale}.`);
+  }
+}
+
+for (const locale of expectedLocales.filter((locale) => locale !== "en")) {
+  const page = readFileSync(join(root, `src/app/${locale}/page.tsx`), "utf8");
+  const accessor = locale === "zh-TW" ? 'landingContent["zh-TW"].metadata' : `landingContent.${locale}.metadata`;
+
+  if (!page.includes("metadata") || !page.includes(accessor)) {
+    throw new Error(`${locale} page must define localized metadata.`);
+  }
 }
 
 const benefitSection = readFileSync(join(root, "src/components/Benefits/BenefitSection.tsx"), "utf8");

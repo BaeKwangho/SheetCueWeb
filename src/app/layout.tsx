@@ -22,6 +22,11 @@ export const metadata: Metadata = {
     languages: {
       en: siteDetails.siteUrl,
       ko: `${siteDetails.siteUrl}ko/`,
+      ja: `${siteDetails.siteUrl}ja/`,
+      de: `${siteDetails.siteUrl}de/`,
+      fr: `${siteDetails.siteUrl}fr/`,
+      es: `${siteDetails.siteUrl}es/`,
+      "zh-TW": `${siteDetails.siteUrl}zh-TW/`,
     },
   },
   openGraph: {
@@ -30,7 +35,7 @@ export const metadata: Metadata = {
     url: siteDetails.siteUrl,
     type: 'website',
     locale: 'en_US',
-    alternateLocale: ['ko_KR'],
+    alternateLocale: ['ko_KR', 'ja_JP', 'de_DE', 'fr_FR', 'es_ES', 'zh_TW'],
     images: [
       {
         url: '/images/sheetcue-hero.png',

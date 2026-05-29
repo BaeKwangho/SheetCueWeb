@@ -3,7 +3,7 @@ export interface IMenuItem {
     url: string;
 }
 
-export type Locale = "en" | "ko";
+export type Locale = "en" | "ko" | "ja" | "de" | "fr" | "es" | "zh-TW";
 
 export interface IHeroDetails {
     eyebrow: string;
@@ -74,8 +74,7 @@ export interface ILandingContent {
     nav: {
         menuItems: IMenuItem[];
         releaseCta: string;
-        languageLabel: string;
-        languageUrl: string;
+        languageMenuLabel: string;
     };
     hero: IHeroDetails;
     stats: IStats[];

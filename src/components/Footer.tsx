@@ -6,7 +6,7 @@ import React from 'react';
 import { FiMusic } from 'react-icons/fi';
 
 import { siteDetails } from '@/data/siteDetails';
-import { getLocaleFromPathname, landingContent } from '@/data/landingContent';
+import { getLocaleFromPathname, landingContent, localePathFor } from '@/data/landingContent';
 import { withBasePath } from '@/data/paths';
 import { getPlatformIconByName } from '@/utils';
 
@@ -14,7 +14,8 @@ const Footer: React.FC = () => {
     const pathname = usePathname();
     const locale = getLocaleFromPathname(pathname);
     const footer = landingContent[locale].footer;
-    const homeUrl = locale === "ko" ? "/ko" : "/";
+    const homeUrl = localePathFor(locale);
+    const policyLocale = locale === "ko" ? "ko" : "en";
 
     return (
         <footer className="bg-hero-background text-foreground py-10">
@@ -43,9 +44,9 @@ const Footer: React.FC = () => {
                 <div>
                     <h4 className="text-lg font-semibold mb-4">{footer.trustLinksTitle}</h4>
 
-                    <a href={withBasePath(`/privacy/privacy-policy.html#${locale}`)} className="block text-foreground-accent hover:text-foreground">{footer.privacyPolicy}</a>
-                    <a href={withBasePath(`/privacy/support.html#${locale}`)} className="block text-foreground-accent hover:text-foreground">{footer.support}</a>
-                    <a href={withBasePath(`/privacy/support.html#${locale}`)} className="block text-foreground-accent hover:text-foreground">{footer.contact}</a>
+                    <a href={withBasePath(`/privacy/privacy-policy.html#${policyLocale}`)} className="block text-foreground-accent hover:text-foreground">{footer.privacyPolicy}</a>
+                    <a href={withBasePath(`/privacy/support.html#${policyLocale}`)} className="block text-foreground-accent hover:text-foreground">{footer.support}</a>
+                    <a href={withBasePath(`/privacy/support.html#${policyLocale}`)} className="block text-foreground-accent hover:text-foreground">{footer.contact}</a>
 
                     {footer.email && <a href={`mailto:${footer.email}`}  className="block text-foreground-accent hover:text-foreground">Email: {footer.email}</a>}
                     {footer.telephone && <a href={`tel:${footer.telephone}`} className="block text-foreground-accent hover:text-foreground">Phone: {footer.telephone}</a>}
