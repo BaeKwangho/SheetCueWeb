@@ -3,14 +3,18 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --primary: #7de8d2;
-  --secondary: #087c72;
+  --background: #fbfaf7;
+  --foreground: #171513;
+  --primary: #16b8a6;
+  --secondary: #2f6fbd;
 
-  --primary-accent: #62d4c0;
-  --foreground-accent: #454545;
-  --hero-background: #f4f8f6;
+  --primary-accent: #0f9487;
+  --foreground-accent: #5f5a52;
+  --hero-background: #f3f6f2;
+  --surface: #fffdf8;
+  --line: #ded8ce;
+  --correction: #e15f4f;
+  --panel: #101614;
 }
 
 html {
@@ -18,13 +22,17 @@ html {
 }
 
 body {
-  @apply text-lg;
+  @apply text-base antialiased;
   
   color: var(--foreground);
   background: var(--background);
   font-family: "Source Sans 3", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--primary) 30%, transparent);
 }
 
 @layer utilities {
@@ -43,6 +51,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Manrope", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+  letter-spacing: 0;
 }
 
 #logos svg {
@@ -51,4 +60,16 @@ h1, h2, h3, h4, h5, h6 {
 
 .benefit-section:last-of-type > div {
   @apply mb-10;
+}
+
+.score-paper {
+  background:
+    linear-gradient(to bottom, rgba(23, 21, 19, 0.055) 1px, transparent 1px),
+    linear-gradient(to right, rgba(23, 21, 19, 0.025) 1px, transparent 1px),
+    var(--background);
+  background-size: 100% 24px, 56px 100%;
+}
+
+.cue-shadow {
+  box-shadow: 0 18px 50px rgba(23, 21, 19, 0.10);
 }

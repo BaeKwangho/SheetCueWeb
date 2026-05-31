@@ -14,7 +14,7 @@ interface Props {
 const HomePageContent: React.FC<Props> = ({ content }) => {
   return (
     <>
-      <Hero hero={content.hero} />
+      <Hero hero={content.hero} workflowSteps={content.workflow.steps} />
       <Container>
         <Stats stats={content.stats} />
         <Benefits benefits={content.benefits} label={content.nav.menuItems[0].text} />
@@ -26,8 +26,8 @@ const HomePageContent: React.FC<Props> = ({ content }) => {
         >
           <div className="grid gap-5 md:grid-cols-4">
             {content.workflow.steps.map(({ number, title, description }) => (
-              <article key={title} className="rounded-xl border border-black/10 bg-white p-6 shadow-sm">
-                <span className="mb-8 inline-flex h-11 w-11 items-center justify-center rounded-xl border-2 border-primary text-sm font-bold text-foreground">
+              <article key={title} className="border border-line bg-surface p-6 shadow-sm">
+                <span className="mb-8 inline-flex h-11 w-11 items-center justify-center rounded-lg border-2 border-primary text-sm font-bold text-foreground">
                   {number}
                 </span>
                 <h3 className="mb-2 text-xl font-semibold">{title}</h3>
@@ -44,7 +44,7 @@ const HomePageContent: React.FC<Props> = ({ content }) => {
         >
           <div className="grid gap-4 md:grid-cols-3">
             {content.privacy.points.map((item) => (
-              <div key={item} className="rounded-xl border border-black/10 bg-white p-6 text-center font-semibold">
+              <div key={item} className="border border-line bg-surface p-6 text-center font-semibold">
                 {item}
               </div>
             ))}

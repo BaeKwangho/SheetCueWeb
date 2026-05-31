@@ -15,15 +15,14 @@ interface Props {
 const containerVariants: Variants = {
     offscreen: {
         opacity: 0,
-        y: 100
+        y: 36
     },
     onscreen: {
         opacity: 1,
         y: 0,
         transition: {
-            type: "spring",
-            bounce: 0.2,
-            duration: 0.9,
+            ease: "easeOut",
+            duration: 0.55,
             delayChildren: 0.2,
             staggerChildren: 0.1,
         }
@@ -33,35 +32,46 @@ const containerVariants: Variants = {
 export const childVariants = {
     offscreen: {
         opacity: 0,
-        x: -50,
+        x: -18,
     },
     onscreen: {
         opacity: 1,
         x: 0,
         transition: {
-            type: "spring",
-            bounce: 0.2,
-            duration: 1,
+            ease: "easeOut",
+            duration: 0.45,
         }
     },
 };
 
 const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
     const { title, description, imageSrc, bullets } = benefit;
+    const image = (
+        <div className="w-full">
+            <Image
+                src={imageSrc}
+                alt={title}
+                width={1120}
+                height={680}
+                quality={100}
+                className="h-auto w-full border border-line bg-surface shadow-lg"
+            />
+        </div>
+    );
 
     return (
         <section className="benefit-section">
             <motion.div
-                className="flex flex-wrap flex-col items-center justify-center gap-2 lg:flex-row lg:gap-20 lg:flex-nowrap mb-24"
+                className="mb-16 grid items-center gap-8 border-t border-line pt-12 lg:grid-cols-2 lg:gap-14"
                 variants={containerVariants}
                 whileInView="onscreen"
                 viewport={{ once: true }}
             >
                 <div
-                    className={clsx("flex flex-wrap items-center w-full max-w-lg", { "justify-start": imageAtRight, "lg:order-1 justify-end": !imageAtRight })}
+                    className={clsx("w-full", { "lg:order-1": !imageAtRight })}
                     
                 >
-                    <div className="w-full  text-center lg:text-left ">
+                    <div className="w-full text-center lg:text-left">
                         <motion.div
                             className="flex flex-col w-full"
                             variants={childVariants}
@@ -72,10 +82,14 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
                                 </h3>
                             </SectionTitle>
 
-                            <p className="mt-1.5 mx-auto lg:ml-0 leading-normal text-foreground-accent">
+                            <p className="mx-auto mt-3 leading-7 text-foreground-accent lg:ml-0">
                                 {description}
                             </p>
                         </motion.div>
+
+                        <div className="mt-8 lg:hidden">
+                            {image}
+                        </div>
 
                         <div className="mx-auto lg:ml-0 w-full">
                             {bullets.map((item, index) => (
@@ -85,10 +99,8 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
                     </div>
                 </div>
 
-                <div className={clsx("mt-5 lg:mt-0", { "lg:order-2": imageAtRight })}>
-                    <div className={clsx("w-fit flex", { "justify-start": imageAtRight, "justify-end": !imageAtRight })}>
-                        <Image src={imageSrc} alt={title} width="560" height="340" quality={100} className="w-full max-w-[560px] h-auto rounded-3xl border border-black/10 bg-white shadow-xl lg:ml-0" />
-                    </div>
+                <div className={clsx("hidden lg:block", { "lg:order-2": !imageAtRight })}>
+                    {image}
                 </div>
             </motion.div>
         </section>

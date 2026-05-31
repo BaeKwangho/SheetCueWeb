@@ -23,37 +23,37 @@ const Header: React.FC = () => {
     };
 
     return (
-        <header className="bg-transparent fixed top-0 left-0 right-0 md:absolute z-50 mx-auto w-full">
+        <header className="fixed left-0 right-0 top-0 z-50 mx-auto w-full border-b border-line bg-surface/90 backdrop-blur">
             <Container className="!px-0">
-                <nav className="shadow-md md:shadow-none bg-white md:bg-transparent mx-auto flex justify-between items-center py-2 px-5 md:py-10">
+                <nav className="mx-auto flex items-center justify-between px-5 py-3">
                     {/* Logo */}
                     <Link href={homeUrl} className="flex items-center gap-2">
-                        <FiMusic className="text-secondary min-w-fit w-7 h-7" />
+                        <FiMusic className="h-7 w-7 min-w-fit text-secondary" />
                         <span className="manrope text-xl font-semibold text-foreground cursor-pointer">
                             {siteDetails.siteName}
                         </span>
                     </Link>
 
                     {/* Desktop Menu */}
-                    <ul className="hidden md:flex items-center space-x-6">
+                    <ul className="hidden items-center space-x-6 md:flex">
                         {nav.menuItems.map(item => (
                             <li key={item.text}>
-                                <Link href={item.url} className="text-foreground hover:text-foreground-accent transition-colors">
+                                <Link href={item.url} className="text-sm font-medium text-foreground transition-colors hover:text-secondary">
                                     {item.text}
                                 </Link>
                             </li>
                         ))}
                         <li className="relative">
                             <details className="group">
-                                <summary className="list-none cursor-pointer text-foreground hover:text-foreground-accent transition-colors [&::-webkit-details-marker]:hidden">
+                                <summary className="list-none cursor-pointer text-sm font-medium text-foreground transition-colors hover:text-secondary [&::-webkit-details-marker]:hidden">
                                     {nav.languageMenuLabel}
                                 </summary>
-                                <div className="absolute right-0 mt-3 w-36 rounded-lg border border-black/10 bg-white p-2 shadow-lg">
+                                <div className="absolute right-0 mt-3 w-36 rounded-lg border border-line bg-surface p-2 shadow-lg">
                                     {localeRoutes.map((route) => (
                                         <Link
                                             key={route.code}
                                             href={route.path}
-                                            className={`block rounded-md px-3 py-2 text-sm transition-colors hover:bg-primary/20 ${route.code === locale ? "font-semibold text-foreground" : "text-foreground-accent"}`}
+                                            className={`block rounded-md px-3 py-2 text-sm transition-colors hover:bg-primary/15 ${route.code === locale ? "font-semibold text-foreground" : "text-foreground-accent"}`}
                                         >
                                             {route.nativeLabel}
                                         </Link>
@@ -62,7 +62,7 @@ const Header: React.FC = () => {
                             </details>
                         </li>
                         <li>
-                            <Link href="#release" className="text-black bg-primary hover:bg-primary-accent px-8 py-3 rounded-full transition-colors">
+                            <Link href="#release" className="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-accent">
                                 {nav.releaseCta}
                             </Link>
                         </li>
@@ -73,7 +73,7 @@ const Header: React.FC = () => {
                         <button
                             onClick={toggleMenu}
                             type="button"
-                            className="bg-primary text-black focus:outline-none rounded-full w-10 h-10 flex items-center justify-center"
+                            className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-white focus:outline-none"
                             aria-controls="mobile-menu"
                             aria-expanded={isOpen}
                         >
@@ -98,11 +98,11 @@ const Header: React.FC = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
             >
-                <div id="mobile-menu" className="md:hidden bg-white shadow-lg">
+                <div id="mobile-menu" className="border-b border-line bg-surface shadow-lg md:hidden">
                     <ul className="flex flex-col space-y-4 pt-1 pb-6 px-6">
                         {nav.menuItems.map(item => (
                             <li key={item.text}>
-                                <Link href={item.url} className="text-foreground hover:text-primary block" onClick={toggleMenu}>
+                                <Link href={item.url} className="block text-foreground hover:text-secondary" onClick={toggleMenu}>
                                     {item.text}
                                 </Link>
                             </li>
@@ -114,7 +114,7 @@ const Header: React.FC = () => {
                                     <Link
                                         key={route.code}
                                         href={route.path}
-                                        className={`rounded-md border border-black/10 px-3 py-2 text-sm hover:border-primary hover:text-primary ${route.code === locale ? "bg-primary/20 font-semibold text-foreground" : "text-foreground-accent"}`}
+                                        className={`rounded-md border border-line px-3 py-2 text-sm hover:border-primary hover:text-secondary ${route.code === locale ? "bg-primary/15 font-semibold text-foreground" : "text-foreground-accent"}`}
                                         onClick={toggleMenu}
                                     >
                                         {route.nativeLabel}
@@ -123,7 +123,7 @@ const Header: React.FC = () => {
                             </div>
                         </li>
                         <li>
-                            <Link href="#release" className="text-black bg-primary hover:bg-primary-accent px-5 py-2 rounded-full block w-fit" onClick={toggleMenu}>
+                            <Link href="#release" className="block w-fit rounded-lg bg-primary px-5 py-2 font-semibold text-white hover:bg-primary-accent" onClick={toggleMenu}>
                                 {nav.releaseCta}
                             </Link>
                         </li>

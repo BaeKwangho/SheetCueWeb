@@ -18,8 +18,8 @@ const Footer: React.FC = () => {
     const policyLocale = locale === "ko" ? "ko" : "en";
 
     return (
-        <footer className="bg-hero-background text-foreground py-10">
-            <div className="max-w-7xl w-full mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10">
+        <footer className="border-t border-line bg-surface py-10 text-foreground">
+            <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-10 px-6 md:grid-cols-3">
                 <div>
                     <Link href={homeUrl} className="flex items-center gap-2">
                         <FiMusic className="min-w-fit w-5 h-5 md:w-7 md:h-7 text-secondary" />
@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
                             {siteDetails.siteName}
                         </h3>
                     </Link>
-                    <p className="mt-3.5 text-foreground-accent">
+                    <p className="mt-3.5 max-w-sm leading-7 text-foreground-accent">
                         {footer.subheading}
                     </p>
                 </div>
@@ -71,7 +71,7 @@ const Footer: React.FC = () => {
                     )}
                 </div>
             </div>
-            <div className="mt-8 md:text-center text-foreground-accent px-6">
+            <div className="mt-8 px-6 text-foreground-accent md:text-center">
                 <p>Copyright &copy; {new Date().getFullYear()} {siteDetails.siteName}. {footer.copyright}</p>
             </div>
         </footer>

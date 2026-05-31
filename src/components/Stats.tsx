@@ -6,15 +6,15 @@ interface Props {
 
 const Stats: React.FC<Props> = ({ stats }) => {
     return (
-        <section id="stats" className="py-10 lg:py-20">
-            <div className="grid sm:grid-cols-3 gap-8">
+        <section id="stats" className="py-10 lg:py-16">
+            <div className="grid overflow-hidden border border-line bg-surface shadow-sm sm:grid-cols-3">
                 {stats.map(stat => (
-                    <div key={stat.title} className="text-center sm:text-left max-w-md sm:max-w-full mx-auto">
-                        <h3 className="mb-5 flex items-center gap-2 text-3xl font-semibold justify-center sm:justify-start">
+                    <div key={stat.title} className="mx-auto max-w-md border-b border-line p-6 text-center last:border-b-0 sm:max-w-full sm:border-b-0 sm:border-r sm:text-left sm:last:border-r-0 lg:p-8">
+                        <h3 className="mb-4 flex items-center justify-center gap-2 text-2xl font-semibold sm:justify-start">
                             {stat.icon}
                             {stat.title}
                         </h3>
-                        <p className="text-foreground-accent">{stat.description}</p>
+                        <p className="leading-7 text-foreground-accent">{stat.description}</p>
                     </div>
                 ))}
             </div>
