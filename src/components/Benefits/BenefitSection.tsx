@@ -15,14 +15,15 @@ interface Props {
 const containerVariants: Variants = {
     offscreen: {
         opacity: 0,
-        y: 36
+        y: 100
     },
     onscreen: {
         opacity: 1,
         y: 0,
         transition: {
-            ease: "easeOut",
-            duration: 0.55,
+            type: "spring",
+            bounce: 0.2,
+            duration: 0.9,
             delayChildren: 0.2,
             staggerChildren: 0.1,
         }
@@ -32,48 +33,35 @@ const containerVariants: Variants = {
 export const childVariants = {
     offscreen: {
         opacity: 0,
-        x: -18,
+        x: -50,
     },
     onscreen: {
         opacity: 1,
         x: 0,
         transition: {
-            ease: "easeOut",
-            duration: 0.45,
+            type: "spring",
+            bounce: 0.2,
+            duration: 1,
         }
     },
 };
 
 const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
     const { title, description, imageSrc, bullets } = benefit;
-    const image = (
-        <div className="sheetcue-feature-device w-full">
-            <Image
-                src={imageSrc}
-                alt={title}
-                width={760}
-                height={1548}
-                quality={100}
-                priority={true}
-                loading="eager"
-                className="sheetcue-feature-shot h-auto w-full"
-            />
-        </div>
-    );
 
     return (
         <section className="benefit-section">
             <motion.div
-                className="mb-16 grid items-center gap-8 border-t border-line pt-12 lg:grid-cols-2 lg:gap-14"
+                className="flex flex-wrap flex-col items-center justify-center gap-2 lg:flex-row lg:gap-20 lg:flex-nowrap mb-24"
                 variants={containerVariants}
                 whileInView="onscreen"
                 viewport={{ once: true }}
             >
                 <div
-                    className={clsx("w-full", { "lg:order-1": !imageAtRight })}
+                    className={clsx("flex flex-wrap items-center w-full max-w-lg", { "justify-start": imageAtRight, "lg:order-1 justify-end": !imageAtRight })}
                     
                 >
-                    <div className="w-full text-center lg:text-left">
+                    <div className="w-full  text-center lg:text-left ">
                         <motion.div
                             className="flex flex-col w-full"
                             variants={childVariants}
@@ -84,14 +72,10 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
                                 </h3>
                             </SectionTitle>
 
-                            <p className="mx-auto mt-3 leading-7 text-foreground-accent lg:ml-0">
+                            <p className="mt-1.5 mx-auto lg:ml-0 leading-normal text-foreground-accent">
                                 {description}
                             </p>
                         </motion.div>
-
-                        <div className="mt-8 lg:hidden">
-                            {image}
-                        </div>
 
                         <div className="mx-auto lg:ml-0 w-full">
                             {bullets.map((item, index) => (
@@ -101,8 +85,19 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
                     </div>
                 </div>
 
-                <div className={clsx("hidden lg:block", { "lg:order-2": !imageAtRight })}>
-                    {image}
+                <div className={clsx("order-first mt-5 flex w-full justify-center lg:order-none lg:mt-0 lg:w-auto", { "lg:order-2": imageAtRight })}>
+                    <div className={clsx("sheetcue-feature-device w-full max-w-[380px]", { "lg:ml-0": imageAtRight })}>
+                        <Image
+                            src={imageSrc}
+                            alt={title}
+                            width={760}
+                            height={1548}
+                            quality={100}
+                            priority={true}
+                            loading="eager"
+                            className="sheetcue-feature-shot h-auto w-full"
+                        />
+                    </div>
                 </div>
             </motion.div>
         </section>

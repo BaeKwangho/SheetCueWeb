@@ -1,77 +1,51 @@
 import React from 'react';
 import Image from 'next/image';
 
-import { IHeroDetails, IWorkflowStep } from '@/types';
+import { IHeroDetails } from '@/types';
 
 interface Props {
     hero: IHeroDetails;
-    workflowSteps: IWorkflowStep[];
 }
 
-const Hero: React.FC<Props> = ({ hero, workflowSteps }) => {
+const Hero: React.FC<Props> = ({ hero }) => {
     return (
         <section
             id="hero"
-            className="score-paper relative flex items-center justify-center overflow-hidden px-5 pb-0 pt-28 md:pt-32"
+            className="relative flex items-center justify-center overflow-hidden px-5 pb-0 pt-32 md:pt-40"
         >
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-24 border-b border-line bg-surface/80">
+            <div className="absolute left-0 top-0 bottom-0 -z-10 w-full">
+                <div className="sheetcue-hero-grid absolute inset-0 h-full w-full">
+                </div>
             </div>
 
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-background">
+            <div className="absolute bottom-0 left-0 right-0 h-44 bg-gradient-to-b from-transparent via-[rgba(245,250,249,0.72)] to-white backdrop-blur-[2px]">
             </div>
 
-            <div className="relative w-full max-w-6xl text-center">
-                <p className="mx-auto mb-4 inline-flex items-center rounded-lg border border-line bg-surface px-3 py-2 text-xs font-bold uppercase tracking-[0.14em] text-secondary">
-                    {hero.eyebrow}
-                </p>
-                <h1 className="mx-auto max-w-4xl text-4xl font-bold leading-tight text-foreground sm:text-5xl md:text-[3.5rem]">
-                    {hero.heading}
-                </h1>
-                <p className="mx-auto mt-3 max-w-2xl text-lg leading-8 text-foreground">
-                    {hero.subheading}
-                </p>
-                <p className="mx-auto mt-2 max-w-2xl leading-7 text-foreground-accent">
-                    {hero.secondarySubheading}
-                </p>
-                <div className="mx-auto mt-5 flex w-full flex-col items-center justify-center gap-3 sm:flex-row">
-                    <a href="#release" className="flex min-h-12 w-full items-center justify-center rounded-lg bg-foreground px-7 font-semibold text-white transition-colors hover:bg-panel sm:w-fit">
+            <div className="w-full text-center max-w-6xl">
+                <p className="sheetcue-eyebrow mx-auto mb-5 w-fit rounded-full border border-[var(--sheetcue-border)] bg-white/82 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.18em] shadow-sm">{hero.eyebrow}</p>
+                <h1 className="sheetcue-hero-title mx-auto max-w-lg text-4xl font-extrabold tracking-normal md:max-w-4xl md:text-6xl md:leading-tight">{hero.heading}</h1>
+                <p className="mx-auto mt-5 max-w-2xl text-foreground md:text-xl">{hero.subheading}</p>
+                <p className="mx-auto mt-4 max-w-2xl text-base text-foreground-accent md:text-lg">{hero.secondarySubheading}</p>
+                <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-3 w-full mx-auto">
+                    <a href="#release" className="flex min-h-14 w-full items-center justify-center rounded-full bg-[var(--sheetcue-ink)] px-7 font-bold text-white shadow-lg shadow-[rgba(16,43,46,0.16)] transition hover:bg-black sm:w-fit">
                         {hero.primaryCta}
                     </a>
-                    <a href={hero.secondaryCtaUrl} className="flex min-h-12 w-full items-center justify-center rounded-lg border border-line bg-surface px-7 font-semibold text-foreground transition-colors hover:border-primary sm:w-fit">
+                    <a href={hero.secondaryCtaUrl} className="flex min-h-14 w-full items-center justify-center rounded-full border border-[var(--sheetcue-border)] bg-white/90 px-7 font-bold text-[var(--sheetcue-ink)] shadow-sm transition hover:border-primary sm:w-fit">
                         {hero.secondaryCta}
                     </a>
                 </div>
-
-                <div className="sheetcue-landscape-device cue-shadow relative z-10 mx-auto mt-6 w-full max-w-[1100px] overflow-hidden rounded-lg border bg-surface md:mt-8">
-                    <div className="flex items-center justify-between border-b border-line px-4 py-3">
-                        <div className="flex gap-2">
-                            <span className="h-2.5 w-2.5 rounded-full bg-correction"></span>
-                            <span className="h-2.5 w-2.5 rounded-full bg-primary"></span>
-                            <span className="h-2.5 w-2.5 rounded-full bg-secondary"></span>
-                        </div>
-                        <div className="h-2 w-24 rounded-full bg-line"></div>
-                    </div>
+                <div className="sheetcue-hero-media sheetcue-landscape-device relative z-10 mx-auto mt-12 w-full max-w-[1080px] rounded-[2rem] border bg-white p-2 md:mt-16">
                     <Image
                         src={hero.centerImageSrc}
                         width={1800}
-                        height={810}
+                        height={1080}
                         quality={100}
-                        sizes="(max-width: 768px) 100vw, 1100px"
+                        sizes="(max-width: 768px) 100vw, 1080px"
                         priority={true}
                         loading="eager"
-                        fetchPriority="high"
                         alt={hero.imageAlt}
-                        className="mx-auto h-auto w-full bg-surface"
+                        className="h-auto w-full rounded-[1.45rem]"
                     />
-                </div>
-
-                <div className="relative z-10 mx-auto mt-6 grid max-w-4xl grid-cols-1 border border-line bg-surface text-left shadow-sm sm:grid-cols-4">
-                    {workflowSteps.map((step) => (
-                        <div key={step.number} className="flex items-center gap-4 border-b border-line p-3 last:border-b-0 sm:block sm:border-b-0 sm:border-r sm:p-4 sm:last:border-r-0">
-                            <span className="text-xs font-bold text-primary">{step.number.padStart(2, "0")}</span>
-                            <p className="text-sm font-semibold text-foreground sm:mt-2">{step.title}</p>
-                        </div>
-                    ))}
                 </div>
             </div>
         </section>

@@ -5,6 +5,7 @@ import {
     FiList,
     FiLock,
     FiRepeat,
+    FiSlash,
     FiSliders,
     FiTarget,
     FiUpload,
@@ -72,7 +73,7 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
     en: {
         metadata: {
             title: "SheetCue | Editable PDF Score Practice Flow",
-            description: "SheetCue helps musicians turn PDF sheet music into editable, measure-by-measure practice cues. Import locally, fix measures, arrange repeats, and rehearse with the next cue in view.",
+            description: "SheetCue turns PDF scores into editable measure cues for rehearsal. Import locally, correct measures, arrange repeats, and practice from playback cues.",
         },
         nav: {
             menuItems: [
@@ -85,67 +86,67 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
             languageMenuLabel: "Language",
         },
         hero: {
-            eyebrow: "For PDF score practice",
-            heading: "Turn sheet-music PDFs into measure cues.",
-            subheading: "For musicians rehearsing from PDFs: mark measures, fix repeats, adjust timing, and keep the next cue in view.",
-            secondarySubheading: "Use SheetCue when a flat PDF cannot show where you are, what comes next, or how the rehearsal order should unfold.",
-            primaryCta: "Check release status",
+            eyebrow: "Editable score rehearsal",
+            heading: "Edit your PDF score into a practice flow.",
+            subheading: "Mark measures, reorder repeats, adjust timing, and rehearse from cues you control.",
+            secondarySubheading: "Not just a PDF viewer. SheetCue turns static pages into editable measure cues.",
+            primaryCta: "Get release updates",
             secondaryCta: "Read privacy policy",
-            imageAlt: "SheetCue screens showing a PDF score list, playback view, and measure-by-measure practice cues",
+            imageAlt: "Sketch of importing a score PDF, editing measure boxes, and rehearsing from playback cues",
         },
         stats: [
-            { title: "For musicians", description: "Built for the moment when PDF practice needs repeat order, timing, and next-measure context." },
-            { title: "Editable cues", description: "Measure detection starts the setup, then you correct boxes, order, BPM, and beats by hand." },
+            { title: "Editable", description: "Measure detection is paired with correction tools, not hidden automation." },
             { title: "Local-first", description: "Score PDFs, page images, measure crops, and presets stay on device." },
+            { title: "No accounts", description: "The current MVP does not add login, sync, or remote score storage." },
         ],
         benefits: [
             {
-                title: "Fix the measures before practice",
-                description: "Detection gives you a starting point. The important part is being able to inspect the score and correct the cues before rehearsal starts.",
+                title: "Editable measure cues",
+                description: "Detection helps with setup, but the user stays in control. SheetCue is built around fast inspection and correction.",
                 bullets: [
-                    { title: "Move and resize boxes", description: "Correct measure boundaries when the page layout needs a human eye." },
-                    { title: "Split and merge measures", description: "Repair missed or combined measures without restarting the setup." },
-                    { title: "Readable cue order", description: "Confirm the sequence before you start practicing from it." },
+                    { title: "Move and resize boxes", description: "Correct measure boundaries when detection needs a human eye." },
+                    { title: "Split and merge measures", description: "Fix the structure without restarting the import workflow." },
+                    { title: "Visible cue order", description: "Keep the playback sequence readable before rehearsal starts." },
                 ],
             },
             {
-                title: "Build the actual rehearsal path",
-                description: "Printed page order is not always the order you play. SheetCue lets you turn a static score into the path you actually follow.",
+                title: "Practice flow from a static PDF",
+                description: "Turn a score page into a sequence that can handle repeats, order, timing, and current or next cues.",
                 bullets: [
-                    { title: "Import from device", description: "Start with the PDF score you already use." },
-                    { title: "Arrange repeats", description: "Follow the rehearsal order instead of only the printed layout." },
-                    { title: "Rehearse with cues", description: "Keep the current measure and the next step visible." },
+                    { title: "Import from device", description: "Choose the score PDF you already use for practice." },
+                    { title: "Arrange repeats", description: "Follow the rehearsal order instead of only the printed page order." },
+                    { title: "Rehearse with cues", description: "See the current measure and prepare for what comes next." },
                 ],
             },
             {
-                title: "Practice without uploading scores",
-                description: "The current build keeps score setup direct: no account, no cloud sync, and no remote score storage.",
+                title: "Local-first score handling",
+                description: "The current build is designed without accounts, cloud sync, or score uploads.",
                 bullets: [
                     { title: "Score assets stay local", description: "Imported PDFs, rendered pages, measure crops, and preset metadata stay on device." },
-                    { title: "No account requirement", description: "Set up rehearsal without login or remote score libraries." },
+                    { title: "No account requirement", description: "The MVP keeps rehearsal setup local and direct." },
                     { title: "Clear policy surface", description: "Privacy, support, and open-source notices stay linked from the public page." },
                 ],
             },
         ],
         workflow: {
             id: "workflow",
-            title: "A quick setup path before rehearsal.",
-            description: "Choose a PDF, check the detected measures, arrange the order you will actually play, then practice with the next cue visible.",
+            title: "From static PDF to measure cues.",
+            description: "Import a score, correct measure boxes, arrange repeats and timing, then rehearse from current and next cues.",
             steps: [
-                { number: "1", title: "Choose the PDF", description: "Use the score file already on your device." },
-                { number: "2", title: "Check measures", description: "Review and fix the detected measure boxes." },
-                { number: "3", title: "Set the path", description: "Arrange repeats, playback order, BPM, and beats." },
-                { number: "4", title: "Practice with context", description: "Follow the current cue while preparing for the next one." },
+                { number: "1", title: "Import", description: "Choose a score PDF from your device." },
+                { number: "2", title: "Correct", description: "Edit the detected measure boxes by hand." },
+                { number: "3", title: "Arrange", description: "Set repeats, playback order, BPM, and beats." },
+                { number: "4", title: "Rehearse", description: "Follow current and next measure cues." },
             ],
         },
         privacy: {
             id: "privacy",
-            title: "Your score files stay on your device.",
-            description: "Imported PDFs, rendered pages, cropped measure images, and preset metadata are stored locally. The current build does not create accounts and does not upload score files.",
+            title: "Score handling stays local-first.",
+            description: "Imported score PDFs, rendered pages, cropped measure images, and preset metadata are stored on the user's device. The current build does not create accounts and does not upload score files.",
             points: ["No account requirement", "No score uploads", "Google Ads with UMP consent"],
         },
         faq: {
-            eyebrow: "FAQ",
+            eyebrow: "FAQ'S",
             title: "Frequently Asked Questions",
             supportPrompt: "Need policy or support details?",
             supportLink: "SheetCue support",
@@ -182,7 +183,7 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
     ko: {
         metadata: {
             title: "SheetCue | PDF 악보를 연습 흐름으로 편집",
-            description: "SheetCue는 PDF 악보를 마디 단위 연습 큐로 바꿉니다. 기기 안에서 가져오고, 마디를 보정하고, 반복 순서와 박자를 정해 다음 큐를 보며 연습하세요.",
+            description: "SheetCue는 PDF 악보를 마디 단위 연습 큐로 바꿉니다. 기기 안에서 가져오고, 마디를 보정하고, 반복 순서와 박자를 정해 연습하세요.",
         },
         nav: {
             menuItems: [
@@ -195,63 +196,63 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
             languageMenuLabel: "언어",
         },
         hero: {
-            eyebrow: "PDF 악보 연습용",
-            heading: "PDF 악보를 연습 큐로 바꾸세요.",
-            subheading: "PDF로 연습하는 연주자를 위해 마디를 표시하고, 반복 순서를 고치고, 박자와 타이밍을 조정해 다음 큐를 보며 연습합니다.",
-            secondarySubheading: "평평한 PDF만으로는 지금 어디를 연주 중인지, 다음이 무엇인지, 반복을 어떻게 따라가야 하는지 알기 어렵습니다. SheetCue는 그 흐름을 직접 만들게 해줍니다.",
-            primaryCta: "출시 상태 확인",
+            eyebrow: "편집 가능한 악보 연습",
+            heading: "PDF 악보를 나만의 연습 흐름으로 편집하세요.",
+            subheading: "마디를 표시하고, 반복 순서를 바꾸고, 박자와 타이밍을 조정한 뒤 직접 만든 큐로 연습합니다.",
+            secondarySubheading: "단순한 PDF 뷰어가 아닙니다. SheetCue는 정적인 악보 페이지를 편집 가능한 마디 큐로 바꿉니다.",
+            primaryCta: "출시 소식 확인",
             secondaryCta: "개인정보처리방침 보기",
-            imageAlt: "PDF 악보 목록, 재생 화면, 마디 단위 연습 큐를 보여주는 SheetCue 화면",
+            imageAlt: "PDF 악보를 가져와 마디 박스를 편집하고 재생 큐로 연습하는 흐름 스케치",
         },
         stats: [
-            { title: "연주자용", description: "PDF 연습에서 반복 순서, 타이밍, 다음 마디 맥락이 필요해지는 순간을 위해 만들었습니다." },
-            { title: "편집 가능한 큐", description: "마디 감지는 시작점이고, 박스·순서·BPM·박자는 직접 보정합니다." },
+            { title: "편집 가능", description: "마디 감지는 자동화에 숨기지 않고 직접 보정할 수 있는 도구와 함께 제공됩니다." },
             { title: "로컬 우선", description: "PDF 악보, 페이지 이미지, 마디 이미지, 프리셋은 사용자의 기기에 저장됩니다." },
+            { title: "계정 없음", description: "현재 MVP에는 로그인, 동기화, 원격 악보 저장 기능이 없습니다." },
         ],
         benefits: [
             {
-                title: "연습 전에 마디를 바로잡기",
-                description: "감지는 시작점을 만들어 줍니다. 중요한 것은 연습 전에 악보를 확인하고 큐를 직접 보정할 수 있다는 점입니다.",
+                title: "편집 가능한 마디 큐",
+                description: "감지는 설정을 돕지만 최종 제어권은 사용자에게 있습니다. SheetCue는 빠르게 확인하고 보정하는 흐름을 중심으로 설계되었습니다.",
                 bullets: [
-                    { title: "박스 이동과 크기 조정", description: "페이지 레이아웃 때문에 감지가 어긋난 마디 경계를 직접 바로잡습니다." },
-                    { title: "마디 분할과 병합", description: "놓치거나 합쳐진 마디를 가져오기부터 다시 하지 않고 수정합니다." },
-                    { title: "읽기 쉬운 큐 순서", description: "연습을 시작하기 전에 따라갈 순서를 확인합니다." },
+                    { title: "박스 이동과 크기 조정", description: "감지가 놓친 마디 경계를 직접 바로잡을 수 있습니다." },
+                    { title: "마디 분할과 병합", description: "가져오기 과정을 다시 시작하지 않고 구조를 수정합니다." },
+                    { title: "보이는 큐 순서", description: "연습을 시작하기 전에 재생 순서를 읽기 쉽게 확인합니다." },
                 ],
             },
             {
-                title: "실제 연습 경로 만들기",
-                description: "인쇄된 페이지 순서가 곧 연주 순서는 아닙니다. SheetCue는 정적인 악보를 실제로 따라갈 연습 경로로 바꿉니다.",
+                title: "정적인 PDF에서 연습 흐름으로",
+                description: "악보 페이지를 반복, 순서, 박자, 현재/다음 큐를 다룰 수 있는 시퀀스로 바꿉니다.",
                 bullets: [
-                    { title: "기기에서 가져오기", description: "이미 연습에 쓰고 있는 PDF 악보에서 시작합니다." },
-                    { title: "반복 순서 정리", description: "인쇄된 배치가 아니라 실제 연습 순서를 따릅니다." },
-                    { title: "큐를 보며 연습", description: "현재 마디와 다음에 갈 위치를 함께 봅니다." },
+                    { title: "기기에서 가져오기", description: "이미 연습에 쓰고 있는 PDF 악보를 선택합니다." },
+                    { title: "반복 순서 정리", description: "인쇄된 페이지 순서가 아니라 실제 연습 순서를 따릅니다." },
+                    { title: "큐를 보며 연습", description: "현재 마디를 보고 다음 마디를 미리 준비합니다." },
                 ],
             },
             {
-                title: "악보 업로드 없이 연습하기",
-                description: "현재 빌드는 계정, 클라우드 동기화, 원격 악보 저장 없이 연습 설정을 바로 끝내도록 설계되었습니다.",
+                title: "로컬 우선 악보 처리",
+                description: "현재 빌드는 계정, 클라우드 동기화, 악보 업로드 없이 동작하도록 설계되었습니다.",
                 bullets: [
                     { title: "악보 자산은 기기 안에", description: "가져온 PDF, 렌더링된 페이지, 마디 이미지, 프리셋 메타데이터는 기기에 남습니다." },
-                    { title: "계정 불필요", description: "로그인이나 원격 악보 라이브러리 없이 연습 준비를 끝냅니다." },
+                    { title: "계정 불필요", description: "MVP는 연습 설정을 로컬에서 바로 끝내는 흐름을 유지합니다." },
                     { title: "명확한 정책 링크", description: "개인정보, 지원, 오픈소스 고지는 공개 페이지에서 확인할 수 있습니다." },
                 ],
             },
         ],
         workflow: {
             id: "workflow",
-            title: "연습 전 빠른 준비 흐름.",
-            description: "PDF를 고르고, 감지된 마디를 확인하고, 실제로 연주할 순서를 정리한 뒤 다음 큐를 보며 연습합니다.",
+            title: "정적인 PDF에서 마디 큐까지.",
+            description: "악보를 가져오고, 마디 박스를 보정하고, 반복과 타이밍을 정리한 뒤 현재/다음 큐를 보며 연습합니다.",
             steps: [
-                { number: "1", title: "PDF 선택", description: "기기에 있는 악보 파일을 사용합니다." },
-                { number: "2", title: "마디 확인", description: "감지된 마디 박스를 검토하고 바로잡습니다." },
-                { number: "3", title: "경로 설정", description: "반복, 재생 순서, BPM, 박자를 정리합니다." },
-                { number: "4", title: "맥락 보며 연습", description: "현재 큐를 따라가면서 다음 위치를 준비합니다." },
+                { number: "1", title: "가져오기", description: "기기에서 PDF 악보를 선택합니다." },
+                { number: "2", title: "보정", description: "감지된 마디 박스를 직접 수정합니다." },
+                { number: "3", title: "정리", description: "반복, 재생 순서, BPM, 박자를 설정합니다." },
+                { number: "4", title: "연습", description: "현재와 다음 마디 큐를 따라갑니다." },
             ],
         },
         privacy: {
             id: "privacy",
-            title: "악보 파일은 기기에 남습니다.",
-            description: "가져온 PDF, 렌더링된 페이지, 잘라낸 마디 이미지, 프리셋 메타데이터는 로컬에 저장됩니다. 현재 빌드는 계정을 만들지 않고 악보 파일을 업로드하지 않습니다.",
+            title: "악보 처리는 로컬 우선입니다.",
+            description: "가져온 PDF 악보, 렌더링된 페이지, 잘라낸 마디 이미지, 프리셋 메타데이터는 사용자의 기기에 저장됩니다. 현재 빌드는 계정을 만들지 않고 악보 파일을 업로드하지 않습니다.",
             points: ["계정 필요 없음", "악보 업로드 없음", "Google Ads 및 UMP 동의 처리"],
         },
         faq: {
@@ -842,9 +843,9 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
 };
 
 const statIcons = [
-    <FiTarget key="audience" size={30} className="text-primary" />,
-    <FiEdit3 key="editable" size={30} className="text-secondary" />,
-    <FiHardDrive key="local" size={30} className="text-correction" />,
+    <FiEdit3 key="editable" size={34} className="text-teal-600" />,
+    <FiHardDrive key="local" size={34} className="text-teal-600" />,
+    <FiSlash key="accounts" size={34} className="text-teal-600" />,
 ];
 
 const benefitIcons = [
