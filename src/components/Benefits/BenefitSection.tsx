@@ -13,6 +13,8 @@ interface Props {
     imageAtRight?: boolean;
 }
 
+const initialRevealState = "offscreen";
+
 const containerVariants: Variants = {
     offscreen: {
         opacity: 0,
@@ -48,6 +50,7 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
         <section className="benefit-section">
             <motion.div
                 className="flex flex-col items-center justify-center gap-8 lg:flex-row lg:gap-16 lg:flex-nowrap"
+                initial={initialRevealState}
                 variants={containerVariants}
                 whileInView="onscreen"
                 viewport={revealViewport}
