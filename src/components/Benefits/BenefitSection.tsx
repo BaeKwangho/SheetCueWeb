@@ -85,9 +85,18 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
                     </div>
                 </div>
 
-                <div className={clsx("mt-5 lg:mt-0", { "lg:order-2": imageAtRight })}>
-                    <div className={clsx("w-fit flex", { "justify-start": imageAtRight, "justify-end": !imageAtRight })}>
-                        <Image src={imageSrc} alt={title} width="560" height="340" quality={100} className="w-full max-w-[560px] h-auto rounded-3xl border border-black/10 bg-white shadow-xl lg:ml-0" />
+                <div className={clsx("order-first mt-5 flex w-full justify-center lg:order-none lg:mt-0 lg:w-auto", { "lg:order-2": imageAtRight })}>
+                    <div className={clsx("sheetcue-feature-device w-full max-w-[380px]", { "lg:ml-0": imageAtRight })}>
+                        <Image
+                            src={imageSrc}
+                            alt={title}
+                            width={760}
+                            height={1548}
+                            quality={100}
+                            priority={true}
+                            loading="eager"
+                            className="sheetcue-feature-shot h-auto w-full"
+                        />
                     </div>
                 </div>
             </motion.div>
