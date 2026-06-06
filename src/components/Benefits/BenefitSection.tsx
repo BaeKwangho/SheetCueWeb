@@ -52,16 +52,16 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
     return (
         <section className="benefit-section">
             <motion.div
-                className="flex flex-wrap flex-col items-center justify-center gap-2 lg:flex-row lg:gap-20 lg:flex-nowrap mb-24"
+                className="flex flex-col items-center justify-center gap-8 lg:flex-row lg:gap-16 lg:flex-nowrap"
                 variants={containerVariants}
                 whileInView="onscreen"
                 viewport={{ once: true }}
             >
                 <div
-                    className={clsx("flex flex-wrap items-center w-full max-w-lg", { "justify-start": imageAtRight, "lg:order-1 justify-end": !imageAtRight })}
+                    className={clsx("flex w-full max-w-xl items-center", { "justify-start": imageAtRight, "lg:order-1 justify-end": !imageAtRight })}
                     
                 >
-                    <div className="w-full  text-center lg:text-left ">
+                    <div className="sheetcue-soft-card w-full rounded-[1.75rem] border p-6 text-center lg:p-8 lg:text-left">
                         <motion.div
                             className="flex flex-col w-full"
                             variants={childVariants}
@@ -72,7 +72,7 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
                                 </h3>
                             </SectionTitle>
 
-                            <p className="mt-1.5 mx-auto lg:ml-0 leading-normal text-foreground-accent">
+                            <p className="mx-auto mt-3 max-w-xl leading-7 text-foreground-accent lg:ml-0">
                                 {description}
                             </p>
                         </motion.div>
@@ -85,8 +85,8 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
                     </div>
                 </div>
 
-                <div className={clsx("order-first mt-5 flex w-full justify-center lg:order-none lg:mt-0 lg:w-auto", { "lg:order-2": imageAtRight })}>
-                    <div className={clsx("sheetcue-feature-device w-full max-w-[380px]", { "lg:ml-0": imageAtRight })}>
+                <div className={clsx("order-first flex w-full justify-center lg:order-none lg:w-[42%]", { "lg:order-2": imageAtRight })}>
+                    <div className={clsx("sheetcue-feature-device w-full max-w-[330px] sm:max-w-[350px] lg:max-w-[360px]", { "lg:ml-0": imageAtRight })}>
                         <Image
                             src={imageSrc}
                             alt={title}

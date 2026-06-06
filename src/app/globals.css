@@ -23,6 +23,10 @@
   --sheetcue-border: #dcebea;
   --sheetcue-shadow: 0 24px 70px rgba(16, 43, 46, 0.12);
   --sheetcue-shadow-strong: 0 28px 80px rgba(18, 207, 227, 0.18);
+  --surface: rgba(255, 255, 255, 0.88);
+  --line: rgba(16, 43, 46, 0.13);
+  --correction: #f06458;
+  --panel: #102b2e;
 }
 
 html {
@@ -66,8 +70,12 @@ h1, h2, h3, h4, h5, h6 {
   @apply w-fit h-10 sm:h-12;
 }
 
+.benefit-section > div {
+  @apply mb-14 lg:mb-20;
+}
+
 .benefit-section:last-of-type > div {
-  @apply mb-10;
+  @apply mb-8 lg:mb-12;
 }
 
 .sheetcue-glass {
@@ -176,7 +184,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #features {
-  margin-top: 5rem;
+  margin-top: 3rem;
 }
 
 .benefit-section h3 {
@@ -186,6 +194,23 @@ h1, h2, h3, h4, h5, h6 {
 .benefit-section article,
 .benefit-section p {
   word-break: keep-all;
+}
+
+.sheetcue-stat-grid {
+  border-color: rgba(16, 43, 46, 0.12);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(244, 250, 248, 0.84));
+  box-shadow: 0 22px 60px rgba(16, 43, 46, 0.08);
+}
+
+.sheetcue-stat-card {
+  border-color: rgba(16, 43, 46, 0.1);
+}
+
+.sheetcue-soft-card {
+  border-color: rgba(16, 43, 46, 0.1);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 18px 50px rgba(16, 43, 46, 0.07);
 }
 
 @media (max-width: 520px) {
@@ -213,5 +238,9 @@ h1, h2, h3, h4, h5, h6 {
 
   .sheetcue-feature-shot {
     border-radius: 1rem;
+  }
+
+  #features {
+    margin-top: 2rem;
   }
 }
