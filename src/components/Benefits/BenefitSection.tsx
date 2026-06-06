@@ -15,7 +15,7 @@ interface Props {
 const containerVariants: Variants = {
     offscreen: {
         opacity: 0,
-        y: 100
+        y: 32
     },
     onscreen: {
         opacity: 1,
@@ -55,7 +55,7 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
                 className="flex flex-col items-center justify-center gap-8 lg:flex-row lg:gap-16 lg:flex-nowrap"
                 variants={containerVariants}
                 whileInView="onscreen"
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.22 }}
             >
                 <div
                     className={clsx("flex w-full max-w-xl items-center", { "justify-start": imageAtRight, "lg:order-1 justify-end": !imageAtRight })}

@@ -1,4 +1,5 @@
 import SectionTitle from "./SectionTitle";
+import Reveal from "./Reveal";
 
 interface Props {
     id: string;
@@ -9,11 +10,15 @@ interface Props {
 const Section: React.FC<React.PropsWithChildren<Props>> = ({ id, title, description, children }: React.PropsWithChildren<Props>) => {
     return (
         <section id={id} className="scroll-mt-24 py-10 lg:py-20">
-            <SectionTitle>
-                <h2 className="text-center mb-4">{title}</h2>
-            </SectionTitle>
-            <p className="mx-auto mb-12 max-w-3xl text-center leading-8 text-foreground-accent">{description}</p>
-            {children}
+            <Reveal>
+                <SectionTitle>
+                    <h2 className="text-center mb-4">{title}</h2>
+                </SectionTitle>
+                <p className="mx-auto mb-12 max-w-3xl text-center leading-8 text-foreground-accent">{description}</p>
+            </Reveal>
+            <Reveal delay={0.08} y={18}>
+                {children}
+            </Reveal>
         </section>
     )
 }

@@ -1,4 +1,5 @@
 import { ILandingContent } from "@/types"
+import Reveal from "./Reveal";
 
 interface Props {
     cta: ILandingContent["cta"];
@@ -7,7 +8,8 @@ interface Props {
 const CTA: React.FC<Props> = ({ cta }) => {
     return (
         <section id="release" className="mt-10 mb-5 lg:my-20 scroll-mt-24">
-            <div className="relative z-10 mx-auto w-full border border-panel bg-panel py-12 sm:py-16">
+            <Reveal y={22}>
+                <div className="relative z-10 mx-auto w-full border border-panel bg-panel py-12 sm:py-16">
                 <div className="absolute inset-x-0 top-0 h-px bg-primary"></div>
 
                 <div className="flex h-full flex-col items-center justify-center px-5 text-center text-white">
@@ -24,7 +26,8 @@ const CTA: React.FC<Props> = ({ cta }) => {
                         </a>
                     </div>
                 </div>
-            </div>
+                </div>
+            </Reveal>
         </section>
     )
 }

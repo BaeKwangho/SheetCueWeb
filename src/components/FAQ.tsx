@@ -3,6 +3,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react
 import { BiMinus, BiPlus } from "react-icons/bi";
 
 import SectionTitle from "./SectionTitle";
+import Reveal from "./Reveal";
 import { ILandingContent } from "@/types";
 
 interface Props {
@@ -13,7 +14,7 @@ const FAQ: React.FC<Props> = ({ faq }) => {
     return (
         <section id="faq" className="py-10 lg:py-20">
             <div className="flex flex-col lg:flex-row gap-10">
-                <div>
+                <Reveal className="lg:w-[34%]">
                     <p className="hidden lg:block text-foreground-accent">{faq.eyebrow}</p>
                     <SectionTitle>
                         <h2 className="my-3 !leading-snug lg:max-w-sm text-center lg:text-left">{faq.title}</h2>
@@ -22,11 +23,11 @@ const FAQ: React.FC<Props> = ({ faq }) => {
                         {faq.supportPrompt}
                     </p>
                     <a href={faq.supportUrl} className="mt-3 block text-center text-xl font-semibold text-secondary hover:underline lg:text-left lg:text-3xl">{faq.supportLink}</a>
-                </div>
+                </Reveal>
 
                 <div className="mx-auto w-full border-b border-line lg:max-w-2xl">
                     {faq.items.map((item, index) => (
-                        <div key={index} className="mb-7">
+                        <Reveal key={item.question} delay={index * 0.05} y={16} className="mb-7">
                             <Disclosure as="div">
                                 {({ open }) => (
                                     <>
@@ -40,7 +41,7 @@ const FAQ: React.FC<Props> = ({ faq }) => {
                                     </>
                                 )}
                             </Disclosure>
-                        </div>
+                        </Reveal>
                     ))}
                 </div>
             </div>

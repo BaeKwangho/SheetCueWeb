@@ -5,6 +5,7 @@ import Container from "@/components/Container";
 import Section from "@/components/Section";
 import Stats from "@/components/Stats";
 import CTA from "@/components/CTA";
+import Reveal from "@/components/Reveal";
 import { ILandingContent } from "@/types";
 import Image from "next/image";
 
@@ -26,25 +27,29 @@ const HomePageContent: React.FC<Props> = ({ content }) => {
           description={content.workflow.description}
         >
           {content.workflow.imageSrc && (
-            <Image
-              src={content.workflow.imageSrc}
-              alt={content.workflow.imageAlt ?? content.workflow.title}
-              width={1800}
-              height={980}
-              priority={true}
-              loading="eager"
-              className="sheetcue-workflow-board mb-8 w-full rounded-[1.75rem] border border-black/10 bg-white object-cover shadow-sm"
-            />
+            <Reveal y={20}>
+              <Image
+                src={content.workflow.imageSrc}
+                alt={content.workflow.imageAlt ?? content.workflow.title}
+                width={1800}
+                height={980}
+                priority={true}
+                loading="eager"
+                className="sheetcue-workflow-board mb-8 w-full rounded-[1.75rem] border border-black/10 bg-white object-cover shadow-sm"
+              />
+            </Reveal>
           )}
           <div className="grid gap-5 md:grid-cols-4">
-            {content.workflow.steps.map(({ number, title, description }) => (
-              <article key={title} className="rounded-xl border border-black/10 bg-white p-6 shadow-sm">
+            {content.workflow.steps.map(({ number, title, description }, index) => (
+              <Reveal key={title} delay={index * 0.07} y={18}>
+                <article className="h-full rounded-xl border border-black/10 bg-white p-6 shadow-sm">
                 <span className="mb-8 inline-flex h-11 w-11 items-center justify-center rounded-xl border-2 border-primary text-sm font-bold text-foreground">
                   {number}
                 </span>
                 <h3 className="mb-2 text-xl font-semibold">{title}</h3>
                 <p className="text-base text-foreground-accent">{description}</p>
-              </article>
+                </article>
+              </Reveal>
             ))}
           </div>
         </Section>
@@ -55,10 +60,12 @@ const HomePageContent: React.FC<Props> = ({ content }) => {
           description={content.privacy.description}
         >
           <div className="grid gap-4 md:grid-cols-3">
-            {content.privacy.points.map((item) => (
-              <div key={item} className="rounded-xl border border-black/10 bg-white p-6 text-center font-semibold">
-                {item}
-              </div>
+            {content.privacy.points.map((item, index) => (
+              <Reveal key={item} delay={index * 0.08} y={16}>
+                <div className="h-full rounded-xl border border-black/10 bg-white p-6 text-center font-semibold">
+                  {item}
+                </div>
+              </Reveal>
             ))}
           </div>
         </Section>
