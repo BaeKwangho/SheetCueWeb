@@ -21,6 +21,10 @@ html {
   @apply scroll-smooth;
 }
 
+[id] {
+  scroll-margin-top: 6rem;
+}
+
 body {
   @apply text-base antialiased;
   
@@ -58,10 +62,6 @@ h1, h2, h3, h4, h5, h6 {
   @apply w-fit h-10 sm:h-12;
 }
 
-.benefit-section:last-of-type > div {
-  @apply mb-10;
-}
-
 .score-paper {
   background:
     linear-gradient(to bottom, rgba(23, 21, 19, 0.055) 1px, transparent 1px),
@@ -72,4 +72,74 @@ h1, h2, h3, h4, h5, h6 {
 
 .cue-shadow {
   box-shadow: 0 18px 50px rgba(23, 21, 19, 0.10);
+}
+
+.sheetcue-landscape-device {
+  background:
+    linear-gradient(180deg, var(--panel), #0b0f0e) padding-box,
+    linear-gradient(135deg, var(--primary), var(--secondary), var(--correction)) border-box;
+  border-width: 8px;
+}
+
+.sheetcue-landscape-device img {
+  background: var(--surface);
+}
+
+.sheetcue-feature-device {
+  position: relative;
+  margin-inline: auto;
+  max-width: 380px;
+  overflow: hidden;
+  border: 10px solid var(--panel);
+  border-radius: 1.4rem;
+  background: var(--panel);
+  box-shadow: 0 22px 60px rgba(23, 21, 19, 0.14);
+}
+
+.sheetcue-feature-device::before {
+  content: "";
+  position: absolute;
+  left: 25%;
+  right: 25%;
+  top: -10px;
+  z-index: 2;
+  height: 10px;
+  border-radius: 0 0 14px 14px;
+  background: var(--panel);
+}
+
+.sheetcue-feature-shot {
+  display: block;
+  border-radius: 0.8rem;
+  background: var(--surface);
+}
+
+.sheetcue-workflow-board {
+  border-color: var(--line);
+  box-shadow: 0 24px 70px rgba(23, 21, 19, 0.09);
+}
+
+#features {
+  margin-top: 5rem;
+}
+
+.benefit-section h3 {
+  text-wrap: balance;
+}
+
+.benefit-section article,
+.benefit-section p {
+  word-break: keep-all;
+}
+
+@media (max-width: 520px) {
+  .sheetcue-landscape-device {
+    border-width: 5px;
+    padding: 0.25rem;
+  }
+
+  .sheetcue-feature-device {
+    max-width: 330px;
+    border-width: 8px;
+  }
 }

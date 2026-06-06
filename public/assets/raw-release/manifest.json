@@ -1,0 +1,17 @@
+{
+  "source": "C:/Users/qorhk/Documents/Codex/2026-06-03/sheetcue-release-1.0-assets/raw-screenshots",
+  "generatedAt": "2026-06-06T08:32:40.874Z",
+  "assets": {
+    "hero": "44-playback-ready-landscape-en.png rotated 270deg",
+    "crop": "13-crop-edit-clean-en.png crop top 2200px",
+    "flow": "15-flow-editor-clean-en.png crop top 1650px",
+    "privacy": "49-settings-privacy-detail-en.png crop y=760 height=1500",
+    "workflow": [
+      "04-import-picker-en.png cropped",
+      "13-crop-edit-clean-en.png",
+      "15-flow-editor-clean-en.png",
+      "44-playback-ready-landscape-en.png rotated 270deg"
+    ]
+  },
+  "regeneratedAt": "2026-06-06T08:33:35.712Z"
+}

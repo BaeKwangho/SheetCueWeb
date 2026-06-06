@@ -6,6 +6,7 @@ import Section from "@/components/Section";
 import Stats from "@/components/Stats";
 import CTA from "@/components/CTA";
 import { ILandingContent } from "@/types";
+import Image from "next/image";
 
 interface Props {
   content: ILandingContent;
@@ -24,6 +25,17 @@ const HomePageContent: React.FC<Props> = ({ content }) => {
           title={content.workflow.title}
           description={content.workflow.description}
         >
+          {content.workflow.imageSrc && (
+            <Image
+              src={content.workflow.imageSrc}
+              alt={content.workflow.imageAlt ?? content.workflow.title}
+              width={1800}
+              height={980}
+              priority={true}
+              loading="eager"
+              className="sheetcue-workflow-board mb-8 w-full rounded-[1.75rem] border border-black/10 bg-white object-cover shadow-sm"
+            />
+          )}
           <div className="grid gap-5 md:grid-cols-4">
             {content.workflow.steps.map(({ number, title, description }) => (
               <article key={title} className="border border-line bg-surface p-6 shadow-sm">

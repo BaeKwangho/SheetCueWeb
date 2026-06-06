@@ -42,7 +42,7 @@ const Hero: React.FC<Props> = ({ hero, workflowSteps }) => {
                     </a>
                 </div>
 
-                <div className="cue-shadow relative z-10 mx-auto mt-6 w-full max-w-[1100px] overflow-hidden rounded-lg border border-line bg-surface md:mt-8">
+                <div className="sheetcue-landscape-device cue-shadow relative z-10 mx-auto mt-6 w-full max-w-[1100px] overflow-hidden rounded-lg border bg-surface md:mt-8">
                     <div className="flex items-center justify-between border-b border-line px-4 py-3">
                         <div className="flex gap-2">
                             <span className="h-2.5 w-2.5 rounded-full bg-correction"></span>
@@ -53,10 +53,10 @@ const Hero: React.FC<Props> = ({ hero, workflowSteps }) => {
                     </div>
                     <Image
                         src={hero.centerImageSrc}
-                        width={1000}
-                        height={608}
+                        width={1800}
+                        height={810}
                         quality={100}
-                        sizes="(max-width: 768px) 100vw, 1000px"
+                        sizes="(max-width: 768px) 100vw, 1100px"
                         priority={true}
                         loading="eager"
                         fetchPriority="high"

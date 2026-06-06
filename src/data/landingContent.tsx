@@ -853,11 +853,15 @@ const benefitIcons = [
     [<FiLock key="lock" size={26} />, <FiTarget key="target" size={26} />, <FiFileText key="file" size={26} />],
 ];
 
-const benefitImageSrcs = [
-    "/images/benefit-editable-measure-cues-real.webp",
-    "/images/benefit-practice-flow-real.webp",
-    "/images/benefit-local-import-real.webp",
-] as const;
+const promoImages = {
+    hero: "/assets/raw-release/hero-playback-landscape.webp",
+    workflow: "/assets/raw-release/workflow-raw-sequence.webp",
+    benefits: [
+        "/assets/raw-release/feature-crop-edit.webp",
+        "/assets/raw-release/feature-flow-editor.webp",
+        "/assets/raw-release/feature-local-privacy.webp",
+    ],
+};
 
 const buildContent = (locale: Locale, copy: LocaleCopy): ILandingContent => ({
     locale,
@@ -866,7 +870,7 @@ const buildContent = (locale: Locale, copy: LocaleCopy): ILandingContent => ({
     hero: {
         ...copy.hero,
         secondaryCtaUrl: policyUrl(locale),
-        centerImageSrc: withBasePath("/images/sheetcue-product-hero-real.webp"),
+        centerImageSrc: withBasePath(promoImages.hero),
     },
     stats: copy.stats.map((stat, index) => ({
         ...stat,
@@ -874,13 +878,17 @@ const buildContent = (locale: Locale, copy: LocaleCopy): ILandingContent => ({
     })),
     benefits: copy.benefits.map((benefit, benefitIndex) => ({
         ...benefit,
-        imageSrc: withBasePath(benefitImageSrcs[benefitIndex] ?? "/images/sheetcue-hero.png"),
+        imageSrc: withBasePath(promoImages.benefits[benefitIndex] ?? promoImages.hero),
         bullets: benefit.bullets.map((bullet, bulletIndex) => ({
             ...bullet,
             icon: benefitIcons[benefitIndex][bulletIndex],
         })),
     })),
-    workflow: copy.workflow,
+    workflow: {
+        ...copy.workflow,
+        imageSrc: withBasePath(promoImages.workflow),
+        imageAlt: copy.workflow.title,
+    },
     privacy: copy.privacy,
     faq: {
         ...copy.faq,

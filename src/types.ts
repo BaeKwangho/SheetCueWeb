@@ -80,6 +80,8 @@ export interface ILandingContent {
     stats: IStats[];
     benefits: IBenefit[];
     workflow: ISectionContent & {
+        imageSrc?: string;
+        imageAlt?: string;
         steps: IWorkflowStep[];
     };
     privacy: ISectionContent & {

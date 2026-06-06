@@ -47,14 +47,16 @@ export const childVariants = {
 const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
     const { title, description, imageSrc, bullets } = benefit;
     const image = (
-        <div className="w-full">
+        <div className="sheetcue-feature-device w-full">
             <Image
                 src={imageSrc}
                 alt={title}
-                width={1120}
-                height={680}
+                width={760}
+                height={1548}
                 quality={100}
-                className="h-auto w-full border border-line bg-surface shadow-lg"
+                priority={true}
+                loading="eager"
+                className="sheetcue-feature-shot h-auto w-full"
             />
         </div>
     );
