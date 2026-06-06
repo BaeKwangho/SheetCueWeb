@@ -6,6 +6,7 @@ import { motion, Variants } from "framer-motion"
 import BenefitBullet from "./BenefitBullet";
 import SectionTitle from "../SectionTitle";
 import { IBenefit } from "@/types";
+import { revealTransition, revealViewport } from "../revealMotion";
 
 interface Props {
     benefit: IBenefit;
@@ -21,11 +22,9 @@ const containerVariants: Variants = {
         opacity: 1,
         y: 0,
         transition: {
-            type: "spring",
-            bounce: 0.2,
-            duration: 0.9,
-            delayChildren: 0.2,
-            staggerChildren: 0.1,
+            ...revealTransition,
+            delayChildren: 0.08,
+            staggerChildren: 0.08,
         }
     }
 };
@@ -33,16 +32,12 @@ const containerVariants: Variants = {
 export const childVariants = {
     offscreen: {
         opacity: 0,
-        x: -50,
+        y: 18,
     },
     onscreen: {
         opacity: 1,
-        x: 0,
-        transition: {
-            type: "spring",
-            bounce: 0.2,
-            duration: 1,
-        }
+        y: 0,
+        transition: revealTransition,
     },
 };
 
@@ -55,7 +50,7 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
                 className="flex flex-col items-center justify-center gap-8 lg:flex-row lg:gap-16 lg:flex-nowrap"
                 variants={containerVariants}
                 whileInView="onscreen"
-                viewport={{ once: true, amount: 0.22 }}
+                viewport={revealViewport}
             >
                 <div
                     className={clsx("flex w-full max-w-xl items-center", { "justify-start": imageAtRight, "lg:order-1 justify-end": !imageAtRight })}

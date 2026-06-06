@@ -4,6 +4,7 @@ import { BiMinus, BiPlus } from "react-icons/bi";
 
 import SectionTitle from "./SectionTitle";
 import Reveal from "./Reveal";
+import { revealDelay } from "./revealMotion";
 import { ILandingContent } from "@/types";
 
 interface Props {
@@ -27,7 +28,7 @@ const FAQ: React.FC<Props> = ({ faq }) => {
 
                 <div className="mx-auto w-full border-b border-line lg:max-w-2xl">
                     {faq.items.map((item, index) => (
-                        <Reveal key={item.question} delay={index * 0.05} y={16} className="mb-7">
+                        <Reveal key={item.question} delay={0.08 + revealDelay(index, 0.06)} y={16} className="mb-7">
                             <Disclosure as="div">
                                 {({ open }) => (
                                     <>

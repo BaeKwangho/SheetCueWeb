@@ -6,6 +6,7 @@ import Section from "@/components/Section";
 import Stats from "@/components/Stats";
 import CTA from "@/components/CTA";
 import Reveal from "@/components/Reveal";
+import { revealDelay } from "@/components/revealMotion";
 import { ILandingContent } from "@/types";
 import Image from "next/image";
 
@@ -27,7 +28,7 @@ const HomePageContent: React.FC<Props> = ({ content }) => {
           description={content.workflow.description}
         >
           {content.workflow.imageSrc && (
-            <Reveal y={20}>
+            <Reveal delay={0.08} y={20}>
               <Image
                 src={content.workflow.imageSrc}
                 alt={content.workflow.imageAlt ?? content.workflow.title}
@@ -41,7 +42,7 @@ const HomePageContent: React.FC<Props> = ({ content }) => {
           )}
           <div className="grid gap-5 md:grid-cols-4">
             {content.workflow.steps.map(({ number, title, description }, index) => (
-              <Reveal key={title} delay={index * 0.07} y={18}>
+              <Reveal key={title} delay={0.16 + revealDelay(index)} y={18}>
                 <article className="h-full rounded-xl border border-black/10 bg-white p-6 shadow-sm">
                 <span className="mb-8 inline-flex h-11 w-11 items-center justify-center rounded-xl border-2 border-primary text-sm font-bold text-foreground">
                   {number}
@@ -61,7 +62,7 @@ const HomePageContent: React.FC<Props> = ({ content }) => {
         >
           <div className="grid gap-4 md:grid-cols-3">
             {content.privacy.points.map((item, index) => (
-              <Reveal key={item} delay={index * 0.08} y={16}>
+              <Reveal key={item} delay={0.08 + revealDelay(index)} y={16}>
                 <div className="h-full rounded-xl border border-black/10 bg-white p-6 text-center font-semibold">
                   {item}
                 </div>

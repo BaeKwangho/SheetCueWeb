@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { ReactNode } from "react";
+import { revealTransition, revealViewport } from "./revealMotion";
 
 interface Props {
     children: ReactNode;
@@ -18,8 +19,8 @@ const Reveal: React.FC<Props> = ({ children, className, delay = 0, y = 24 }) => 
             className={className}
             initial={shouldReduceMotion ? false : { opacity: 0, y }}
             whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.24 }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay }}
+            viewport={revealViewport}
+            transition={{ ...revealTransition, delay }}
         >
             {children}
         </motion.div>

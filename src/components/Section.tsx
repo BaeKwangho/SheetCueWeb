@@ -16,9 +16,7 @@ const Section: React.FC<React.PropsWithChildren<Props>> = ({ id, title, descript
                 </SectionTitle>
                 <p className="mx-auto mb-12 max-w-3xl text-center leading-8 text-foreground-accent">{description}</p>
             </Reveal>
-            <Reveal delay={0.08} y={18}>
-                {children}
-            </Reveal>
+            {children}
         </section>
     )
 }
