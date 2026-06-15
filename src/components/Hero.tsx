@@ -26,11 +26,30 @@ const Hero: React.FC<Props> = ({ hero }) => {
                 <h1 className="sheetcue-hero-title mx-auto max-w-lg text-4xl font-extrabold tracking-normal md:max-w-4xl md:text-6xl md:leading-tight">{hero.heading}</h1>
                 <p className="mx-auto mt-5 max-w-2xl text-foreground md:text-xl">{hero.subheading}</p>
                 <p className="mx-auto mt-4 max-w-2xl text-base text-foreground-accent md:text-lg">{hero.secondarySubheading}</p>
-                <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-3 w-full mx-auto">
-                    <a href="#release" className="flex min-h-14 w-full items-center justify-center rounded-full bg-[var(--sheetcue-ink)] px-7 font-bold text-white shadow-lg shadow-[rgba(16,43,46,0.16)] transition hover:bg-black sm:w-fit">
-                        {hero.primaryCta}
-                    </a>
-                    <a href={hero.secondaryCtaUrl} className="flex min-h-14 w-full items-center justify-center rounded-full border border-[var(--sheetcue-border)] bg-white/90 px-7 font-bold text-[var(--sheetcue-ink)] shadow-sm transition hover:border-primary sm:w-fit">
+                <div className="mt-8 flex flex-col items-center gap-3">
+                    <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-2 sm:gap-x-4">
+                        <a href={hero.appStoreCtaUrl} target="_blank" rel="noreferrer" aria-label={hero.appStoreBadgeAlt} className="inline-flex h-11 w-[148px] items-center justify-center transition-opacity hover:opacity-85 sm:h-12 sm:w-[162px]">
+                            <Image
+                                src={hero.appStoreBadgeSrc}
+                                width={162}
+                                height={48}
+                                alt={hero.appStoreBadgeAlt}
+                                unoptimized
+                                className="max-h-full max-w-full object-contain"
+                            />
+                        </a>
+                        <a href={hero.primaryCtaUrl} target="_blank" rel="noreferrer" aria-label={hero.playStoreBadgeAlt} className="inline-flex h-11 w-[148px] items-center justify-center transition-opacity hover:opacity-85 sm:h-12 sm:w-[162px]">
+                            <Image
+                                src={hero.playStoreBadgeSrc}
+                                width={162}
+                                height={48}
+                                alt={hero.playStoreBadgeAlt}
+                                unoptimized
+                                className="max-h-full max-w-full object-contain"
+                            />
+                        </a>
+                    </div>
+                    <a href={hero.secondaryCtaUrl} className="text-sm font-semibold text-[var(--sheetcue-ink)] underline-offset-4 transition hover:text-primary hover:underline">
                         {hero.secondaryCta}
                     </a>
                 </div>
