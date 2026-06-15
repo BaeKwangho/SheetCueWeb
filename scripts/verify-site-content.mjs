@@ -13,6 +13,7 @@ const requiredFiles = [
   "src/app/zh-TW/page.tsx",
   "src/app/robots.ts",
   "src/app/sitemap.ts",
+  "public/google4d373a09b6a07242.html",
   "scripts/localize-static-html.mjs",
   "src/components/CTA.tsx",
   "src/components/FAQ.tsx",
@@ -86,6 +87,11 @@ for (const required of ["languageAlternates", "SoftwareApplication", "FAQPage", 
   if (!seo.includes(required)) {
     throw new Error(`SEO helper must include ${required}.`);
   }
+}
+
+const googleVerification = readFileSync(join(root, "public/google4d373a09b6a07242.html"), "utf8").trim();
+if (googleVerification !== "google-site-verification: google4d373a09b6a07242.html") {
+  throw new Error("Google Search Console verification HTML must match the issued token.");
 }
 
 const benefitSection = readFileSync(join(root, "src/components/Benefits/BenefitSection.tsx"), "utf8");
