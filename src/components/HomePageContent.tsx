@@ -7,6 +7,7 @@ import Stats from "@/components/Stats";
 import CTA from "@/components/CTA";
 import Reveal from "@/components/Reveal";
 import { revealDelay } from "@/components/revealMotion";
+import { buildStructuredData } from "@/data/seo";
 import { ILandingContent } from "@/types";
 import Image from "next/image";
 
@@ -17,6 +18,10 @@ interface Props {
 const HomePageContent: React.FC<Props> = ({ content }) => {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildStructuredData(content)) }}
+      />
       <Hero hero={content.hero} />
       <Container>
         <Stats stats={content.stats} />

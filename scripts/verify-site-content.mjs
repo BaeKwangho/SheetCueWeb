@@ -11,9 +11,13 @@ const requiredFiles = [
   "src/app/fr/page.tsx",
   "src/app/es/page.tsx",
   "src/app/zh-TW/page.tsx",
+  "src/app/robots.ts",
+  "src/app/sitemap.ts",
+  "scripts/localize-static-html.mjs",
   "src/components/CTA.tsx",
   "src/components/FAQ.tsx",
   "src/components/Benefits/BenefitSection.tsx",
+  "src/data/seo.ts",
   "next.config.mjs",
 ];
 
@@ -41,8 +45,20 @@ if (!nextConfig.includes("trailingSlash: true")) {
   throw new Error("Next static export must use trailingSlash: true so GitHub Pages serves localized routes as directories.");
 }
 
+const packageJson = readFileSync(join(root, "package.json"), "utf8");
+if (!packageJson.includes("scripts/localize-static-html.mjs")) {
+  throw new Error("Build script must localize exported HTML lang attributes.");
+}
+
+const htmlLocalizer = readFileSync(join(root, "scripts/localize-static-html.mjs"), "utf8");
+for (const locale of expectedLocales) {
+  if (!htmlLocalizer.includes(`locale: "${locale}"`)) {
+    throw new Error(`Static HTML localizer must include locale ${locale}.`);
+  }
+}
+
 const koreanPage = readFileSync(join(root, "src/app/ko/page.tsx"), "utf8");
-if (!koreanPage.includes("metadata") || !koreanPage.includes("landingContent.ko.metadata")) {
+if (!koreanPage.includes("metadata") || !koreanPage.includes('buildPageMetadata("ko")')) {
   throw new Error("Korean page must define localized metadata.");
 }
 
@@ -55,14 +71,20 @@ for (const locale of expectedLocales) {
 
 for (const locale of expectedLocales.filter((locale) => locale !== "en")) {
   const page = readFileSync(join(root, `src/app/${locale}/page.tsx`), "utf8");
-  const accessor = locale === "zh-TW" ? 'landingContent["zh-TW"].metadata' : `landingContent.${locale}.metadata`;
 
-  if (!page.includes("metadata") || !page.includes(accessor)) {
+  if (!page.includes("metadata") || !page.includes(`buildPageMetadata("${locale}")`)) {
     throw new Error(`${locale} page must define localized metadata.`);
   }
 
   if (page.includes(`\${siteDetails.siteUrl}${locale}.html`)) {
     throw new Error(`${locale} page metadata must not use .html canonical URLs.`);
+  }
+}
+
+const seo = readFileSync(join(root, "src/data/seo.ts"), "utf8");
+for (const required of ["languageAlternates", "SoftwareApplication", "FAQPage", "summary_large_image", "og-image.png"]) {
+  if (!seo.includes(required)) {
+    throw new Error(`SEO helper must include ${required}.`);
   }
 }
 
