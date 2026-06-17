@@ -23,15 +23,13 @@ const Header: React.FC = () => {
     };
 
     return (
-        <header className="sheetcue-glass fixed top-0 left-0 right-0 z-50 mx-auto w-full">
+        <header className="fixed left-0 right-0 top-0 z-50 mx-auto w-full border-b border-line bg-surface/90 backdrop-blur">
             <Container className="!px-0">
-                <nav className="mx-auto flex items-center justify-between px-5 py-3 md:py-4">
+                <nav className="mx-auto flex items-center justify-between px-5 py-3">
                     {/* Logo */}
-                    <Link href={homeUrl} className="flex items-center gap-3">
-                        <span className="sheetcue-brand-mark h-10 w-10">
-                            <FiMusic className="h-5 w-5" aria-hidden="true" />
-                        </span>
-                        <span className="manrope cursor-pointer text-xl font-bold text-white">
+                    <Link href={homeUrl} className="flex items-center gap-2">
+                        <FiMusic className="h-7 w-7 min-w-fit text-secondary" />
+                        <span className="manrope text-xl font-semibold text-foreground cursor-pointer">
                             {siteDetails.siteName}
                         </span>
                     </Link>
@@ -40,22 +38,22 @@ const Header: React.FC = () => {
                     <ul className="hidden items-center space-x-6 md:flex">
                         {nav.menuItems.map(item => (
                             <li key={item.text}>
-                                <Link href={item.url} className="text-sm font-semibold text-[rgba(255,255,255,0.72)] transition-colors hover:text-white">
+                                <Link href={item.url} className="text-sm font-medium text-foreground transition-colors hover:text-secondary">
                                     {item.text}
                                 </Link>
                             </li>
                         ))}
                         <li className="relative">
                             <details className="group">
-                                <summary className="list-none cursor-pointer rounded-full border border-[rgba(255,255,255,0.16)] bg-[rgba(255,255,255,0.08)] px-4 py-2 text-sm font-semibold text-[rgba(255,255,255,0.68)] transition-colors hover:text-white [&::-webkit-details-marker]:hidden">
+                                <summary className="list-none cursor-pointer text-sm font-medium text-foreground transition-colors hover:text-secondary [&::-webkit-details-marker]:hidden">
                                     {nav.languageMenuLabel}
                                 </summary>
-                                <div className="absolute right-0 mt-3 w-40 rounded-2xl border border-[rgba(255,255,255,0.12)] bg-[#071113] p-2 shadow-2xl shadow-black/40">
+                                <div className="absolute right-0 mt-3 w-36 rounded-lg border border-line bg-surface p-2 shadow-lg">
                                     {localeRoutes.map((route) => (
                                         <Link
                                             key={route.code}
                                             href={route.path}
-                                            className={`block rounded-xl px-3 py-2 text-sm transition-colors hover:bg-white/10 ${route.code === locale ? "bg-[rgba(255,255,255,0.12)] font-bold text-white" : "text-[rgba(255,255,255,0.64)]"}`}
+                                            className={`block rounded-md px-3 py-2 text-sm transition-colors hover:bg-primary/15 ${route.code === locale ? "font-semibold text-foreground" : "text-foreground-accent"}`}
                                         >
                                             {route.nativeLabel}
                                         </Link>
@@ -64,18 +62,18 @@ const Header: React.FC = () => {
                             </details>
                         </li>
                         <li>
-                            <Link href="#release" className="sheetcue-gradient-button rounded-full px-7 py-3 text-sm font-bold transition">
+                            <Link href="#release" className="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-accent">
                                 {nav.releaseCta}
                             </Link>
                         </li>
                     </ul>
 
                     {/* Mobile Menu Button */}
-                    <div className="flex items-center md:hidden">
+                    <div className="md:hidden flex items-center">
                         <button
                             onClick={toggleMenu}
                             type="button"
-                            className="sheetcue-gradient-button flex h-10 w-10 items-center justify-center rounded-full focus:outline-none"
+                            className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-white focus:outline-none"
                             aria-controls="mobile-menu"
                             aria-expanded={isOpen}
                         >
@@ -100,23 +98,23 @@ const Header: React.FC = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
             >
-                <div id="mobile-menu" className="sheetcue-glass md:hidden">
+                <div id="mobile-menu" className="border-b border-line bg-surface shadow-lg md:hidden">
                     <ul className="flex flex-col space-y-4 pt-1 pb-6 px-6">
                         {nav.menuItems.map(item => (
                             <li key={item.text}>
-                                <Link href={item.url} className="block font-semibold text-[rgba(255,255,255,0.82)] hover:text-white" onClick={toggleMenu}>
+                                <Link href={item.url} className="block text-foreground hover:text-secondary" onClick={toggleMenu}>
                                     {item.text}
                                 </Link>
                             </li>
                         ))}
                         <li>
-                            <span className="mb-2 block text-sm font-semibold text-[rgba(255,255,255,0.58)]">{nav.languageMenuLabel}</span>
+                            <span className="mb-2 block text-sm font-semibold text-foreground">{nav.languageMenuLabel}</span>
                             <div className="grid grid-cols-2 gap-2">
                                 {localeRoutes.map((route) => (
                                     <Link
                                         key={route.code}
                                         href={route.path}
-                                        className={`rounded-xl border border-[rgba(255,255,255,0.12)] px-3 py-2 text-sm hover:border-primary hover:text-white ${route.code === locale ? "bg-[rgba(255,255,255,0.12)] font-bold text-white" : "text-[rgba(255,255,255,0.64)]"}`}
+                                        className={`rounded-md border border-line px-3 py-2 text-sm hover:border-primary hover:text-secondary ${route.code === locale ? "bg-primary/15 font-semibold text-foreground" : "text-foreground-accent"}`}
                                         onClick={toggleMenu}
                                     >
                                         {route.nativeLabel}
@@ -125,7 +123,7 @@ const Header: React.FC = () => {
                             </div>
                         </li>
                         <li>
-                            <Link href="#release" className="sheetcue-gradient-button block w-fit rounded-full px-5 py-2 font-bold" onClick={toggleMenu}>
+                            <Link href="#release" className="block w-fit rounded-lg bg-primary px-5 py-2 font-semibold text-white hover:bg-primary-accent" onClick={toggleMenu}>
                                 {nav.releaseCta}
                             </Link>
                         </li>

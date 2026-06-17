@@ -12,7 +12,6 @@
   --sheetcue-warm: #c58a1b;
   --sheetcue-paper: #f7fbfa;
   --sheetcue-ink: #102b2e;
-  --sheetcue-hero-dark: #020708;
   --sheetcue-teal: #00b8c8;
   --sheetcue-gradient: linear-gradient(135deg, var(--sheetcue-mint) 0%, var(--sheetcue-aqua) 48%, var(--sheetcue-royal) 100%);
   --primary: var(--sheetcue-mint);
@@ -24,6 +23,10 @@
   --sheetcue-border: #dcebea;
   --sheetcue-shadow: 0 24px 70px rgba(16, 43, 46, 0.12);
   --sheetcue-shadow-strong: 0 28px 80px rgba(18, 207, 227, 0.18);
+  --surface: rgba(255, 255, 255, 0.88);
+  --line: rgba(16, 43, 46, 0.13);
+  --correction: #f06458;
+  --panel: #102b2e;
 }
 
 html {
@@ -67,13 +70,17 @@ h1, h2, h3, h4, h5, h6 {
   @apply w-fit h-10 sm:h-12;
 }
 
+.benefit-section > div {
+  @apply mb-14 lg:mb-20;
+}
+
 .benefit-section:last-of-type > div {
-  @apply mb-10;
+  @apply mb-8 lg:mb-12;
 }
 
 .sheetcue-glass {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(2, 7, 8, 0.74);
+  border-bottom: 1px solid rgba(220, 235, 234, 0.8);
+  background: rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(18px);
 }
 
@@ -98,39 +105,24 @@ h1, h2, h3, h4, h5, h6 {
 
 .sheetcue-hero-grid {
   background:
-    radial-gradient(ellipse 48% 38% at 50% 46%, rgba(18, 207, 227, 0.22), transparent 64%),
-    radial-gradient(ellipse 70% 48% at 50% 55%, rgba(42, 245, 208, 0.16), transparent 66%),
-    repeating-radial-gradient(ellipse at 50% 62%, rgba(72, 219, 225, 0.42) 0 1px, transparent 1px 18px),
-    linear-gradient(180deg, #020708 0%, #030b0d 62%, #071113 100%);
-  opacity: 0.92;
-  mask-image: radial-gradient(ellipse 76% 72% at 50% 56%, #000 42%, transparent 84%);
-}
-
-.sheetcue-hero-spotlight {
-  background:
-    radial-gradient(circle at 50% 33%, rgba(255, 255, 255, 0.1), transparent 18%),
-    linear-gradient(180deg, rgba(2, 7, 8, 0) 0%, rgba(2, 7, 8, 0.36) 52%, rgba(2, 7, 8, 0.82) 100%);
+    repeating-linear-gradient(0deg, rgba(16, 43, 46, 0.045) 0 1px, transparent 1px 18px),
+    repeating-linear-gradient(90deg, rgba(16, 43, 46, 0.038) 0 1px, transparent 1px 108px),
+    radial-gradient(circle at 24% 22%, rgba(42, 245, 208, 0.22), transparent 28%),
+    radial-gradient(circle at 78% 30%, rgba(36, 107, 255, 0.14), transparent 30%),
+    linear-gradient(180deg, #ffffff 0%, var(--hero-background) 100%);
+  background-size: auto;
+  mask-image: radial-gradient(ellipse 72% 62% at 50% 44%, #000 58%, transparent 100%);
 }
 
 .sheetcue-eyebrow {
-  color: #83eefa;
+  color: var(--sheetcue-teal);
 }
 
 .sheetcue-hero-title {
-  color: #ffffff;
+  color: var(--sheetcue-ink);
   text-wrap: balance;
   word-break: keep-all;
   overflow-wrap: normal;
-}
-
-.sheetcue-hero-cta {
-  background: linear-gradient(180deg, rgba(60, 164, 255, 0.95), rgba(29, 92, 180, 0.9));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 18px 42px rgba(29, 124, 255, 0.34);
-}
-
-.sheetcue-hero-cta:hover {
-  filter: brightness(1.08);
-  transform: translateY(-1px);
 }
 
 .sheetcue-hero-media {
@@ -191,68 +183,8 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 30px 90px rgba(16, 43, 46, 0.1);
 }
 
-.sheetcue-workflow-rail article:first-child {
-  background: rgba(255, 255, 255, 0.16);
-  color: white;
-}
-
-.sheetcue-workflow-rail article:first-child p {
-  color: rgba(255, 255, 255, 0.64);
-}
-
-.sheetcue-workflow-rail article:first-child span {
-  background: var(--sheetcue-gradient);
-  color: var(--sheetcue-ink);
-}
-
-.sheetcue-dark-band {
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  background:
-    radial-gradient(ellipse 48% 32% at 50% 20%, rgba(18, 207, 227, 0.16), transparent 68%),
-    #020708;
-}
-
-.sheetcue-dark-band > section {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 72rem;
-  border-color: rgba(255, 255, 255, 0.1);
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-}
-
-.sheetcue-dark-band h2 {
-  color: white;
-}
-
-.sheetcue-dark-band section > div:first-child p:last-child {
-  color: rgba(255, 255, 255, 0.62);
-}
-
-.sheetcue-trust-band div::before {
-  content: "";
-  display: block;
-  width: 2rem;
-  height: 0.25rem;
-  margin-bottom: 1.1rem;
-  border-radius: 999px;
-  background: var(--sheetcue-gradient);
-}
-
-.sheetcue-final-cta {
-  background:
-    radial-gradient(ellipse 54% 62% at 50% 0%, rgba(18, 207, 227, 0.22), transparent 70%),
-    repeating-radial-gradient(ellipse at 50% 0%, rgba(72, 219, 225, 0.26) 0 1px, transparent 1px 18px),
-    #020708;
-}
-
 #features {
-  margin-top: 1rem;
-}
-
-.sheetcue-proof-strip svg {
-  color: #73f3e3;
+  margin-top: 3rem;
 }
 
 .benefit-section h3 {
@@ -264,36 +196,27 @@ h1, h2, h3, h4, h5, h6 {
   word-break: keep-all;
 }
 
+.sheetcue-stat-grid {
+  border-color: rgba(16, 43, 46, 0.12);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(244, 250, 248, 0.84));
+  box-shadow: 0 22px 60px rgba(16, 43, 46, 0.08);
+}
+
+.sheetcue-stat-card {
+  border-color: rgba(16, 43, 46, 0.1);
+}
+
+.sheetcue-soft-card {
+  border-color: rgba(16, 43, 46, 0.1);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 18px 50px rgba(16, 43, 46, 0.07);
+}
+
 @media (max-width: 520px) {
-  body {
-    font-size: 1rem;
-  }
-
   .sheetcue-hero-title {
-    font-size: 2.35rem;
-    line-height: 1.05;
-  }
-
-  #hero {
-    min-height: 0;
-    padding-top: 6.5rem;
-  }
-
-  #hero .sheetcue-hero-media {
-    margin-top: 2.3rem;
-  }
-
-  #hero .sheetcue-hero-cta {
-    min-height: 3.6rem;
-  }
-
-  #stats {
-    margin-top: 0 !important;
-    padding-top: 2.25rem;
-  }
-
-  .sheetcue-proof-strip {
-    border-radius: 1.25rem;
+    font-size: 2.45rem;
+    line-height: 1.08;
   }
 
   .sheetcue-landscape-device {
@@ -315,5 +238,9 @@ h1, h2, h3, h4, h5, h6 {
 
   .sheetcue-feature-shot {
     border-radius: 1rem;
+  }
+
+  #features {
+    margin-top: 2rem;
   }
 }

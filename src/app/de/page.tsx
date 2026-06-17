@@ -1,10 +1,8 @@
-import type { Metadata } from "next";
-
 import HomePageContent from "@/components/HomePageContent";
 import { landingContent } from "@/data/landingContent";
 import { buildPageMetadata } from "@/data/seo";
 
-export const metadata: Metadata = buildPageMetadata("de");
+export const metadata = buildPageMetadata("de");
 
 const GermanHomePage: React.FC = () => {
   return <HomePageContent content={landingContent.de} />;

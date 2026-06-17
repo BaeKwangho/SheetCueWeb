@@ -6,26 +6,27 @@ import { motion, Variants } from "framer-motion"
 import BenefitBullet from "./BenefitBullet";
 import SectionTitle from "../SectionTitle";
 import { IBenefit } from "@/types";
+import { revealTransition, revealViewport } from "../revealMotion";
 
 interface Props {
     benefit: IBenefit;
     imageAtRight?: boolean;
 }
 
+const initialRevealState = "offscreen";
+
 const containerVariants: Variants = {
     offscreen: {
         opacity: 0,
-        y: 100
+        y: 32
     },
     onscreen: {
         opacity: 1,
         y: 0,
         transition: {
-            type: "spring",
-            bounce: 0.2,
-            duration: 0.9,
-            delayChildren: 0.2,
-            staggerChildren: 0.1,
+            ...revealTransition,
+            delayChildren: 0.08,
+            staggerChildren: 0.08,
         }
     }
 };
@@ -33,16 +34,12 @@ const containerVariants: Variants = {
 export const childVariants = {
     offscreen: {
         opacity: 0,
-        x: -50,
+        y: 18,
     },
     onscreen: {
         opacity: 1,
-        x: 0,
-        transition: {
-            type: "spring",
-            bounce: 0.2,
-            duration: 1,
-        }
+        y: 0,
+        transition: revealTransition,
     },
 };
 
@@ -52,35 +49,33 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
     return (
         <section className="benefit-section">
             <motion.div
-                className="flex flex-col items-center justify-center gap-8 border-t border-black/10 py-20 lg:flex-row lg:flex-nowrap lg:gap-24 lg:py-28"
+                className="flex flex-col items-center justify-center gap-8 lg:flex-row lg:gap-16 lg:flex-nowrap"
+                initial={initialRevealState}
                 variants={containerVariants}
                 whileInView="onscreen"
-                viewport={{ once: true }}
+                viewport={revealViewport}
             >
                 <div
-                    className={clsx("flex w-full max-w-xl flex-wrap items-center", { "justify-start": imageAtRight, "lg:order-1 justify-end": !imageAtRight })}
+                    className={clsx("flex w-full max-w-xl items-center", { "justify-start": imageAtRight, "lg:order-1 justify-end": !imageAtRight })}
                     
                 >
-                    <div className="w-full text-left">
+                    <div className="sheetcue-soft-card w-full rounded-[1.75rem] border p-6 text-center lg:p-8 lg:text-left">
                         <motion.div
                             className="flex flex-col w-full"
                             variants={childVariants}
                         >
-                            <p className="mb-4 text-sm font-bold uppercase text-[var(--sheetcue-teal)]">
-                                SheetCue flow
-                            </p>
                             <SectionTitle>
-                                <h3 className="max-w-xl text-4xl leading-tight lg:text-5xl">
+                                <h3 className="lg:max-w-2xl">
                                     {title}
                                 </h3>
                             </SectionTitle>
 
-                            <p className="mt-5 max-w-lg text-lg leading-8 text-foreground-accent">
+                            <p className="mx-auto mt-3 max-w-xl leading-7 text-foreground-accent lg:ml-0">
                                 {description}
                             </p>
                         </motion.div>
 
-                        <div className="mt-7 w-full">
+                        <div className="mx-auto lg:ml-0 w-full">
                             {bullets.map((item, index) => (
                                 <BenefitBullet key={index} title={item.title} icon={item.icon} description={item.description} />
                             ))}
@@ -88,8 +83,8 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
                     </div>
                 </div>
 
-                <div className={clsx("order-first mt-0 flex w-full justify-center lg:order-none lg:mt-0 lg:w-auto", { "lg:order-2": imageAtRight })}>
-                    <div className={clsx("sheetcue-feature-device w-full max-w-[360px]", { "lg:ml-0": imageAtRight })}>
+                <div className={clsx("order-first flex w-full justify-center lg:order-none lg:w-[42%]", { "lg:order-2": imageAtRight })}>
+                    <div className={clsx("sheetcue-feature-device w-full max-w-[330px] sm:max-w-[350px] lg:max-w-[360px]", { "lg:ml-0": imageAtRight })}>
                         <Image
                             src={imageSrc}
                             alt={title}

@@ -1,4 +1,6 @@
 import { IStats } from "@/types"
+import Reveal from "./Reveal";
+import { revealDelay } from "./revealMotion";
 
 interface Props {
     stats: IStats[];
@@ -6,16 +8,16 @@ interface Props {
 
 const Stats: React.FC<Props> = ({ stats }) => {
     return (
-        <section id="stats" className="relative z-10 -mt-10 pb-12 lg:-mt-16 lg:pb-24">
-            <div className="sheetcue-proof-strip grid gap-px overflow-hidden rounded-2xl border border-white/12 bg-white/10 shadow-2xl shadow-black/10 sm:grid-cols-3">
-                {stats.map(stat => (
-                    <div key={stat.title} className="bg-[#071113] px-6 py-6 text-left text-white lg:px-8 lg:py-7">
-                        <h3 className="mb-3 flex items-center gap-3 text-xl font-bold lg:text-2xl">
+        <section id="stats" className="py-8 lg:py-14">
+            <div className="sheetcue-stat-grid grid overflow-hidden rounded-[1.75rem] border sm:grid-cols-3">
+                {stats.map((stat, index) => (
+                    <Reveal key={stat.title} delay={revealDelay(index)} y={18} className="sheetcue-stat-card mx-auto max-w-md border-b p-6 text-center last:border-b-0 sm:max-w-full sm:border-b-0 sm:border-r sm:text-left sm:last:border-r-0 lg:p-8">
+                        <h3 className="mb-4 flex items-center justify-center gap-2 text-2xl font-semibold sm:justify-start">
                             {stat.icon}
                             {stat.title}
                         </h3>
-                        <p className="text-base leading-7 text-white/62">{stat.description}</p>
-                    </div>
+                        <p className="leading-7 text-foreground-accent">{stat.description}</p>
+                    </Reveal>
                 ))}
             </div>
         </section>

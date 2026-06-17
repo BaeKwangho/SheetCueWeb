@@ -11,28 +11,49 @@ const Hero: React.FC<Props> = ({ hero }) => {
     return (
         <section
             id="hero"
-            className="relative isolate flex min-h-[calc(100vh-1px)] items-center justify-center overflow-hidden bg-[var(--sheetcue-hero-dark)] px-5 pb-0 pt-28 text-white md:pt-32"
+            className="relative flex items-center justify-center overflow-hidden px-5 pb-0 pt-32 md:pt-40"
         >
-            <div className="absolute inset-0 -z-10">
-                <div className="sheetcue-hero-grid absolute inset-0" />
-                <div className="sheetcue-hero-spotlight absolute inset-0" />
+            <div className="absolute left-0 top-0 bottom-0 -z-10 w-full">
+                <div className="sheetcue-hero-grid absolute inset-0 h-full w-full">
+                </div>
             </div>
 
-            <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-b from-transparent to-white" />
+            <div className="absolute bottom-0 left-0 right-0 h-44 bg-gradient-to-b from-transparent via-[rgba(245,250,249,0.72)] to-white backdrop-blur-[2px]">
+            </div>
 
             <div className="w-full text-center max-w-6xl">
-                <p className="sheetcue-eyebrow mx-auto mb-5 w-fit text-sm font-bold">{hero.eyebrow}</p>
-                <h1 className="sheetcue-hero-title mx-auto max-w-lg text-4xl font-extrabold tracking-normal md:max-w-4xl md:text-7xl md:leading-[1.05]">{hero.heading}</h1>
-                <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-white/72 md:text-xl">{hero.subheading}</p>
-                <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                    <a href="#release" className="sheetcue-hero-cta flex min-h-14 w-full items-center justify-center rounded-full px-8 font-bold text-white transition sm:w-fit">
-                        {hero.primaryCta}
-                    </a>
-                    <a href={hero.secondaryCtaUrl} className="text-sm font-semibold text-white/60 underline-offset-4 transition hover:text-white hover:underline">
+                <p className="sheetcue-eyebrow mx-auto mb-5 w-fit rounded-full border border-[var(--sheetcue-border)] bg-white/82 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.18em] shadow-sm">{hero.eyebrow}</p>
+                <h1 className="sheetcue-hero-title mx-auto max-w-lg text-4xl font-extrabold tracking-normal md:max-w-4xl md:text-6xl md:leading-tight">{hero.heading}</h1>
+                <p className="mx-auto mt-5 max-w-2xl text-foreground md:text-xl">{hero.subheading}</p>
+                <p className="mx-auto mt-4 max-w-2xl text-base text-foreground-accent md:text-lg">{hero.secondarySubheading}</p>
+                <div className="mt-8 flex flex-col items-center gap-3">
+                    <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-2 sm:gap-x-4">
+                        <a href={hero.appStoreCtaUrl} target="_blank" rel="noreferrer" aria-label={hero.appStoreBadgeAlt} className="inline-flex h-11 w-[148px] items-center justify-center transition-opacity hover:opacity-85 sm:h-12 sm:w-[162px]">
+                            <Image
+                                src={hero.appStoreBadgeSrc}
+                                width={162}
+                                height={48}
+                                alt={hero.appStoreBadgeAlt}
+                                unoptimized
+                                className="max-h-full max-w-full object-contain"
+                            />
+                        </a>
+                        <a href={hero.primaryCtaUrl} target="_blank" rel="noreferrer" aria-label={hero.playStoreBadgeAlt} className="inline-flex h-11 w-[148px] items-center justify-center transition-opacity hover:opacity-85 sm:h-12 sm:w-[162px]">
+                            <Image
+                                src={hero.playStoreBadgeSrc}
+                                width={162}
+                                height={48}
+                                alt={hero.playStoreBadgeAlt}
+                                unoptimized
+                                className="max-h-full max-w-full object-contain"
+                            />
+                        </a>
+                    </div>
+                    <a href={hero.secondaryCtaUrl} className="text-sm font-semibold text-[var(--sheetcue-ink)] underline-offset-4 transition hover:text-primary hover:underline">
                         {hero.secondaryCta}
                     </a>
                 </div>
-                <div className="sheetcue-hero-media sheetcue-landscape-device relative z-10 mx-auto mt-10 w-full max-w-[1080px] rounded-[2rem] border bg-white p-2 md:mt-12">
+                <div className="sheetcue-hero-media sheetcue-landscape-device relative z-10 mx-auto mt-12 w-full max-w-[1080px] rounded-[2rem] border bg-white p-2 md:mt-16">
                     <Image
                         src={hero.centerImageSrc}
                         width={1800}
