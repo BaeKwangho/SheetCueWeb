@@ -60,8 +60,8 @@
       color: #0b57d0;
     }
 
-    .english {
-      margin-top: 64px;
+    .localized-section[hidden] {
+      display: none;
     }
   </style>
 </head>
@@ -72,9 +72,9 @@
       <a href="#en">English</a>
     </nav>
 
-    <section id="ko" lang="ko">
+    <section id="ko" lang="ko" class="localized-section">
     <h1>SheetCue 개인정보처리방침</h1>
-    <p class="updated">최종 업데이트: 2026년 5월 27일</p>
+    <p class="updated">최종 업데이트: 2026년 6월 10일</p>
 
     <p>
       SheetCue는 사용자가 PDF 악보를 가져와 마디 단위 재생 프리셋을 만들고
@@ -89,6 +89,10 @@
       <li>악보 페이지 렌더링 이미지</li>
       <li>마디별로 잘라낸 이미지</li>
       <li>제목, BPM, 박자, 페이지 수, 재생 순서, 생성일, 수정일 등 프리셋 정보</li>
+      <li>
+        재생 종료 전면 광고 표시 조건을 판단하기 위한 현재 로컬 날짜와 당일
+        누적 재생 시간
+      </li>
     </ul>
 
     <h2>계정 및 서버 업로드</h2>
@@ -109,6 +113,12 @@
       동의 상태를 확인한 뒤 광고를 표시합니다. 광고 데이터 처리에 관한 자세한
       내용은 Google의 개인정보처리방침 및 Google 광고 관련 설명을 참고하시기
       바랍니다.
+    </p>
+    <p>
+      재생 종료 전면 광고는 사용자가 현재 로컬 날짜 기준으로 일정 시간 이상
+      실제 재생한 뒤 앱 안에서 재생을 일시정지하거나 재생 화면을 벗어날 때
+      표시될 수 있습니다. SheetCue는 이 조건 판단을 위해 로컬 광고 페이싱
+      카운터를 기기 안에 저장하며, 이 값은 로컬 날짜가 바뀌면 초기화됩니다.
     </p>
 
     <h2>데이터 판매</h2>
@@ -143,9 +153,9 @@
     </p>
     </section>
 
-    <section id="en" lang="en" class="english">
+    <section id="en" lang="en" class="localized-section" hidden>
       <h1>SheetCue Privacy Policy</h1>
-      <p class="updated">Last updated: May 27, 2026</p>
+      <p class="updated">Last updated: June 10, 2026</p>
 
       <p>
         SheetCue helps users import PDF sheet music, create measure-based
@@ -162,6 +172,10 @@
         <li>
           Preset information such as title, BPM, beats, page count, playback
           order, creation date, and edit date
+        </li>
+        <li>
+          The current local day and accumulated same-day playback time used to
+          decide when playback-exit interstitial ads may be shown
         </li>
       </ul>
 
@@ -185,6 +199,13 @@
         Google User Messaging Platform before showing ads. For more information
         about advertising data processing, please refer to Google's Privacy
         Policy and Google's advertising-related explanations.
+      </p>
+      <p>
+        Playback-exit interstitial ads may appear after the user has accumulated
+        enough actual playback during the current local day and then pauses
+        playback or leaves a playback surface inside the app. SheetCue stores
+        this local advertising pacing counter on the device and resets it when
+        the local date changes.
       </p>
 
       <h2>Sale Of Data</h2>
@@ -221,5 +242,19 @@
       </p>
     </section>
   </main>
+  <script>
+    const sections = Array.from(document.querySelectorAll(".localized-section"));
+    const applyLanguage = () => {
+      const requested = window.location.hash.replace("#", "");
+      const active = requested === "en" ? "en" : "ko";
+      document.documentElement.lang = active;
+      sections.forEach((section) => {
+        section.hidden = section.id !== active;
+      });
+    };
+
+    window.addEventListener("hashchange", applyLanguage);
+    applyLanguage();
+  </script>
 </body>
 </html>

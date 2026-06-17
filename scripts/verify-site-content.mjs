@@ -11,12 +11,14 @@ const requiredFiles = [
   "src/app/fr/page.tsx",
   "src/app/es/page.tsx",
   "src/app/zh-TW/page.tsx",
+  "src/app/robots.ts",
+  "src/app/sitemap.ts",
+  "public/google4d373a09b6a07242.html",
+  "scripts/localize-static-html.mjs",
   "src/components/CTA.tsx",
   "src/components/FAQ.tsx",
   "src/components/Benefits/BenefitSection.tsx",
   "src/data/seo.ts",
-  "src/app/robots.ts",
-  "src/app/sitemap.ts",
   "next.config.mjs",
 ];
 
@@ -44,8 +46,20 @@ if (!nextConfig.includes("trailingSlash: true")) {
   throw new Error("Next static export must use trailingSlash: true so GitHub Pages serves localized routes as directories.");
 }
 
+const packageJson = readFileSync(join(root, "package.json"), "utf8");
+if (!packageJson.includes("scripts/localize-static-html.mjs")) {
+  throw new Error("Build script must localize exported HTML lang attributes.");
+}
+
+const htmlLocalizer = readFileSync(join(root, "scripts/localize-static-html.mjs"), "utf8");
+for (const locale of expectedLocales) {
+  if (!htmlLocalizer.includes(`locale: "${locale}"`)) {
+    throw new Error(`Static HTML localizer must include locale ${locale}.`);
+  }
+}
+
 const koreanPage = readFileSync(join(root, "src/app/ko/page.tsx"), "utf8");
-if (!koreanPage.includes("metadata") || !(koreanPage.includes("landingContent.ko.metadata") || koreanPage.includes('buildPageMetadata("ko")'))) {
+if (!koreanPage.includes("metadata") || !koreanPage.includes('buildPageMetadata("ko")')) {
   throw new Error("Korean page must define localized metadata.");
 }
 
@@ -58,10 +72,8 @@ for (const locale of expectedLocales) {
 
 for (const locale of expectedLocales.filter((locale) => locale !== "en")) {
   const page = readFileSync(join(root, `src/app/${locale}/page.tsx`), "utf8");
-  const accessor = locale === "zh-TW" ? 'landingContent["zh-TW"].metadata' : `landingContent.${locale}.metadata`;
-  const metadataHelper = `buildPageMetadata("${locale}")`;
 
-  if (!page.includes("metadata") || !(page.includes(accessor) || page.includes(metadataHelper))) {
+  if (!page.includes("metadata") || !page.includes(`buildPageMetadata("${locale}")`)) {
     throw new Error(`${locale} page must define localized metadata.`);
   }
 
@@ -70,16 +82,32 @@ for (const locale of expectedLocales.filter((locale) => locale !== "en")) {
   }
 }
 
-const benefitSection = readFileSync(join(root, "src/components/Benefits/BenefitSection.tsx"), "utf8");
-if (benefitSection.includes('initial="offscreen"')) {
-  throw new Error("Benefit sections must render visible by default for full-page captures and no-JS fallback.");
+const siteDetails = readFileSync(join(root, "src/data/siteDetails.ts"), "utf8");
+if (!siteDetails.includes("https://sheetcue.pages.dev/")) {
+  throw new Error("Default site URL must point to the Cloudflare Pages production domain.");
 }
 
 const seo = readFileSync(join(root, "src/data/seo.ts"), "utf8");
+for (const required of ["languageAlternates", "SoftwareApplication", "FAQPage", "summary_large_image", "og-image.png"]) {
+  if (!seo.includes(required)) {
+    throw new Error(`SEO helper must include ${required}.`);
+  }
+}
+
 for (const schemaType of ["Organization", "SoftwareApplication", "WebPage", "FAQPage"]) {
   if (!seo.includes(`"@type": "${schemaType}"`)) {
     throw new Error(`Structured data must include schema.org ${schemaType}.`);
   }
+}
+
+const googleVerification = readFileSync(join(root, "public/google4d373a09b6a07242.html"), "utf8").trim();
+if (googleVerification !== "google-site-verification: google4d373a09b6a07242.html") {
+  throw new Error("Google Search Console verification HTML must match the issued token.");
+}
+
+const benefitSection = readFileSync(join(root, "src/components/Benefits/BenefitSection.tsx"), "utf8");
+if (benefitSection.includes('initial="offscreen"')) {
+  throw new Error("Benefit sections must render visible by default for full-page captures and no-JS fallback.");
 }
 
 const homePageContent = readFileSync(join(root, "src/components/HomePageContent.tsx"), "utf8");

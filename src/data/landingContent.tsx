@@ -45,6 +45,77 @@ export const getLocaleFromPathname = (pathname: string | null | undefined): Loca
 const policyLocaleFor = (locale: Locale): "en" | "ko" => (locale === "ko" ? "ko" : "en");
 const policyUrl = (locale: Locale) => withBasePath(`/privacy/privacy-policy.html#${policyLocaleFor(locale)}`);
 const supportUrl = (locale: Locale) => withBasePath(`/privacy/support.html#${policyLocaleFor(locale)}`);
+const playStoreUrlByLocale: Record<Locale, string> = {
+    en: "https://play.google.com/store/apps/details?id=com.sheetcue&hl=en_US&gl=US",
+    ko: "https://play.google.com/store/apps/details?id=com.sheetcue&hl=ko&gl=KR",
+    ja: "https://play.google.com/store/apps/details?id=com.sheetcue&hl=ja&gl=JP",
+    de: "https://play.google.com/store/apps/details?id=com.sheetcue&hl=de&gl=DE",
+    fr: "https://play.google.com/store/apps/details?id=com.sheetcue&hl=fr&gl=FR",
+    es: "https://play.google.com/store/apps/details?id=com.sheetcue&hl=es&gl=ES",
+    "zh-TW": "https://play.google.com/store/apps/details?id=com.sheetcue&hl=zh_TW&gl=TW",
+};
+const appStoreUrlByLocale: Record<Locale, string> = {
+    en: "https://apps.apple.com/us/app/sheetcue/id6773944737",
+    ko: "https://apps.apple.com/kr/app/sheetcue/id6773944737",
+    ja: "https://apps.apple.com/jp/app/sheetcue/id6773944737",
+    de: "https://apps.apple.com/de/app/sheetcue/id6773944737",
+    fr: "https://apps.apple.com/fr/app/sheetcue/id6773944737",
+    es: "https://apps.apple.com/es/app/sheetcue/id6773944737",
+    "zh-TW": "https://apps.apple.com/tw/app/sheetcue/id6773944737",
+};
+
+const storeBadgeAssetsByLocale: Record<
+    Locale,
+    {
+        playStoreSrc: string;
+        playStoreAlt: string;
+        appStoreSrc: string;
+        appStoreAlt: string;
+    }
+> = {
+    en: {
+        playStoreSrc: "/assets/store-badges/en-google-play.png",
+        playStoreAlt: "Get it on Google Play",
+        appStoreSrc: "/assets/store-badges/en-app-store.svg",
+        appStoreAlt: "Download on the App Store",
+    },
+    ko: {
+        playStoreSrc: "/assets/store-badges/ko-google-play.png",
+        playStoreAlt: "Google Play에서 받기",
+        appStoreSrc: "/assets/store-badges/ko-app-store.svg",
+        appStoreAlt: "App Store에서 다운로드하기",
+    },
+    ja: {
+        playStoreSrc: "/assets/store-badges/ja-google-play.png",
+        playStoreAlt: "Google Play で手に入れよう",
+        appStoreSrc: "/assets/store-badges/ja-app-store.svg",
+        appStoreAlt: "App Store からダウンロード",
+    },
+    de: {
+        playStoreSrc: "/assets/store-badges/de-google-play.png",
+        playStoreAlt: "Jetzt bei Google Play",
+        appStoreSrc: "/assets/store-badges/de-app-store.svg",
+        appStoreAlt: "Laden im App Store",
+    },
+    fr: {
+        playStoreSrc: "/assets/store-badges/fr-google-play.png",
+        playStoreAlt: "Disponible sur Google Play",
+        appStoreSrc: "/assets/store-badges/fr-app-store.svg",
+        appStoreAlt: "Télécharger dans l'App Store",
+    },
+    es: {
+        playStoreSrc: "/assets/store-badges/es-google-play.png",
+        playStoreAlt: "Disponible en Google Play",
+        appStoreSrc: "/assets/store-badges/es-app-store.svg",
+        appStoreAlt: "Descárgalo en el App Store",
+    },
+    "zh-TW": {
+        playStoreSrc: "/assets/store-badges/zh-TW-google-play.png",
+        playStoreAlt: "立即前往 Google Play",
+        appStoreSrc: "/assets/store-badges/zh-TW-app-store.svg",
+        appStoreAlt: "從 App Store 下載",
+    },
+};
 
 type LocaleCopy = {
     metadata: ILandingContent["metadata"];
@@ -53,7 +124,18 @@ type LocaleCopy = {
         releaseCta: string;
         languageMenuLabel: string;
     };
-    hero: Omit<ILandingContent["hero"], "secondaryCtaUrl" | "centerImageSrc" | "imageAlt"> & {
+    hero: Omit<
+        ILandingContent["hero"],
+        | "primaryCtaUrl"
+        | "appStoreCtaUrl"
+        | "secondaryCtaUrl"
+        | "playStoreBadgeSrc"
+        | "playStoreBadgeAlt"
+        | "appStoreBadgeSrc"
+        | "appStoreBadgeAlt"
+        | "centerImageSrc"
+        | "imageAlt"
+    > & {
         imageAlt: string;
     };
     stats: Array<{ title: string; description: string }>;
@@ -65,32 +147,44 @@ type LocaleCopy = {
     workflow: ILandingContent["workflow"];
     privacy: ILandingContent["privacy"];
     faq: Omit<ILandingContent["faq"], "supportUrl">;
-    cta: Omit<ILandingContent["cta"], "releaseUrl" | "privacyUrl">;
+    cta: Omit<
+        ILandingContent["cta"],
+        | "releaseUrl"
+        | "privacyUrl"
+        | "playStoreUrl"
+        | "playStoreLabel"
+        | "playStoreBadgeSrc"
+        | "playStoreBadgeAlt"
+        | "appStoreUrl"
+        | "appStoreLabel"
+        | "appStoreBadgeSrc"
+        | "appStoreBadgeAlt"
+    >;
     footer: Omit<ILandingContent["footer"], "email" | "telephone" | "socials">;
 };
 
 const copyByLocale: Record<Locale, LocaleCopy> = {
     en: {
         metadata: {
-            title: "SheetCue | Editable PDF Score Practice Flow",
-            description: "SheetCue turns PDF scores into editable measure cues for rehearsal. Import locally, correct measures, arrange repeats, and practice from playback cues.",
+            title: "SheetCue: PDF Score Viewer",
+            description: "View PDF sheet music and practice measure by measure. Import a score PDF, adjust measures and timing, then follow your playback order.",
         },
         nav: {
             menuItems: [
                 { text: "Features", url: "#features" },
                 { text: "Workflow", url: "#workflow" },
                 { text: "Privacy", url: "#privacy" },
-                { text: "Release", url: "#release" },
+                { text: "Stores", url: "#release" },
             ],
-            releaseCta: "Release status",
+            releaseCta: "Download",
             languageMenuLabel: "Language",
         },
         hero: {
-            eyebrow: "Editable score rehearsal",
-            heading: "Edit your PDF score into a practice flow.",
-            subheading: "Mark measures, reorder repeats, adjust timing, and rehearse from cues you control.",
-            secondarySubheading: "Not just a PDF viewer. SheetCue turns static pages into editable measure cues.",
-            primaryCta: "Get release updates",
+            eyebrow: "PDF score viewer",
+            heading: "View PDF sheet music and practice measure by measure.",
+            subheading: "Import a score PDF, review detected measures, adjust boxes and timing, then build the playback order you want to follow.",
+            secondarySubheading: "Landscape practice mode moves through the score measure by measure so you can keep your place while practicing.",
+            primaryCta: "Get it on Google Play",
             secondaryCta: "Read privacy policy",
             imageAlt: "Sketch of importing a score PDF, editing measure boxes, and rehearsing from playback cues",
         },
@@ -152,16 +246,16 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
             supportLink: "SheetCue support",
             items: [
                 { question: "Does SheetCue upload my score PDFs?", answer: "No. The current build stores imported score PDFs, rendered page images, cropped measure images, and preset metadata locally on the user's device." },
-                { question: "Is SheetCue available in app stores now?", answer: "SheetCue is preparing for public store release. Store links will be added to this page when the app is available." },
+                { question: "Is SheetCue available in app stores now?", answer: "Yes. Use the store buttons on this page to open the current Google Play and App Store listings for SheetCue." },
                 { question: "Does the current build create accounts?", answer: "No. The MVP is local-first and does not include user accounts, cloud sync, or remote score storage." },
                 { question: "Is this automatic audio score following?", answer: "No. SheetCue focuses on editable measure cues and user-controlled playback flow, not audio-based real-time score following." },
                 { question: "Does the app use network services?", answer: "Score processing does not require a backend service. The app includes Google Mobile Ads and Google UMP consent handling as documented in the privacy policy." },
             ],
         },
         cta: {
-            heading: "SheetCue is preparing for public store release.",
-            subheading: "Store links will be added here when the app is available. Until then, use this page for release status, privacy, and support.",
-            releaseLabel: "Check release status",
+            heading: "Download SheetCue from the app stores.",
+            subheading: "Get the free app on Google Play or the App Store. Imported scores and generated measure images stay on your device unless you export or share them.",
+            releaseLabel: "Google Play",
             privacyLabel: "Read privacy policy",
         },
         footer: {
@@ -175,32 +269,32 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
                 { text: "Features", url: "#features" },
                 { text: "Workflow", url: "#workflow" },
                 { text: "Privacy", url: "#privacy" },
-                { text: "Release Status", url: "#release" },
+                { text: "Stores", url: "#release" },
             ],
             copyright: "All rights reserved.",
         },
     },
     ko: {
         metadata: {
-            title: "SheetCue | PDF 악보를 연습 흐름으로 편집",
-            description: "SheetCue는 PDF 악보를 마디 단위 연습 큐로 바꿉니다. 기기 안에서 가져오고, 마디를 보정하고, 반복 순서와 박자를 정해 연습하세요.",
+            title: "SheetCue: PDF 악보 뷰어",
+            description: "PDF 악보를 보며 마디 단위로 연습하세요. 악보 PDF를 가져오고, 마디와 타이밍을 조정한 뒤 원하는 재생 순서를 따라갑니다.",
         },
         nav: {
             menuItems: [
                 { text: "기능", url: "#features" },
                 { text: "흐름", url: "#workflow" },
                 { text: "개인정보", url: "#privacy" },
-                { text: "출시", url: "#release" },
+                { text: "스토어", url: "#release" },
             ],
-            releaseCta: "출시 상태",
+            releaseCta: "다운로드",
             languageMenuLabel: "언어",
         },
         hero: {
-            eyebrow: "편집 가능한 악보 연습",
-            heading: "PDF 악보를 나만의 연습 흐름으로 편집하세요.",
-            subheading: "마디를 표시하고, 반복 순서를 바꾸고, 박자와 타이밍을 조정한 뒤 직접 만든 큐로 연습합니다.",
-            secondarySubheading: "단순한 PDF 뷰어가 아닙니다. SheetCue는 정적인 악보 페이지를 편집 가능한 마디 큐로 바꿉니다.",
-            primaryCta: "출시 소식 확인",
+            eyebrow: "PDF 악보 뷰어",
+            heading: "PDF 악보를 보며 마디 단위로 연습하세요.",
+            subheading: "악보 PDF를 가져오고, 감지된 마디를 확인하고, 박스와 타이밍을 조정한 뒤 원하는 재생 순서를 만듭니다.",
+            secondarySubheading: "가로 연습 모드는 악보를 마디 단위로 넘겨 주어 연습 중 위치를 놓치지 않도록 돕습니다.",
+            primaryCta: "Google Play에서 받기",
             secondaryCta: "개인정보처리방침 보기",
             imageAlt: "PDF 악보를 가져와 마디 박스를 편집하고 재생 큐로 연습하는 흐름 스케치",
         },
@@ -262,16 +356,16 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
             supportLink: "SheetCue 지원",
             items: [
                 { question: "SheetCue가 제 PDF 악보를 업로드하나요?", answer: "아니요. 현재 빌드는 가져온 PDF 악보, 렌더링된 페이지 이미지, 잘라낸 마디 이미지, 프리셋 메타데이터를 사용자의 기기에 로컬로 저장합니다." },
-                { question: "SheetCue를 지금 앱 스토어에서 받을 수 있나요?", answer: "SheetCue는 공개 스토어 출시를 준비 중입니다. 앱을 사용할 수 있게 되면 이 페이지에 스토어 링크를 추가합니다." },
+                { question: "SheetCue를 지금 앱 스토어에서 받을 수 있나요?", answer: "네. 이 페이지의 스토어 버튼으로 SheetCue의 Google Play와 App Store 등록 페이지를 열 수 있습니다." },
                 { question: "현재 빌드에서 계정을 만드나요?", answer: "아니요. MVP는 로컬 우선 방식이며 사용자 계정, 클라우드 동기화, 원격 악보 저장 기능을 포함하지 않습니다." },
                 { question: "자동 오디오 악보 추적 기능인가요?", answer: "아니요. SheetCue는 오디오 기반 실시간 악보 추적이 아니라 편집 가능한 마디 큐와 사용자가 제어하는 재생 흐름에 집중합니다." },
                 { question: "앱이 네트워크 서비스를 사용하나요?", answer: "악보 처리는 백엔드 서비스가 필요하지 않습니다. 앱에는 개인정보처리방침에 설명된 Google Mobile Ads와 Google UMP 동의 처리가 포함됩니다." },
             ],
         },
         cta: {
-            heading: "SheetCue는 공개 스토어 출시를 준비 중입니다.",
-            subheading: "앱을 사용할 수 있게 되면 이곳에 스토어 링크를 추가합니다. 그 전까지는 이 페이지에서 출시 상태, 개인정보, 지원 정보를 확인할 수 있습니다.",
-            releaseLabel: "출시 상태 확인",
+            heading: "앱 스토어에서 SheetCue를 받으세요.",
+            subheading: "Google Play 또는 App Store에서 무료 앱을 받을 수 있습니다. 가져온 악보와 생성된 마디 이미지는 직접 내보내거나 공유하지 않는 한 기기에 남습니다.",
+            releaseLabel: "Google Play",
             privacyLabel: "개인정보처리방침 보기",
         },
         footer: {
@@ -285,32 +379,32 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
                 { text: "기능", url: "#features" },
                 { text: "흐름", url: "#workflow" },
                 { text: "개인정보", url: "#privacy" },
-                { text: "출시 상태", url: "#release" },
+                { text: "스토어", url: "#release" },
             ],
             copyright: "All rights reserved.",
         },
     },
     ja: {
         metadata: {
-            title: "SheetCue | PDF楽譜を練習フローに編集",
-            description: "SheetCueはPDF楽譜を編集できる小節キューに変えます。端末内で取り込み、小節を修正し、リピート順と拍を整えて練習できます。",
+            title: "SheetCue: PDF楽譜ビューア",
+            description: "PDF楽譜を表示し、小節ごとに練習できます。楽譜PDFを取り込み、小節とタイミングを調整して、設定した再生順に沿って練習します。",
         },
         nav: {
             menuItems: [
                 { text: "機能", url: "#features" },
                 { text: "フロー", url: "#workflow" },
                 { text: "プライバシー", url: "#privacy" },
-                { text: "リリース", url: "#release" },
+                { text: "ストア", url: "#release" },
             ],
-            releaseCta: "リリース状況",
+            releaseCta: "ダウンロード",
             languageMenuLabel: "言語",
         },
         hero: {
-            eyebrow: "編集できる楽譜リハーサル",
-            heading: "PDF楽譜を自分用の練習フローに編集。",
-            subheading: "小節をマークし、リピート順を並べ替え、テンポとタイミングを調整して、自分で管理するキューで練習できます。",
-            secondarySubheading: "ただのPDFビューアではありません。SheetCueは静的なページを編集できる小節キューに変えます。",
-            primaryCta: "リリース情報を見る",
+            eyebrow: "PDF楽譜ビューア",
+            heading: "PDF楽譜を表示し、小節ごとに練習。",
+            subheading: "楽譜PDFを取り込み、検出された小節を確認し、ボックスとタイミングを調整して、練習したい再生順を作成します。",
+            secondarySubheading: "横向きの練習モードでは、楽譜が小節ごとに進むため、練習中に位置を見失いにくくなります。",
+            primaryCta: "Google Playで入手",
             secondaryCta: "プライバシーポリシーを見る",
             imageAlt: "PDF楽譜を取り込み、小節ボックスを編集し、再生キューで練習する流れのスケッチ",
         },
@@ -372,16 +466,16 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
             supportLink: "SheetCueサポート",
             items: [
                 { question: "SheetCueはPDF楽譜をアップロードしますか？", answer: "いいえ。現在のビルドでは、取り込んだPDF楽譜、描画ページ画像、切り出した小節画像、プリセット情報をユーザーの端末にローカル保存します。" },
-                { question: "SheetCueは今アプリストアで入手できますか？", answer: "SheetCueは公開ストアでのリリース準備中です。利用可能になった時点で、このページにストアリンクを追加します。" },
+                { question: "SheetCueは今アプリストアで入手できますか？", answer: "はい。このページのストアボタンからSheetCueのGoogle PlayおよびApp Store掲載ページを開けます。" },
                 { question: "現在のビルドはアカウントを作成しますか？", answer: "いいえ。MVPはローカル優先で、ユーザーアカウント、クラウド同期、リモート楽譜保存は含みません。" },
                 { question: "自動の音声追従機能ですか？", answer: "いいえ。SheetCueは音声ベースのリアルタイム追従ではなく、編集できる小節キューとユーザーが制御する再生フローに集中しています。" },
                 { question: "アプリはネットワークサービスを使いますか？", answer: "楽譜処理にバックエンドサービスは必要ありません。アプリにはプライバシーポリシーに記載されたGoogle Mobile AdsとGoogle UMP同意処理が含まれます。" },
             ],
         },
         cta: {
-            heading: "SheetCueは公開ストアでのリリース準備中です。",
-            subheading: "アプリが利用可能になったら、ここにストアリンクを追加します。それまでは、このページでリリース状況、プライバシー、サポートを確認できます。",
-            releaseLabel: "リリース状況を確認",
+            heading: "アプリストアからSheetCueを入手。",
+            subheading: "Google PlayまたはApp Storeで無料アプリを入手できます。取り込んだ楽譜と生成された小節画像は、自分で書き出しまたは共有しない限り端末内に残ります。",
+            releaseLabel: "Google Play",
             privacyLabel: "プライバシーポリシーを見る",
         },
         footer: {
@@ -395,32 +489,32 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
                 { text: "機能", url: "#features" },
                 { text: "フロー", url: "#workflow" },
                 { text: "プライバシー", url: "#privacy" },
-                { text: "リリース状況", url: "#release" },
+                { text: "ストア", url: "#release" },
             ],
             copyright: "All rights reserved.",
         },
     },
     de: {
         metadata: {
-            title: "SheetCue | PDF-Partituren als Übungsablauf bearbeiten",
-            description: "SheetCue macht aus PDF-Partituren editierbare Takt-Cues für die Probe. Lokal importieren, Takte korrigieren, Wiederholungen anordnen und mit Playback-Cues üben.",
+            title: "SheetCue: PDF-Notenviewer",
+            description: "PDF-Noten ansehen und Takt für Takt üben. Importiere eine PDF-Partitur, passe Takte und Timing an und folge deiner Wiedergabereihenfolge.",
         },
         nav: {
             menuItems: [
                 { text: "Funktionen", url: "#features" },
                 { text: "Ablauf", url: "#workflow" },
                 { text: "Datenschutz", url: "#privacy" },
-                { text: "Veröffentlichung", url: "#release" },
+                { text: "Stores", url: "#release" },
             ],
-            releaseCta: "Release-Status",
+            releaseCta: "Download",
             languageMenuLabel: "Sprache",
         },
         hero: {
-            eyebrow: "Editierbare Notenprobe",
-            heading: "Verwandle deine PDF-Partitur in einen Übungsablauf.",
-            subheading: "Markiere Takte, ordne Wiederholungen neu, passe Tempo und Timing an und übe mit eigenen Cues.",
-            secondarySubheading: "Mehr als ein PDF-Viewer. SheetCue verwandelt statische Seiten in editierbare Takt-Cues.",
-            primaryCta: "Release-Updates ansehen",
+            eyebrow: "PDF-Notenviewer",
+            heading: "PDF-Noten ansehen und Takt für Takt üben.",
+            subheading: "Importiere eine PDF-Partitur, prüfe erkannte Takte, passe Boxen und Timing an und erstelle die Wiedergabereihenfolge, der du folgen möchtest.",
+            secondarySubheading: "Im Querformat-Übungsmodus bewegt sich SheetCue Takt für Takt durch die Partitur, damit du beim Üben deine Stelle behältst.",
+            primaryCta: "Bei Google Play herunterladen",
             secondaryCta: "Datenschutzerklärung lesen",
             imageAlt: "Skizze des Imports einer PDF-Partitur, der Bearbeitung von Taktboxen und des Übens mit Playback-Cues",
         },
@@ -482,16 +576,16 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
             supportLink: "SheetCue-Support",
             items: [
                 { question: "Lädt SheetCue meine PDF-Partituren hoch?", answer: "Nein. Der aktuelle Build speichert importierte PDF-Partituren, gerenderte Seitenbilder, zugeschnittene Taktbilder und Preset-Metadaten lokal auf dem Gerät des Nutzers." },
-                { question: "Ist SheetCue schon in App-Stores verfügbar?", answer: "SheetCue bereitet die öffentliche Store-Veröffentlichung vor. Store-Links werden auf dieser Seite ergänzt, sobald die App verfügbar ist." },
+                { question: "Ist SheetCue schon in App-Stores verfügbar?", answer: "Ja. Die Store-Schaltflächen auf dieser Seite öffnen die aktuellen Google Play- und App Store-Einträge für SheetCue." },
                 { question: "Erstellt der aktuelle Build Konten?", answer: "Nein. Das MVP ist local-first und enthält keine Nutzerkonten, keinen Cloud-Sync und keine Remote-Speicherung von Partituren." },
                 { question: "Ist das automatisches Audio-Score-Following?", answer: "Nein. SheetCue konzentriert sich auf editierbare Takt-Cues und einen nutzergesteuerten Playback-Ablauf, nicht auf audiobasiertes Echtzeit-Following." },
                 { question: "Nutzt die App Netzwerkdienste?", answer: "Die Partiturverarbeitung benötigt keinen Backend-Dienst. Die App enthält Google Mobile Ads und Google UMP-Zustimmung, wie in der Datenschutzerklärung beschrieben." },
             ],
         },
         cta: {
-            heading: "SheetCue bereitet die öffentliche Store-Veröffentlichung vor.",
-            subheading: "Store-Links werden hier ergänzt, sobald die App verfügbar ist. Bis dahin findest du auf dieser Seite Release-Status, Datenschutz und Support.",
-            releaseLabel: "Release-Status prüfen",
+            heading: "SheetCue aus den App-Stores laden.",
+            subheading: "Die kostenlose App ist bei Google Play und im App Store verfügbar. Importierte Partituren und erzeugte Taktbilder bleiben auf deinem Gerät, sofern du sie nicht selbst exportierst oder teilst.",
+            releaseLabel: "Google Play",
             privacyLabel: "Datenschutzerklärung lesen",
         },
         footer: {
@@ -505,32 +599,32 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
                 { text: "Funktionen", url: "#features" },
                 { text: "Ablauf", url: "#workflow" },
                 { text: "Datenschutz", url: "#privacy" },
-                { text: "Release-Status", url: "#release" },
+                { text: "Stores", url: "#release" },
             ],
             copyright: "All rights reserved.",
         },
     },
     fr: {
         metadata: {
-            title: "SheetCue | Transformer une partition PDF en parcours d'entraînement",
-            description: "SheetCue transforme les partitions PDF en repères de mesure modifiables. Import local, correction des mesures, ordre des reprises et entraînement avec des repères de lecture.",
+            title: "SheetCue : lecteur de partitions PDF",
+            description: "Consultez vos partitions PDF et entraînez-vous mesure par mesure. Importez une partition PDF, ajustez les mesures et le timing, puis suivez votre ordre de lecture.",
         },
         nav: {
             menuItems: [
                 { text: "Fonctionnalités", url: "#features" },
                 { text: "Parcours", url: "#workflow" },
                 { text: "Confidentialité", url: "#privacy" },
-                { text: "Sortie", url: "#release" },
+                { text: "Stores", url: "#release" },
             ],
-            releaseCta: "État de sortie",
+            releaseCta: "Télécharger",
             languageMenuLabel: "Langue",
         },
         hero: {
-            eyebrow: "Répétition de partition modifiable",
-            heading: "Transformez votre partition PDF en parcours d'entraînement.",
-            subheading: "Marquez les mesures, réordonnez les reprises, ajustez le tempo et le timing, puis répétez avec des repères que vous contrôlez.",
-            secondarySubheading: "Ce n'est pas un simple lecteur PDF. SheetCue transforme les pages statiques en repères de mesure modifiables.",
-            primaryCta: "Voir les nouvelles de sortie",
+            eyebrow: "Lecteur de partitions PDF",
+            heading: "Consultez vos partitions PDF et travaillez mesure par mesure.",
+            subheading: "Importez une partition PDF, vérifiez les mesures détectées, ajustez les cadres et le timing, puis créez l'ordre de lecture à suivre.",
+            secondarySubheading: "En mode paysage, SheetCue avance dans la partition mesure par mesure afin de vous aider à garder votre place pendant l'entraînement.",
+            primaryCta: "Télécharger sur Google Play",
             secondaryCta: "Lire la politique de confidentialité",
             imageAlt: "Croquis d'import d'une partition PDF, de modification des cadres de mesure et de répétition avec repères de lecture",
         },
@@ -592,16 +686,16 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
             supportLink: "Support SheetCue",
             items: [
                 { question: "SheetCue téléverse-t-il mes PDF de partition ?", answer: "Non. La version actuelle stocke localement sur l'appareil les PDF importés, pages rendues, images de mesure découpées et métadonnées de préréglage." },
-                { question: "SheetCue est-il déjà disponible dans les app stores ?", answer: "SheetCue prépare sa sortie publique. Les liens vers les stores seront ajoutés à cette page lorsque l'app sera disponible." },
+                { question: "SheetCue est-il déjà disponible dans les app stores ?", answer: "Oui. Les boutons de cette page ouvrent les fiches Google Play et App Store actuelles de SheetCue." },
                 { question: "La version actuelle crée-t-elle des comptes ?", answer: "Non. Le MVP est local-first et n'inclut ni comptes utilisateur, ni synchronisation cloud, ni stockage distant des partitions." },
                 { question: "Est-ce un suivi automatique de partition par audio ?", answer: "Non. SheetCue se concentre sur les repères de mesure modifiables et le parcours de lecture contrôlé par l'utilisateur, pas sur le suivi audio en temps réel." },
                 { question: "L'app utilise-t-elle des services réseau ?", answer: "Le traitement des partitions ne nécessite pas de service backend. L'app inclut Google Mobile Ads et le consentement Google UMP, comme décrit dans la politique de confidentialité." },
             ],
         },
         cta: {
-            heading: "SheetCue prépare sa sortie publique.",
-            subheading: "Les liens vers les stores seront ajoutés ici lorsque l'app sera disponible. En attendant, cette page regroupe l'état de sortie, la confidentialité et le support.",
-            releaseLabel: "Vérifier l'état de sortie",
+            heading: "Télécharger SheetCue depuis les app stores.",
+            subheading: "L'app gratuite est disponible sur Google Play et l'App Store. Les partitions importées et les images de mesure générées restent sur votre appareil, sauf export ou partage de votre part.",
+            releaseLabel: "Google Play",
             privacyLabel: "Lire la politique de confidentialité",
         },
         footer: {
@@ -615,32 +709,32 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
                 { text: "Fonctionnalités", url: "#features" },
                 { text: "Parcours", url: "#workflow" },
                 { text: "Confidentialité", url: "#privacy" },
-                { text: "État de sortie", url: "#release" },
+                { text: "Stores", url: "#release" },
             ],
             copyright: "All rights reserved.",
         },
     },
     es: {
         metadata: {
-            title: "SheetCue | Convierte partituras PDF en flujo de práctica",
-            description: "SheetCue convierte partituras PDF en pistas de compás editables. Importa localmente, corrige compases, ordena repeticiones y practica con pistas de reproducción.",
+            title: "SheetCue: visor de partituras PDF",
+            description: "Ve partituras PDF y practica compás por compás. Importa una partitura PDF, ajusta compases y timing, y sigue tu orden de reproducción.",
         },
         nav: {
             menuItems: [
                 { text: "Funciones", url: "#features" },
                 { text: "Flujo", url: "#workflow" },
                 { text: "Privacidad", url: "#privacy" },
-                { text: "Lanzamiento", url: "#release" },
+                { text: "Tiendas", url: "#release" },
             ],
-            releaseCta: "Estado",
+            releaseCta: "Descargar",
             languageMenuLabel: "Idioma",
         },
         hero: {
-            eyebrow: "Ensayo de partitura editable",
-            heading: "Convierte tu partitura PDF en un flujo de práctica.",
-            subheading: "Marca compases, reordena repeticiones, ajusta tempo y timing, y practica con pistas que controlas.",
-            secondarySubheading: "No es solo un visor PDF. SheetCue convierte páginas estáticas en pistas de compás editables.",
-            primaryCta: "Ver novedades",
+            eyebrow: "Visor de partituras PDF",
+            heading: "Ve partituras PDF y practica compás por compás.",
+            subheading: "Importa una partitura PDF, revisa los compases detectados, ajusta cajas y timing, y crea el orden de reproducción que quieres seguir.",
+            secondarySubheading: "En modo horizontal, SheetCue avanza por la partitura compás por compás para ayudarte a mantener tu posición mientras practicas.",
+            primaryCta: "Descargar en Google Play",
             secondaryCta: "Leer política de privacidad",
             imageAlt: "Boceto de importar una partitura PDF, editar cajas de compás y practicar con pistas de reproducción",
         },
@@ -702,16 +796,16 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
             supportLink: "Soporte de SheetCue",
             items: [
                 { question: "¿SheetCue sube mis partituras PDF?", answer: "No. La versión actual guarda localmente en el dispositivo las partituras PDF importadas, imágenes de página renderizadas, recortes de compás y metadatos de presets." },
-                { question: "¿SheetCue ya está disponible en las tiendas?", answer: "SheetCue se está preparando para el lanzamiento público. Los enlaces a las tiendas se añadirán a esta página cuando la app esté disponible." },
+                { question: "¿SheetCue ya está disponible en las tiendas?", answer: "Sí. Los botones de esta página abren las fichas actuales de SheetCue en Google Play y App Store." },
                 { question: "¿La versión actual crea cuentas?", answer: "No. El MVP es local-first y no incluye cuentas de usuario, sincronización en la nube ni almacenamiento remoto de partituras." },
                 { question: "¿Es seguimiento automático de partitura por audio?", answer: "No. SheetCue se centra en pistas de compás editables y un flujo de reproducción controlado por el usuario, no en seguimiento de audio en tiempo real." },
                 { question: "¿La app usa servicios de red?", answer: "El procesamiento de partituras no requiere backend. La app incluye Google Mobile Ads y consentimiento Google UMP, como se documenta en la política de privacidad." },
             ],
         },
         cta: {
-            heading: "SheetCue se prepara para el lanzamiento público.",
-            subheading: "Los enlaces a las tiendas se añadirán aquí cuando la app esté disponible. Hasta entonces, usa esta página para estado de lanzamiento, privacidad y soporte.",
-            releaseLabel: "Ver estado",
+            heading: "Descarga SheetCue desde las tiendas.",
+            subheading: "La app gratuita está disponible en Google Play y App Store. Las partituras importadas y las imágenes de compás generadas permanecen en tu dispositivo salvo que las exportes o compartas.",
+            releaseLabel: "Google Play",
             privacyLabel: "Leer política de privacidad",
         },
         footer: {
@@ -725,32 +819,32 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
                 { text: "Funciones", url: "#features" },
                 { text: "Flujo", url: "#workflow" },
                 { text: "Privacidad", url: "#privacy" },
-                { text: "Estado", url: "#release" },
+                { text: "Tiendas", url: "#release" },
             ],
             copyright: "All rights reserved.",
         },
     },
     "zh-TW": {
         metadata: {
-            title: "SheetCue | 將 PDF 樂譜編輯成練習流程",
-            description: "SheetCue 將 PDF 樂譜轉成可編輯的小節提示。可在裝置內匯入、修正小節、安排反覆順序，並依播放提示練習。",
+            title: "SheetCue：PDF 樂譜檢視器",
+            description: "查看 PDF 樂譜並逐小節練習。匯入樂譜 PDF，調整小節與時間設定，然後依照你的播放順序練習。",
         },
         nav: {
             menuItems: [
                 { text: "功能", url: "#features" },
                 { text: "流程", url: "#workflow" },
                 { text: "隱私", url: "#privacy" },
-                { text: "發布", url: "#release" },
+                { text: "商店", url: "#release" },
             ],
-            releaseCta: "發布狀態",
+            releaseCta: "下載",
             languageMenuLabel: "語言",
         },
         hero: {
-            eyebrow: "可編輯的樂譜排練",
-            heading: "將 PDF 樂譜編輯成你的練習流程。",
-            subheading: "標記小節、重新排列反覆、調整速度與時間，並用你控制的提示來練習。",
-            secondarySubheading: "不只是 PDF 檢視器。SheetCue 會把靜態頁面變成可編輯的小節提示。",
-            primaryCta: "查看發布消息",
+            eyebrow: "PDF 樂譜檢視器",
+            heading: "查看 PDF 樂譜並逐小節練習。",
+            subheading: "匯入樂譜 PDF，檢查偵測到的小節，調整框線與時間設定，然後建立你想跟隨的播放順序。",
+            secondarySubheading: "橫向練習模式會讓 SheetCue 逐小節推進樂譜，協助你在練習時不迷失位置。",
+            primaryCta: "在 Google Play 取得",
             secondaryCta: "閱讀隱私權政策",
             imageAlt: "匯入 PDF 樂譜、編輯小節框，並依播放提示練習的流程草圖",
         },
@@ -812,16 +906,16 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
             supportLink: "SheetCue 支援",
             items: [
                 { question: "SheetCue 會上傳我的 PDF 樂譜嗎？", answer: "不會。目前版本會將匯入的 PDF 樂譜、渲染頁面影像、裁切的小節影像與預設中繼資料本機儲存在使用者裝置上。" },
-                { question: "SheetCue 現在可在應用程式商店下載嗎？", answer: "SheetCue 正在準備公開商店發布。當應用程式可用時，本頁會加入商店連結。" },
+                { question: "SheetCue 現在可在應用程式商店下載嗎？", answer: "可以。本頁的商店按鈕會開啟 SheetCue 目前的 Google Play 與 App Store 頁面。" },
                 { question: "目前版本會建立帳號嗎？", answer: "不會。MVP 採本機優先，不包含使用者帳號、雲端同步或遠端樂譜儲存。" },
                 { question: "這是自動音訊跟譜功能嗎？", answer: "不是。SheetCue 專注於可編輯的小節提示與使用者控制的播放流程，而非音訊式即時跟譜。" },
                 { question: "應用程式會使用網路服務嗎？", answer: "樂譜處理不需要後端服務。應用程式包含隱私權政策中說明的 Google Mobile Ads 與 Google UMP 同意處理。" },
             ],
         },
         cta: {
-            heading: "SheetCue 正在準備公開商店發布。",
-            subheading: "應用程式可用後，這裡會加入商店連結。在此之前，可用本頁查看發布狀態、隱私與支援資訊。",
-            releaseLabel: "查看發布狀態",
+            heading: "從應用程式商店取得 SheetCue。",
+            subheading: "可在 Google Play 或 App Store 取得免費 App。匯入的樂譜與產生的小節影像會留在你的裝置上，除非你自行匯出或分享。",
+            releaseLabel: "Google Play",
             privacyLabel: "閱讀隱私權政策",
         },
         footer: {
@@ -835,7 +929,7 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
                 { text: "功能", url: "#features" },
                 { text: "流程", url: "#workflow" },
                 { text: "隱私", url: "#privacy" },
-                { text: "發布狀態", url: "#release" },
+                { text: "商店", url: "#release" },
             ],
             copyright: "All rights reserved.",
         },
@@ -870,7 +964,13 @@ const buildContent = (locale: Locale, copy: LocaleCopy): ILandingContent => ({
     nav: copy.nav,
     hero: {
         ...copy.hero,
+        primaryCtaUrl: playStoreUrlByLocale[locale],
+        appStoreCtaUrl: appStoreUrlByLocale[locale],
         secondaryCtaUrl: policyUrl(locale),
+        playStoreBadgeSrc: withBasePath(storeBadgeAssetsByLocale[locale].playStoreSrc),
+        playStoreBadgeAlt: storeBadgeAssetsByLocale[locale].playStoreAlt,
+        appStoreBadgeSrc: withBasePath(storeBadgeAssetsByLocale[locale].appStoreSrc),
+        appStoreBadgeAlt: storeBadgeAssetsByLocale[locale].appStoreAlt,
         centerImageSrc: withBasePath(promoImages.hero),
     },
     stats: copy.stats.map((stat, index) => ({
@@ -897,8 +997,16 @@ const buildContent = (locale: Locale, copy: LocaleCopy): ILandingContent => ({
     },
     cta: {
         ...copy.cta,
-        releaseUrl: "#release",
+        releaseUrl: playStoreUrlByLocale[locale],
         privacyUrl: policyUrl(locale),
+        playStoreUrl: playStoreUrlByLocale[locale],
+        playStoreLabel: copy.cta.releaseLabel,
+        playStoreBadgeSrc: withBasePath(storeBadgeAssetsByLocale[locale].playStoreSrc),
+        playStoreBadgeAlt: storeBadgeAssetsByLocale[locale].playStoreAlt,
+        appStoreUrl: appStoreUrlByLocale[locale],
+        appStoreLabel: "App Store",
+        appStoreBadgeSrc: withBasePath(storeBadgeAssetsByLocale[locale].appStoreSrc),
+        appStoreBadgeAlt: storeBadgeAssetsByLocale[locale].appStoreAlt,
     },
     footer: {
         ...copy.footer,

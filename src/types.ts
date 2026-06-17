@@ -11,8 +11,14 @@ export interface IHeroDetails {
     subheading: string;
     secondarySubheading: string;
     primaryCta: string;
+    primaryCtaUrl: string;
+    appStoreCtaUrl: string;
     secondaryCta: string;
     secondaryCtaUrl: string;
+    playStoreBadgeSrc: string;
+    playStoreBadgeAlt: string;
+    appStoreBadgeSrc: string;
+    appStoreBadgeAlt: string;
     centerImageSrc: string;
     imageAlt: string;
 }
@@ -101,6 +107,14 @@ export interface ILandingContent {
         releaseUrl: string;
         privacyUrl: string;
         releaseLabel: string;
+        playStoreUrl: string;
+        playStoreLabel: string;
+        playStoreBadgeSrc: string;
+        playStoreBadgeAlt: string;
+        appStoreUrl: string;
+        appStoreLabel: string;
+        appStoreBadgeSrc: string;
+        appStoreBadgeAlt: string;
         privacyLabel: string;
     };
     footer: {

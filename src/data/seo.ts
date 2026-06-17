@@ -5,12 +5,10 @@ import { landingContent, localePathFor, supportedLocales } from "./landingConten
 import { siteDetails } from "./siteDetails";
 
 export const ogImage = {
-    url: "/assets/promo-generated/external-chromaportal-og.webp",
+    url: "og-image.png",
     width: 1200,
     height: 630,
 };
-
-export const organizationLogo = "/brand/sheetcue-icon-512.png";
 
 export const localeOgMap: Record<Locale, string> = {
     en: "en_US",
@@ -43,7 +41,7 @@ export const languageAlternates = (): Record<string, string> => ({
 export const buildPageMetadata = (locale: Locale): Metadata => {
     const content = landingContent[locale];
     const url = localeUrl(locale);
-    const ogImageUrl = absoluteUrl(ogImage.url);
+    const ogImageUrl = absoluteUrl(`/${ogImage.url}`);
 
     return {
         title: content.metadata.title,
@@ -57,6 +55,7 @@ export const buildPageMetadata = (locale: Locale): Metadata => {
             "measure by measure practice",
             "local-first music app",
             "score rehearsal",
+            "music practice app",
         ],
         alternates: {
             canonical: url,
@@ -75,7 +74,7 @@ export const buildPageMetadata = (locale: Locale): Metadata => {
                     url: ogImageUrl,
                     width: ogImage.width,
                     height: ogImage.height,
-                    alt: `${siteDetails.siteName} PDF score practice flow`,
+                    alt: `${siteDetails.siteName} PDF score viewer`,
                 },
             ],
         },
@@ -90,8 +89,10 @@ export const buildPageMetadata = (locale: Locale): Metadata => {
 
 export const buildStructuredData = (content: ILandingContent) => {
     const pageUrl = localeUrl(content.locale);
-    const softwareId = `${pageUrl}#software`;
+    const appStoreUrl = content.cta.appStoreUrl;
+    const playStoreUrl = content.cta.playStoreUrl;
     const organizationId = `${siteDetails.siteUrl}#organization`;
+    const softwareId = `${pageUrl}#software`;
 
     return {
         "@context": "https://schema.org",
@@ -101,7 +102,8 @@ export const buildStructuredData = (content: ILandingContent) => {
                 "@id": organizationId,
                 name: siteDetails.siteName,
                 url: siteDetails.siteUrl,
-                logo: absoluteUrl(organizationLogo),
+                logo: absoluteUrl("/images/sheetcue-hero.png"),
+                sameAs: [appStoreUrl, playStoreUrl],
             },
             {
                 "@type": "SoftwareApplication",
@@ -111,13 +113,14 @@ export const buildStructuredData = (content: ILandingContent) => {
                 description: content.metadata.description,
                 applicationCategory: "MusicApplication",
                 operatingSystem: "iOS, iPadOS, Android",
-                image: absoluteUrl(ogImage.url),
+                image: absoluteUrl(`/${ogImage.url}`),
+                downloadUrl: [appStoreUrl, playStoreUrl],
                 inLanguage: content.locale,
                 offers: {
                     "@type": "Offer",
                     price: "0",
                     priceCurrency: "USD",
-                    availability: "https://schema.org/PreOrder",
+                    availability: "https://schema.org/InStock",
                 },
                 publisher: {
                     "@id": organizationId,
