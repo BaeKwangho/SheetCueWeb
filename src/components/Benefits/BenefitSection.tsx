@@ -52,32 +52,35 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
     return (
         <section className="benefit-section">
             <motion.div
-                className="flex flex-wrap flex-col items-center justify-center gap-2 lg:flex-row lg:gap-20 lg:flex-nowrap mb-24"
+                className="flex flex-col items-center justify-center gap-8 border-t border-black/10 py-20 lg:flex-row lg:flex-nowrap lg:gap-24 lg:py-28"
                 variants={containerVariants}
                 whileInView="onscreen"
                 viewport={{ once: true }}
             >
                 <div
-                    className={clsx("flex flex-wrap items-center w-full max-w-lg", { "justify-start": imageAtRight, "lg:order-1 justify-end": !imageAtRight })}
+                    className={clsx("flex w-full max-w-xl flex-wrap items-center", { "justify-start": imageAtRight, "lg:order-1 justify-end": !imageAtRight })}
                     
                 >
-                    <div className="w-full  text-center lg:text-left ">
+                    <div className="w-full text-left">
                         <motion.div
                             className="flex flex-col w-full"
                             variants={childVariants}
                         >
+                            <p className="mb-4 text-sm font-bold uppercase text-[var(--sheetcue-teal)]">
+                                SheetCue flow
+                            </p>
                             <SectionTitle>
-                                <h3 className="lg:max-w-2xl">
+                                <h3 className="max-w-xl text-4xl leading-tight lg:text-5xl">
                                     {title}
                                 </h3>
                             </SectionTitle>
 
-                            <p className="mt-1.5 mx-auto lg:ml-0 leading-normal text-foreground-accent">
+                            <p className="mt-5 max-w-lg text-lg leading-8 text-foreground-accent">
                                 {description}
                             </p>
                         </motion.div>
 
-                        <div className="mx-auto lg:ml-0 w-full">
+                        <div className="mt-7 w-full">
                             {bullets.map((item, index) => (
                                 <BenefitBullet key={index} title={item.title} icon={item.icon} description={item.description} />
                             ))}
@@ -85,8 +88,8 @@ const BenefitSection: React.FC<Props> = ({ benefit, imageAtRight }: Props) => {
                     </div>
                 </div>
 
-                <div className={clsx("order-first mt-5 flex w-full justify-center lg:order-none lg:mt-0 lg:w-auto", { "lg:order-2": imageAtRight })}>
-                    <div className={clsx("sheetcue-feature-device w-full max-w-[380px]", { "lg:ml-0": imageAtRight })}>
+                <div className={clsx("order-first mt-0 flex w-full justify-center lg:order-none lg:mt-0 lg:w-auto", { "lg:order-2": imageAtRight })}>
+                    <div className={clsx("sheetcue-feature-device w-full max-w-[360px]", { "lg:ml-0": imageAtRight })}>
                         <Image
                             src={imageSrc}
                             alt={title}

@@ -5,7 +5,7 @@ import { Source_Sans_3, Manrope } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import LocaleDocument from "@/components/LocaleDocument";
-import { landingContent } from "@/data/landingContent";
+import { buildPageMetadata } from "@/data/seo";
 import { siteDetails } from '@/data/siteDetails';
 
 import "./globals.css";
@@ -14,43 +14,12 @@ const manrope = Manrope({ subsets: ['latin'] });
 const sourceSans = Source_Sans_3({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+  ...buildPageMetadata("en"),
   metadataBase: new URL(siteDetails.siteUrl),
-  title: landingContent.en.metadata.title,
-  description: landingContent.en.metadata.description,
-  alternates: {
-    canonical: siteDetails.siteUrl,
-    languages: {
-      en: siteDetails.siteUrl,
-      ko: `${siteDetails.siteUrl}ko`,
-      ja: `${siteDetails.siteUrl}ja`,
-      de: `${siteDetails.siteUrl}de`,
-      fr: `${siteDetails.siteUrl}fr`,
-      es: `${siteDetails.siteUrl}es`,
-      "zh-TW": `${siteDetails.siteUrl}zh-TW`,
-    },
-  },
-  openGraph: {
-    title: landingContent.en.metadata.title,
-    description: landingContent.en.metadata.description,
-    url: siteDetails.siteUrl,
-    type: 'website',
-    locale: 'en_US',
-    alternateLocale: ['ko_KR', 'ja_JP', 'de_DE', 'fr_FR', 'es_ES', 'zh_TW'],
-    images: [
-      {
-        url: '/images/sheetcue-hero.png',
-        width: 1608,
-        height: 978,
-        alt: siteDetails.siteName,
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: landingContent.en.metadata.title,
-    description: landingContent.en.metadata.description,
-    images: ['/images/sheetcue-hero.png'],
-  },
+  applicationName: siteDetails.siteName,
+  creator: "Kwangho Bae",
+  publisher: "Kwangho Bae",
+  category: "music",
 };
 
 export default function RootLayout({

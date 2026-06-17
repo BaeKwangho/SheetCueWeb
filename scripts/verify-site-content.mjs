@@ -14,6 +14,9 @@ const requiredFiles = [
   "src/components/CTA.tsx",
   "src/components/FAQ.tsx",
   "src/components/Benefits/BenefitSection.tsx",
+  "src/data/seo.ts",
+  "src/app/robots.ts",
+  "src/app/sitemap.ts",
   "next.config.mjs",
 ];
 
@@ -42,7 +45,7 @@ if (!nextConfig.includes("trailingSlash: true")) {
 }
 
 const koreanPage = readFileSync(join(root, "src/app/ko/page.tsx"), "utf8");
-if (!koreanPage.includes("metadata") || !koreanPage.includes("landingContent.ko.metadata")) {
+if (!koreanPage.includes("metadata") || !(koreanPage.includes("landingContent.ko.metadata") || koreanPage.includes('buildPageMetadata("ko")'))) {
   throw new Error("Korean page must define localized metadata.");
 }
 
@@ -56,8 +59,9 @@ for (const locale of expectedLocales) {
 for (const locale of expectedLocales.filter((locale) => locale !== "en")) {
   const page = readFileSync(join(root, `src/app/${locale}/page.tsx`), "utf8");
   const accessor = locale === "zh-TW" ? 'landingContent["zh-TW"].metadata' : `landingContent.${locale}.metadata`;
+  const metadataHelper = `buildPageMetadata("${locale}")`;
 
-  if (!page.includes("metadata") || !page.includes(accessor)) {
+  if (!page.includes("metadata") || !(page.includes(accessor) || page.includes(metadataHelper))) {
     throw new Error(`${locale} page must define localized metadata.`);
   }
 
@@ -69,6 +73,30 @@ for (const locale of expectedLocales.filter((locale) => locale !== "en")) {
 const benefitSection = readFileSync(join(root, "src/components/Benefits/BenefitSection.tsx"), "utf8");
 if (benefitSection.includes('initial="offscreen"')) {
   throw new Error("Benefit sections must render visible by default for full-page captures and no-JS fallback.");
+}
+
+const seo = readFileSync(join(root, "src/data/seo.ts"), "utf8");
+for (const schemaType of ["Organization", "SoftwareApplication", "WebPage", "FAQPage"]) {
+  if (!seo.includes(`"@type": "${schemaType}"`)) {
+    throw new Error(`Structured data must include schema.org ${schemaType}.`);
+  }
+}
+
+const homePageContent = readFileSync(join(root, "src/components/HomePageContent.tsx"), "utf8");
+if (!homePageContent.includes('type="application/ld+json"') || !homePageContent.includes("buildStructuredData(content)")) {
+  throw new Error("Homepage must render JSON-LD structured data.");
+}
+
+const robots = readFileSync(join(root, "src/app/robots.ts"), "utf8");
+for (const expected of ["OAI-SearchBot", "GPTBot", "sitemap"]) {
+  if (!robots.includes(expected)) {
+    throw new Error(`Robots route must include ${expected}.`);
+  }
+}
+
+const sitemap = readFileSync(join(root, "src/app/sitemap.ts"), "utf8");
+if (!sitemap.includes("supportedLocales") || !sitemap.includes("alternates")) {
+  throw new Error("Sitemap must include localized URLs and alternates.");
 }
 
 console.log("Site content checks passed.");

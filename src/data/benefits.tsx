@@ -24,7 +24,7 @@ export const benefits: IBenefit[] = [
                 icon: <FiList size={26} />
             }
         ],
-        imageSrc: withBasePath("/images/sheetcue-hero.png")
+        imageSrc: withBasePath("/assets/raw-release/feature-crop-edit.webp")
     },
     {
         title: "Practice flow from a static PDF",
@@ -46,7 +46,7 @@ export const benefits: IBenefit[] = [
                 icon: <FiVolume2 size={26} />
             }
         ],
-        imageSrc: withBasePath("/images/sheetcue-hero.png")
+        imageSrc: withBasePath("/assets/raw-release/feature-flow-editor.webp")
     },
     {
         title: "Local-first score handling",
@@ -68,6 +68,6 @@ export const benefits: IBenefit[] = [
                 icon: <FiFileText size={26} />
             }
         ],
-        imageSrc: withBasePath("/images/sheetcue-hero.png")
+        imageSrc: withBasePath("/assets/raw-release/feature-local-privacy.webp")
     },
 ]
