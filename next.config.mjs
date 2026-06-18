@@ -3,11 +3,13 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const isStaticExport = process.env.NEXT_OUTPUT_EXPORT === "true";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "export",
+  ...(isStaticExport ? { output: "export" } : {}),
   trailingSlash: true,
+  skipTrailingSlashRedirect: true,
   basePath: basePath || undefined,
   assetPrefix: basePath || undefined,
   images: {

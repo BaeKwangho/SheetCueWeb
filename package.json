@@ -7,7 +7,7 @@
     "build": "next build && node scripts/localize-static-html.mjs",
     "start": "next start",
     "lint": "eslint .",
-    "test": "node scripts/verify-site-content.mjs"
+    "test": "node scripts/verify-site-content.mjs && node scripts/verify-tracking-redirects.mjs"
   },
   "dependencies": {
     "@headlessui/react": "^2.1.8",
