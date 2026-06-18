@@ -18,6 +18,7 @@ const requiredFiles = [
   "src/components/CTA.tsx",
   "src/components/FAQ.tsx",
   "src/components/Benefits/BenefitSection.tsx",
+  "functions/t/[token]/[platform].js",
   "src/data/seo.ts",
   "next.config.mjs",
 ];

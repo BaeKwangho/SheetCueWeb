@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
-const isStaticExport = process.env.NEXT_OUTPUT_EXPORT === "true";
+const isStaticExport = process.env.NEXT_OUTPUT_EXPORT !== "false";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
