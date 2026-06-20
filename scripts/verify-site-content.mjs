@@ -84,8 +84,8 @@ for (const locale of expectedLocales.filter((locale) => locale !== "en")) {
 }
 
 const siteDetails = readFileSync(join(root, "src/data/siteDetails.ts"), "utf8");
-if (!siteDetails.includes("https://sheetcue.pages.dev/")) {
-  throw new Error("Default site URL must point to the Cloudflare Pages production domain.");
+if (!siteDetails.includes("https://sheetcue.com/")) {
+  throw new Error("Default site URL must point to the production domain.");
 }
 
 const seo = readFileSync(join(root, "src/data/seo.ts"), "utf8");
