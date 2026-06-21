@@ -1,3 +1,5 @@
+import { TRACKING_ALIASES } from "../data/trackingAliases.mjs";
+
 const APP_STORE_BASE_URL = "https://apps.apple.com/us/app/sheetcue-pdf-score-practice/id6773944737";
 const GOOGLE_PLAY_BASE_URL = "https://play.google.com/store/apps/details";
 const GOOGLE_PLAY_PACKAGE_ID = "com.sheetcue";
@@ -5,6 +7,9 @@ const TOKEN_PATTERN = /^[a-z0-9_-]+$/;
 const MAX_TOKEN_LENGTH = 120;
 const LOCALE_PREFIXES = ["ko_kr", "en_us", "fr_fr", "de_de", "ja_jp", "es_es", "pt_br", "zh_tw"];
 const SEQUENCE_SUFFIX_PATTERN = /_\d{3}$/;
+const PLATFORM_ALIASES = Object.freeze({
+  aos: "android",
+});
 
 /**
  * @param {unknown} token
@@ -37,6 +42,18 @@ export function extractCommunitySlug(token) {
 
   const communitySlug = tokenWithoutSequence.slice(localePrefix.length + 1);
   return communitySlug.length > 0 && TOKEN_PATTERN.test(communitySlug) ? communitySlug : null;
+}
+
+/**
+ * @param {unknown} token
+ * @returns {string | null}
+ */
+function resolveTrackingToken(token) {
+  if (typeof token !== "string") {
+    return null;
+  }
+
+  return TRACKING_ALIASES[token] ?? token;
 }
 
 /**
@@ -84,16 +101,19 @@ function buildGooglePlayUrl(token) {
  * @returns {URL | null}
  */
 export function buildTrackingRedirectUrl(token, platform) {
-  if (!isValidTrackingToken(token) || typeof platform !== "string") {
+  const resolvedToken = resolveTrackingToken(token);
+  const resolvedPlatform = typeof platform === "string" ? PLATFORM_ALIASES[platform] ?? platform : null;
+
+  if (!isValidTrackingToken(resolvedToken) || !resolvedPlatform) {
     return null;
   }
 
-  if (platform === "ios") {
-    return buildAppStoreUrl(token);
+  if (resolvedPlatform === "ios") {
+    return buildAppStoreUrl(resolvedToken);
   }
 
-  if (platform === "android") {
-    return buildGooglePlayUrl(token);
+  if (resolvedPlatform === "android") {
+    return buildGooglePlayUrl(resolvedToken);
   }
 
   return null;
