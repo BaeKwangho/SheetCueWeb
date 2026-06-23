@@ -6,12 +6,19 @@ const outDir = join(root, "out");
 
 const localePages = [
   { locale: "en", file: "index.html" },
+  { locale: "en", file: "release-notes/index.html" },
   { locale: "ko", file: "ko/index.html" },
+  { locale: "ko", file: "ko/release-notes/index.html" },
   { locale: "ja", file: "ja/index.html" },
+  { locale: "ja", file: "ja/release-notes/index.html" },
   { locale: "de", file: "de/index.html" },
+  { locale: "de", file: "de/release-notes/index.html" },
   { locale: "fr", file: "fr/index.html" },
+  { locale: "fr", file: "fr/release-notes/index.html" },
   { locale: "es", file: "es/index.html" },
+  { locale: "es", file: "es/release-notes/index.html" },
   { locale: "zh-TW", file: "zh-TW/index.html" },
+  { locale: "zh-TW", file: "zh-TW/release-notes/index.html" },
 ];
 
 if (!existsSync(outDir)) {

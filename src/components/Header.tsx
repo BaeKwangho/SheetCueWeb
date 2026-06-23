@@ -10,6 +10,7 @@ import { FiMusic } from 'react-icons/fi';
 import Container from './Container';
 import { siteDetails } from '@/data/siteDetails';
 import { getLocaleFromPathname, landingContent, localePathFor, localeRoutes } from '@/data/landingContent';
+import { releaseNotesContent, releaseNotesPathFor } from '@/data/releaseNotes';
 
 const Header: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +18,12 @@ const Header: React.FC = () => {
     const locale = getLocaleFromPathname(pathname);
     const nav = landingContent[locale].nav;
     const homeUrl = localePathFor(locale);
+    const releaseNotesUrl = releaseNotesPathFor(locale);
+    const isReleaseNotesPage = pathname?.includes('/release-notes') ?? false;
+    const navUrlFor = (url: string) => (url.startsWith('#') ? `${homeUrl}${url}` : url);
+    const menuItems = isReleaseNotesPage
+        ? nav.menuItems.filter((item) => item.url !== '#release')
+        : nav.menuItems;
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -36,13 +43,18 @@ const Header: React.FC = () => {
 
                     {/* Desktop Menu */}
                     <ul className="hidden items-center space-x-6 md:flex">
-                        {nav.menuItems.map(item => (
+                        {menuItems.map(item => (
                             <li key={item.text}>
-                                <Link href={item.url} className="text-sm font-medium text-foreground transition-colors hover:text-secondary">
+                                <Link href={navUrlFor(item.url)} className="text-sm font-medium text-foreground transition-colors hover:text-secondary">
                                     {item.text}
                                 </Link>
                             </li>
                         ))}
+                        <li>
+                            <Link href={releaseNotesUrl} className={`text-sm font-medium transition-colors hover:text-secondary ${isReleaseNotesPage ? "text-secondary" : "text-foreground"}`}>
+                                {releaseNotesContent[locale].navLabel}
+                            </Link>
+                        </li>
                         <li className="relative">
                             <details className="group">
                                 <summary className="list-none cursor-pointer text-sm font-medium text-foreground transition-colors hover:text-secondary [&::-webkit-details-marker]:hidden">
@@ -52,7 +64,7 @@ const Header: React.FC = () => {
                                     {localeRoutes.map((route) => (
                                         <Link
                                             key={route.code}
-                                            href={route.path}
+                                            href={isReleaseNotesPage ? releaseNotesPathFor(route.code) : route.path}
                                             className={`block rounded-md px-3 py-2 text-sm transition-colors hover:bg-primary/15 ${route.code === locale ? "font-semibold text-foreground" : "text-foreground-accent"}`}
                                         >
                                             {route.nativeLabel}
@@ -61,11 +73,13 @@ const Header: React.FC = () => {
                                 </div>
                             </details>
                         </li>
-                        <li>
-                            <Link href="#release" className="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-accent">
-                                {nav.releaseCta}
-                            </Link>
-                        </li>
+                        {!isReleaseNotesPage && (
+                            <li>
+                                <Link href={`${homeUrl}#release`} className="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-accent">
+                                    {nav.releaseCta}
+                                </Link>
+                            </li>
+                        )}
                     </ul>
 
                     {/* Mobile Menu Button */}
@@ -100,20 +114,25 @@ const Header: React.FC = () => {
             >
                 <div id="mobile-menu" className="border-b border-line bg-surface shadow-lg md:hidden">
                     <ul className="flex flex-col space-y-4 pt-1 pb-6 px-6">
-                        {nav.menuItems.map(item => (
+                        {menuItems.map(item => (
                             <li key={item.text}>
-                                <Link href={item.url} className="block text-foreground hover:text-secondary" onClick={toggleMenu}>
+                                <Link href={navUrlFor(item.url)} className="block text-foreground hover:text-secondary" onClick={toggleMenu}>
                                     {item.text}
                                 </Link>
                             </li>
                         ))}
+                        <li>
+                            <Link href={releaseNotesUrl} className="block text-foreground hover:text-secondary" onClick={toggleMenu}>
+                                {releaseNotesContent[locale].navLabel}
+                            </Link>
+                        </li>
                         <li>
                             <span className="mb-2 block text-sm font-semibold text-foreground">{nav.languageMenuLabel}</span>
                             <div className="grid grid-cols-2 gap-2">
                                 {localeRoutes.map((route) => (
                                     <Link
                                         key={route.code}
-                                        href={route.path}
+                                        href={isReleaseNotesPage ? releaseNotesPathFor(route.code) : route.path}
                                         className={`rounded-md border border-line px-3 py-2 text-sm hover:border-primary hover:text-secondary ${route.code === locale ? "bg-primary/15 font-semibold text-foreground" : "text-foreground-accent"}`}
                                         onClick={toggleMenu}
                                     >
@@ -122,11 +141,13 @@ const Header: React.FC = () => {
                                 ))}
                             </div>
                         </li>
-                        <li>
-                            <Link href="#release" className="block w-fit rounded-lg bg-primary px-5 py-2 font-semibold text-white hover:bg-primary-accent" onClick={toggleMenu}>
-                                {nav.releaseCta}
-                            </Link>
-                        </li>
+                        {!isReleaseNotesPage && (
+                            <li>
+                                <Link href={`${homeUrl}#release`} className="block w-fit rounded-lg bg-primary px-5 py-2 font-semibold text-white hover:bg-primary-accent" onClick={toggleMenu}>
+                                    {nav.releaseCta}
+                                </Link>
+                            </li>
+                        )}
                     </ul>
                 </div>
             </Transition>

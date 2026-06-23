@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { ILandingContent, Locale } from "@/types";
 import { landingContent, localePathFor, supportedLocales } from "./landingContent";
+import { ReleaseNotesContent, releaseNotesContent, releaseNotesPathFor } from "./releaseNotes";
 import { siteDetails } from "./siteDetails";
 
 export const ogImage = {
@@ -26,6 +27,7 @@ export const absoluteUrl = (path = "/"): string => {
 };
 
 export const localeUrl = (locale: Locale): string => absoluteUrl(localePathFor(locale));
+export const releaseNotesUrl = (locale: Locale): string => absoluteUrl(releaseNotesPathFor(locale));
 
 export const languageAlternates = (): Record<string, string> => ({
     "x-default": localeUrl("en"),
@@ -33,6 +35,17 @@ export const languageAlternates = (): Record<string, string> => ({
         (languages, locale) => ({
             ...languages,
             [locale]: localeUrl(locale),
+        }),
+        {} as Record<string, string>,
+    ),
+});
+
+export const releaseNotesLanguageAlternates = (): Record<string, string> => ({
+    "x-default": releaseNotesUrl("en"),
+    ...supportedLocales.reduce(
+        (languages, locale) => ({
+            ...languages,
+            [locale]: releaseNotesUrl(locale),
         }),
         {} as Record<string, string>,
     ),
@@ -75,6 +88,52 @@ export const buildPageMetadata = (locale: Locale): Metadata => {
                     width: ogImage.width,
                     height: ogImage.height,
                     alt: `${siteDetails.siteName} PDF score viewer`,
+                },
+            ],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: content.metadata.title,
+            description: content.metadata.description,
+            images: [ogImageUrl],
+        },
+    };
+};
+
+export const buildReleaseNotesMetadata = (locale: Locale): Metadata => {
+    const content = releaseNotesContent[locale];
+    const url = releaseNotesUrl(locale);
+    const ogImageUrl = absoluteUrl(`/${ogImage.url}`);
+
+    return {
+        title: content.metadata.title,
+        description: content.metadata.description,
+        keywords: [
+            "SheetCue release notes",
+            "SheetCue changelog",
+            "PDF score viewer updates",
+            "measure cue updates",
+            "sheet music practice app",
+            "local-first music app",
+        ],
+        alternates: {
+            canonical: url,
+            languages: releaseNotesLanguageAlternates(),
+        },
+        openGraph: {
+            title: content.metadata.title,
+            description: content.metadata.description,
+            url,
+            siteName: siteDetails.siteName,
+            type: "website",
+            locale: localeOgMap[locale],
+            alternateLocale: supportedLocales.filter((item) => item !== locale).map((item) => localeOgMap[item]),
+            images: [
+                {
+                    url: ogImageUrl,
+                    width: ogImage.width,
+                    height: ogImage.height,
+                    alt: `${siteDetails.siteName} release notes`,
                 },
             ],
         },
@@ -152,6 +211,50 @@ export const buildStructuredData = (content: ILandingContent) => {
                     acceptedAnswer: {
                         "@type": "Answer",
                         text: item.answer,
+                    },
+                })),
+            },
+        ],
+    };
+};
+
+export const buildReleaseNotesStructuredData = (content: ReleaseNotesContent) => {
+    const pageUrl = releaseNotesUrl(content.locale);
+
+    return {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebPage",
+                "@id": `${pageUrl}#webpage`,
+                url: pageUrl,
+                name: content.metadata.title,
+                description: content.metadata.description,
+                inLanguage: content.locale,
+                isPartOf: {
+                    "@type": "WebSite",
+                    "@id": `${siteDetails.siteUrl}#website`,
+                    name: siteDetails.siteName,
+                    url: siteDetails.siteUrl,
+                },
+                about: {
+                    "@type": "SoftwareApplication",
+                    name: siteDetails.siteName,
+                    applicationCategory: "MusicApplication",
+                },
+            },
+            {
+                "@type": "ItemList",
+                "@id": `${pageUrl}#release-list`,
+                name: content.timelineHeading,
+                itemListElement: content.entries.map((entry, index) => ({
+                    "@type": "ListItem",
+                    position: index + 1,
+                    item: {
+                        "@type": "CreativeWork",
+                        name: `${entry.version} ${entry.title}`,
+                        datePublished: entry.date.replaceAll(".", "-"),
+                        description: entry.summary,
                     },
                 })),
             },

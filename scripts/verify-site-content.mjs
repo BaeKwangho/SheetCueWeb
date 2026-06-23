@@ -5,20 +5,29 @@ const root = process.cwd();
 const expectedLocales = ["en", "ko", "ja", "de", "fr", "es", "zh-TW"];
 const requiredFiles = [
   "src/app/page.tsx",
+  "src/app/release-notes/page.tsx",
   "src/app/ko/page.tsx",
+  "src/app/ko/release-notes/page.tsx",
   "src/app/ja/page.tsx",
+  "src/app/ja/release-notes/page.tsx",
   "src/app/de/page.tsx",
+  "src/app/de/release-notes/page.tsx",
   "src/app/fr/page.tsx",
+  "src/app/fr/release-notes/page.tsx",
   "src/app/es/page.tsx",
+  "src/app/es/release-notes/page.tsx",
   "src/app/zh-TW/page.tsx",
+  "src/app/zh-TW/release-notes/page.tsx",
   "src/app/robots.ts",
   "src/app/sitemap.ts",
   "public/google4d373a09b6a07242.html",
   "scripts/localize-static-html.mjs",
   "src/components/CTA.tsx",
   "src/components/FAQ.tsx",
+  "src/components/ReleaseNotesPageContent.tsx",
   "src/components/Benefits/BenefitSection.tsx",
   "functions/t/[token]/[platform].js",
+  "src/data/releaseNotes.ts",
   "src/data/seo.ts",
   "next.config.mjs",
 ];
@@ -64,6 +73,11 @@ if (!koreanPage.includes("metadata") || !koreanPage.includes('buildPageMetadata(
   throw new Error("Korean page must define localized metadata.");
 }
 
+const releaseNotesPage = readFileSync(join(root, "src/app/release-notes/page.tsx"), "utf8");
+if (!releaseNotesPage.includes("metadata") || !releaseNotesPage.includes('buildReleaseNotesMetadata("en")')) {
+  throw new Error("English release notes page must define localized metadata.");
+}
+
 const content = readFileSync(join(root, "src/data/landingContent.tsx"), "utf8");
 for (const locale of expectedLocales) {
   if (!content.includes(`"${locale}"`)) {
@@ -73,9 +87,14 @@ for (const locale of expectedLocales) {
 
 for (const locale of expectedLocales.filter((locale) => locale !== "en")) {
   const page = readFileSync(join(root, `src/app/${locale}/page.tsx`), "utf8");
+  const releasePage = readFileSync(join(root, `src/app/${locale}/release-notes/page.tsx`), "utf8");
 
   if (!page.includes("metadata") || !page.includes(`buildPageMetadata("${locale}")`)) {
     throw new Error(`${locale} page must define localized metadata.`);
+  }
+
+  if (!releasePage.includes("metadata") || !releasePage.includes(`buildReleaseNotesMetadata("${locale}")`)) {
+    throw new Error(`${locale} release notes page must define localized metadata.`);
   }
 
   if (page.includes(`\${siteDetails.siteUrl}${locale}.html`)) {
@@ -89,7 +108,7 @@ if (!siteDetails.includes("https://sheetcue.com/")) {
 }
 
 const seo = readFileSync(join(root, "src/data/seo.ts"), "utf8");
-for (const required of ["languageAlternates", "SoftwareApplication", "FAQPage", "summary_large_image", "og-image.png"]) {
+for (const required of ["languageAlternates", "releaseNotesLanguageAlternates", "SoftwareApplication", "FAQPage", "summary_large_image", "og-image.png"]) {
   if (!seo.includes(required)) {
     throw new Error(`SEO helper must include ${required}.`);
   }
@@ -124,8 +143,8 @@ for (const expected of ["OAI-SearchBot", "GPTBot", "sitemap"]) {
 }
 
 const sitemap = readFileSync(join(root, "src/app/sitemap.ts"), "utf8");
-if (!sitemap.includes("supportedLocales") || !sitemap.includes("alternates")) {
-  throw new Error("Sitemap must include localized URLs and alternates.");
+if (!sitemap.includes("supportedLocales") || !sitemap.includes("alternates") || !sitemap.includes("releaseNotesUrl")) {
+  throw new Error("Sitemap must include localized home and release notes URLs with alternates.");
 }
 
 console.log("Site content checks passed.");

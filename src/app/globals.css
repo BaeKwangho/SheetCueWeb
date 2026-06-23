@@ -183,6 +183,13 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 30px 90px rgba(16, 43, 46, 0.1);
 }
 
+.sheetcue-release-grid {
+  background:
+    repeating-linear-gradient(0deg, rgba(16, 43, 46, 0.055) 0 1px, transparent 1px 24px),
+    repeating-linear-gradient(90deg, rgba(16, 43, 46, 0.04) 0 1px, transparent 1px 120px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(247, 251, 250, 0.92));
+}
+
 #features {
   margin-top: 3rem;
 }

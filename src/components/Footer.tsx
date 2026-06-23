@@ -8,6 +8,7 @@ import { FiMusic } from 'react-icons/fi';
 import { siteDetails } from '@/data/siteDetails';
 import { getLocaleFromPathname, landingContent, localePathFor } from '@/data/landingContent';
 import { withBasePath } from '@/data/paths';
+import { releaseNotesContent, releaseNotesPathFor } from '@/data/releaseNotes';
 import { getPlatformIconByName } from '@/utils';
 
 const Footer: React.FC = () => {
@@ -16,6 +17,19 @@ const Footer: React.FC = () => {
     const footer = landingContent[locale].footer;
     const homeUrl = localePathFor(locale);
     const policyLocale = locale === "ko" ? "ko" : "en";
+    const isReleaseNotesPage = pathname?.includes('/release-notes') ?? false;
+    const footerQuickLinks = [
+        ...footer.quickLinks
+            .filter((link) => !isReleaseNotesPage || link.url !== "#release")
+            .map((link) => ({
+                ...link,
+                url: link.url.startsWith("#") ? `${homeUrl}${link.url}` : link.url,
+            })),
+        {
+            text: releaseNotesContent[locale].navLabel,
+            url: releaseNotesPathFor(locale),
+        },
+    ];
 
     return (
         <footer className="border-t border-line bg-surface py-10 text-foreground">
@@ -34,7 +48,7 @@ const Footer: React.FC = () => {
                 <div>
                     <h4 className="text-lg font-semibold mb-4">{footer.quickLinksTitle}</h4>
                     <ul className="text-foreground-accent">
-                        {footer.quickLinks.map(link => (
+                        {footerQuickLinks.map(link => (
                             <li key={link.text} className="mb-2">
                                 <Link href={link.url} className="hover:text-foreground">{link.text}</Link>
                             </li>
