@@ -15,16 +15,14 @@ const Footer: React.FC = () => {
     const pathname = usePathname();
     const locale = getLocaleFromPathname(pathname);
     const footer = landingContent[locale].footer;
+    const nav = landingContent[locale].nav;
     const homeUrl = localePathFor(locale);
     const policyLocale = locale === "ko" ? "ko" : "en";
-    const isReleaseNotesPage = pathname?.includes('/release-notes') ?? false;
     const footerQuickLinks = [
-        ...footer.quickLinks
-            .filter((link) => !isReleaseNotesPage || link.url !== "#release")
-            .map((link) => ({
-                ...link,
-                url: link.url.startsWith("#") ? `${homeUrl}${link.url}` : link.url,
-            })),
+        {
+            text: nav.aboutLabel,
+            url: homeUrl,
+        },
         {
             text: releaseNotesContent[locale].navLabel,
             url: releaseNotesPathFor(locale),

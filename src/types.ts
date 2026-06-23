@@ -78,6 +78,7 @@ export interface ILandingContent {
         description: string;
     };
     nav: {
+        aboutLabel: string;
         menuItems: IMenuItem[];
         releaseCta: string;
         languageMenuLabel: string;

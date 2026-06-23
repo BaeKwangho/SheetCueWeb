@@ -120,6 +120,7 @@ const storeBadgeAssetsByLocale: Record<
 type LocaleCopy = {
     metadata: ILandingContent["metadata"];
     nav: {
+        aboutLabel: string;
         menuItems: ILandingContent["nav"]["menuItems"];
         releaseCta: string;
         languageMenuLabel: string;
@@ -170,6 +171,7 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
             description: "View PDF sheet music and practice measure by measure. Import a score PDF, adjust measures and timing, then follow your playback order.",
         },
         nav: {
+            aboutLabel: "About SheetCue",
             menuItems: [
                 { text: "Features", url: "#features" },
                 { text: "Workflow", url: "#workflow" },
@@ -280,6 +282,7 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
             description: "PDF 악보를 보며 마디 단위로 연습하세요. 악보 PDF를 가져오고, 마디와 타이밍을 조정한 뒤 원하는 재생 순서를 따라갑니다.",
         },
         nav: {
+            aboutLabel: "SheetCue 소개",
             menuItems: [
                 { text: "기능", url: "#features" },
                 { text: "흐름", url: "#workflow" },
@@ -390,6 +393,7 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
             description: "PDF楽譜を表示し、小節ごとに練習できます。楽譜PDFを取り込み、小節とタイミングを調整して、設定した再生順に沿って練習します。",
         },
         nav: {
+            aboutLabel: "SheetCueについて",
             menuItems: [
                 { text: "機能", url: "#features" },
                 { text: "フロー", url: "#workflow" },
@@ -500,6 +504,7 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
             description: "PDF-Noten ansehen und Takt für Takt üben. Importiere eine PDF-Partitur, passe Takte und Timing an und folge deiner Wiedergabereihenfolge.",
         },
         nav: {
+            aboutLabel: "Über SheetCue",
             menuItems: [
                 { text: "Funktionen", url: "#features" },
                 { text: "Ablauf", url: "#workflow" },
@@ -610,6 +615,7 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
             description: "Consultez vos partitions PDF et entraînez-vous mesure par mesure. Importez une partition PDF, ajustez les mesures et le timing, puis suivez votre ordre de lecture.",
         },
         nav: {
+            aboutLabel: "À propos de SheetCue",
             menuItems: [
                 { text: "Fonctionnalités", url: "#features" },
                 { text: "Parcours", url: "#workflow" },
@@ -720,6 +726,7 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
             description: "Ve partituras PDF y practica compás por compás. Importa una partitura PDF, ajusta compases y timing, y sigue tu orden de reproducción.",
         },
         nav: {
+            aboutLabel: "Acerca de SheetCue",
             menuItems: [
                 { text: "Funciones", url: "#features" },
                 { text: "Flujo", url: "#workflow" },
@@ -830,6 +837,7 @@ const copyByLocale: Record<Locale, LocaleCopy> = {
             description: "查看 PDF 樂譜並逐小節練習。匯入樂譜 PDF，調整小節與時間設定，然後依照你的播放順序練習。",
         },
         nav: {
+            aboutLabel: "關於 SheetCue",
             menuItems: [
                 { text: "功能", url: "#features" },
                 { text: "流程", url: "#workflow" },
