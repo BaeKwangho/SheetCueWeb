@@ -9,12 +9,20 @@ const APP_STORE_BASE_URLS_BY_LOCALE = Object.freeze({
   ko_kr: "https://apps.apple.com/kr/app/sheetcue/id6773944737",
   zh_tw: "https://apps.apple.com/tw/app/sheetcue/id6773944737",
 });
-const DEFAULT_APP_STORE_BASE_URL = APP_STORE_BASE_URLS_BY_LOCALE.en_us;
+const GOOGLE_PLAY_LOCALE_PARAMS = Object.freeze({
+  de_de: Object.freeze({ hl: "de", gl: "DE" }),
+  en_us: Object.freeze({ hl: "en_US", gl: "US" }),
+  es_es: Object.freeze({ hl: "es", gl: "ES" }),
+  fr_fr: Object.freeze({ hl: "fr", gl: "FR" }),
+  ja_jp: Object.freeze({ hl: "ja", gl: "JP" }),
+  ko_kr: Object.freeze({ hl: "ko", gl: "KR" }),
+  zh_tw: Object.freeze({ hl: "zh_TW", gl: "TW" }),
+});
 const GOOGLE_PLAY_BASE_URL = "https://play.google.com/store/apps/details";
 const GOOGLE_PLAY_PACKAGE_ID = "com.sheetcue";
 const TOKEN_PATTERN = /^[a-z0-9_-]+$/;
 const MAX_TOKEN_LENGTH = 120;
-const LOCALE_PREFIXES = ["ko_kr", "en_us", "fr_fr", "de_de", "ja_jp", "es_es", "pt_br", "zh_tw"];
+const LOCALE_PREFIXES = ["ko_kr", "en_us", "fr_fr", "de_de", "ja_jp", "es_es", "zh_tw"];
 const SEQUENCE_SUFFIX_PATTERN = /_\d{3}$/;
 const PLATFORM_ALIASES = Object.freeze({
   aos: "android",
@@ -88,7 +96,12 @@ function buildAppStoreUrl(token) {
   }
 
   const localePrefix = extractLocalePrefix(token);
-  const baseUrl = APP_STORE_BASE_URLS_BY_LOCALE[localePrefix] ?? DEFAULT_APP_STORE_BASE_URL;
+  const baseUrl = APP_STORE_BASE_URLS_BY_LOCALE[localePrefix];
+
+  if (!baseUrl) {
+    return null;
+  }
+
   const url = new URL(baseUrl);
   url.searchParams.set("pt", "128962704");
   url.searchParams.set("ct", token);
@@ -107,6 +120,13 @@ function buildGooglePlayUrl(token) {
     return null;
   }
 
+  const localePrefix = extractLocalePrefix(token);
+  const localeParams = GOOGLE_PLAY_LOCALE_PARAMS[localePrefix];
+
+  if (!localeParams) {
+    return null;
+  }
+
   const referrer = new URLSearchParams({
     utm_source: communitySlug,
     utm_medium: "community_post",
@@ -115,6 +135,8 @@ function buildGooglePlayUrl(token) {
   });
   const url = new URL(GOOGLE_PLAY_BASE_URL);
   url.searchParams.set("id", GOOGLE_PLAY_PACKAGE_ID);
+  url.searchParams.set("hl", localeParams.hl);
+  url.searchParams.set("gl", localeParams.gl);
   url.searchParams.set("referrer", referrer.toString());
   return url;
 }
