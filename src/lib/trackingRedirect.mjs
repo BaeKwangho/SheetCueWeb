@@ -86,7 +86,7 @@ function buildGooglePlayUrl(token) {
   const referrer = new URLSearchParams({
     utm_source: communitySlug,
     utm_medium: "community_post",
-    utm_campaign: "pdf_feedback_launch",
+    utm_campaign: communitySlug,
     utm_content: token,
   });
   const url = new URL(GOOGLE_PLAY_BASE_URL);

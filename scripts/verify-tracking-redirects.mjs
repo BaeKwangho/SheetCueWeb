@@ -17,19 +17,31 @@ assert.equal(
 const androidUrl = buildTrackingRedirectUrl(token, "android");
 assert.equal(
   androidUrl?.toString(),
-  "https://play.google.com/store/apps/details?id=com.sheetcue&referrer=utm_source%3Ddcinside_piano%26utm_medium%3Dcommunity_post%26utm_campaign%3Dpdf_feedback_launch%26utm_content%3Dko_kr_dcinside_piano_001",
+  "https://play.google.com/store/apps/details?id=com.sheetcue&referrer=utm_source%3Ddcinside_piano%26utm_medium%3Dcommunity_post%26utm_campaign%3Ddcinside_piano%26utm_content%3Dko_kr_dcinside_piano_001",
 );
 
 const shortAliasAndroidUrl = buildTrackingRedirectUrl("ki1", "aos");
 assert.equal(
   shortAliasAndroidUrl?.toString(),
-  "https://play.google.com/store/apps/details?id=com.sheetcue&referrer=utm_source%3Dkakaotalk_instrument_community%26utm_medium%3Dcommunity_post%26utm_campaign%3Dpdf_feedback_launch%26utm_content%3Dko_kr_kakaotalk_instrument_community_001",
+  "https://play.google.com/store/apps/details?id=com.sheetcue&referrer=utm_source%3Dkakaotalk_instrument_community%26utm_medium%3Dcommunity_post%26utm_campaign%3Dkakaotalk_instrument_community%26utm_content%3Dko_kr_kakaotalk_instrument_community_001",
 );
 
 const shortAliasIosUrl = buildTrackingRedirectUrl("ki1", "ios");
 assert.equal(
   shortAliasIosUrl?.toString(),
   "https://apps.apple.com/us/app/sheetcue-pdf-score-practice/id6773944737?pt=128962704&ct=ko_kr_kakaotalk_instrument_community_001&mt=8",
+);
+
+const threadsProfileAndroidUrl = buildTrackingRedirectUrl("ko_kr_threads_profile_001", "aos");
+assert.equal(
+  threadsProfileAndroidUrl?.toString(),
+  "https://play.google.com/store/apps/details?id=com.sheetcue&referrer=utm_source%3Dthreads_profile%26utm_medium%3Dcommunity_post%26utm_campaign%3Dthreads_profile%26utm_content%3Dko_kr_threads_profile_001",
+);
+
+const threadsProfileIosUrl = buildTrackingRedirectUrl("ko_kr_threads_profile_001", "ios");
+assert.equal(
+  threadsProfileIosUrl?.toString(),
+  "https://apps.apple.com/us/app/sheetcue-pdf-score-practice/id6773944737?pt=128962704&ct=ko_kr_threads_profile_001&mt=8",
 );
 
 assert.equal(extractCommunitySlug("fr_fr_pianomajeur_001"), "pianomajeur");
