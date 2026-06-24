@@ -44,6 +44,59 @@ const localeStoreCases = [
     playStoreLocaleParams: "hl=zh_TW&gl=TW",
   },
 ];
+const youtubeProfileLocaleCases = [
+  {
+    acceptLanguage: "ko-KR,ko;q=0.9,en-US;q=0.8",
+    appStoreBaseUrl: "https://apps.apple.com/kr/app/sheetcue/id6773944737",
+    playStoreLocaleParams: "hl=ko&gl=KR",
+    token: "ko_kr_youtube_profile_001",
+  },
+  {
+    acceptLanguage: "ja-JP,ja;q=0.9,en-US;q=0.8",
+    appStoreBaseUrl: "https://apps.apple.com/jp/app/sheetcue/id6773944737",
+    playStoreLocaleParams: "hl=ja&gl=JP",
+    token: "ja_jp_youtube_profile_001",
+  },
+  {
+    acceptLanguage: "de-DE,de;q=0.9,en-US;q=0.8",
+    appStoreBaseUrl: "https://apps.apple.com/de/app/sheetcue/id6773944737",
+    playStoreLocaleParams: "hl=de&gl=DE",
+    token: "de_de_youtube_profile_001",
+  },
+  {
+    acceptLanguage: "fr-FR,fr;q=0.9,en-US;q=0.8",
+    appStoreBaseUrl: "https://apps.apple.com/fr/app/sheetcue/id6773944737",
+    playStoreLocaleParams: "hl=fr&gl=FR",
+    token: "fr_fr_youtube_profile_001",
+  },
+  {
+    acceptLanguage: "es-ES,es;q=0.9,en-US;q=0.8",
+    appStoreBaseUrl: "https://apps.apple.com/es/app/sheetcue/id6773944737",
+    playStoreLocaleParams: "hl=es&gl=ES",
+    token: "es_es_youtube_profile_001",
+  },
+  {
+    acceptLanguage: "zh-TW,zh;q=0.9,en-US;q=0.8",
+    appStoreBaseUrl: "https://apps.apple.com/tw/app/sheetcue/id6773944737",
+    playStoreLocaleParams: "hl=zh_TW&gl=TW",
+    token: "zh_tw_youtube_profile_001",
+  },
+  {
+    acceptLanguage: "pt-BR,pt;q=0.9",
+    appStoreBaseUrl: "https://apps.apple.com/us/app/sheetcue/id6773944737",
+    playStoreLocaleParams: "hl=en_US&gl=US",
+    token: "en_us_youtube_profile_001",
+  },
+];
+const youtubeProfileCountryCases = [
+  { country: "KR", appStoreLocale: "kr", playStoreLocaleParams: "hl=ko&gl=KR", token: "ko_kr_youtube_profile_001" },
+  { country: "US", appStoreLocale: "us", playStoreLocaleParams: "hl=en_US&gl=US", token: "en_us_youtube_profile_001" },
+  { country: "JP", appStoreLocale: "jp", playStoreLocaleParams: "hl=ja&gl=JP", token: "ja_jp_youtube_profile_001" },
+  { country: "DE", appStoreLocale: "de", playStoreLocaleParams: "hl=de&gl=DE", token: "de_de_youtube_profile_001" },
+  { country: "FR", appStoreLocale: "fr", playStoreLocaleParams: "hl=fr&gl=FR", token: "fr_fr_youtube_profile_001" },
+  { country: "ES", appStoreLocale: "es", playStoreLocaleParams: "hl=es&gl=ES", token: "es_es_youtube_profile_001" },
+  { country: "TW", appStoreLocale: "tw", playStoreLocaleParams: "hl=zh_TW&gl=TW", token: "zh_tw_youtube_profile_001" },
+];
 
 const iosUrl = buildTrackingRedirectUrl(token, "ios");
 assert.equal(
@@ -90,6 +143,35 @@ for (const { token: localeToken, appStoreBaseUrl, playStoreLocaleParams } of loc
   assert.equal(
     buildTrackingRedirectUrl(localeToken, "aos")?.toString(),
     `https://play.google.com/store/apps/details?id=com.sheetcue&${playStoreLocaleParams}&referrer=utm_source%3Dthreads_profile%26utm_medium%3Dcommunity_post%26utm_campaign%3Dthreads_profile%26utm_content%3D${localeToken}`,
+  );
+}
+
+for (const { acceptLanguage, appStoreBaseUrl, playStoreLocaleParams, token: profileToken } of youtubeProfileLocaleCases) {
+  assert.equal(
+    buildTrackingRedirectUrl("youtube-profile", "ios", { acceptLanguage })?.toString(),
+    `${appStoreBaseUrl}?pt=128962704&ct=${profileToken}&mt=8`,
+  );
+
+  assert.equal(
+    buildTrackingRedirectUrl("youtube-profile", "aos", { acceptLanguage })?.toString(),
+    `https://play.google.com/store/apps/details?id=com.sheetcue&${playStoreLocaleParams}&referrer=utm_source%3Dyoutube_profile%26utm_medium%3Dcommunity_post%26utm_campaign%3Dyoutube_profile%26utm_content%3D${profileToken}`,
+  );
+}
+
+assert.equal(
+  buildTrackingRedirectUrl("youtube-profile", "ios", { country: "KR" })?.toString(),
+  "https://apps.apple.com/kr/app/sheetcue/id6773944737?pt=128962704&ct=ko_kr_youtube_profile_001&mt=8",
+);
+
+for (const { country, appStoreLocale, playStoreLocaleParams, token: profileToken } of youtubeProfileCountryCases) {
+  assert.equal(
+    buildTrackingRedirectUrl("youtube-profile", "ios", { country })?.toString(),
+    `https://apps.apple.com/${appStoreLocale}/app/sheetcue/id6773944737?pt=128962704&ct=${profileToken}&mt=8`,
+  );
+
+  assert.equal(
+    buildTrackingRedirectUrl("youtube-profile", "aos", { country })?.toString(),
+    `https://play.google.com/store/apps/details?id=com.sheetcue&${playStoreLocaleParams}&referrer=utm_source%3Dyoutube_profile%26utm_medium%3Dcommunity_post%26utm_campaign%3Dyoutube_profile%26utm_content%3D${profileToken}`,
   );
 }
 

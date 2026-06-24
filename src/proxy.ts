@@ -21,7 +21,10 @@ export function proxy(request: NextRequest) {
   }
 
   const [, token, platform] = match;
-  const destination = buildTrackingRedirectUrl(token, platform);
+  const destination = buildTrackingRedirectUrl(token, platform, {
+    acceptLanguage: request.headers.get("accept-language"),
+    country: request.headers.get("x-vercel-ip-country") ?? request.headers.get("cf-ipcountry"),
+  });
 
   if (!destination) {
     return new NextResponse("Not Found", {

@@ -9,8 +9,11 @@ const notFound = () => new Response("Not Found", {
   headers: noStoreHeaders,
 });
 
-export async function onRequestGet({ params }) {
-  const destination = buildTrackingRedirectUrl(params.token, params.platform);
+export async function onRequestGet({ params, request }) {
+  const destination = buildTrackingRedirectUrl(params.token, params.platform, {
+    acceptLanguage: request.headers.get("accept-language"),
+    country: request.cf?.country,
+  });
 
   if (!destination) {
     return notFound();
