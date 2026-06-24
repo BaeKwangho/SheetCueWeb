@@ -1,6 +1,15 @@
 import { TRACKING_ALIASES } from "../data/trackingAliases.mjs";
 
-const APP_STORE_BASE_URL = "https://apps.apple.com/us/app/sheetcue-pdf-score-practice/id6773944737";
+const APP_STORE_BASE_URLS_BY_LOCALE = Object.freeze({
+  de_de: "https://apps.apple.com/de/app/sheetcue/id6773944737",
+  en_us: "https://apps.apple.com/us/app/sheetcue/id6773944737",
+  es_es: "https://apps.apple.com/es/app/sheetcue/id6773944737",
+  fr_fr: "https://apps.apple.com/fr/app/sheetcue/id6773944737",
+  ja_jp: "https://apps.apple.com/jp/app/sheetcue/id6773944737",
+  ko_kr: "https://apps.apple.com/kr/app/sheetcue/id6773944737",
+  zh_tw: "https://apps.apple.com/tw/app/sheetcue/id6773944737",
+});
+const DEFAULT_APP_STORE_BASE_URL = APP_STORE_BASE_URLS_BY_LOCALE.en_us;
 const GOOGLE_PLAY_BASE_URL = "https://play.google.com/store/apps/details";
 const GOOGLE_PLAY_PACKAGE_ID = "com.sheetcue";
 const TOKEN_PATTERN = /^[a-z0-9_-]+$/;
@@ -34,7 +43,7 @@ export function extractCommunitySlug(token) {
   }
 
   const tokenWithoutSequence = token.replace(SEQUENCE_SUFFIX_PATTERN, "");
-  const localePrefix = LOCALE_PREFIXES.find((locale) => tokenWithoutSequence.startsWith(`${locale}_`));
+  const localePrefix = extractLocalePrefix(token);
 
   if (!localePrefix) {
     return null;
@@ -42,6 +51,19 @@ export function extractCommunitySlug(token) {
 
   const communitySlug = tokenWithoutSequence.slice(localePrefix.length + 1);
   return communitySlug.length > 0 && TOKEN_PATTERN.test(communitySlug) ? communitySlug : null;
+}
+
+/**
+ * @param {string} token
+ * @returns {string | null}
+ */
+function extractLocalePrefix(token) {
+  if (!isValidTrackingToken(token) || !SEQUENCE_SUFFIX_PATTERN.test(token)) {
+    return null;
+  }
+
+  const tokenWithoutSequence = token.replace(SEQUENCE_SUFFIX_PATTERN, "");
+  return LOCALE_PREFIXES.find((locale) => tokenWithoutSequence.startsWith(`${locale}_`)) ?? null;
 }
 
 /**
@@ -65,7 +87,9 @@ function buildAppStoreUrl(token) {
     return null;
   }
 
-  const url = new URL(APP_STORE_BASE_URL);
+  const localePrefix = extractLocalePrefix(token);
+  const baseUrl = APP_STORE_BASE_URLS_BY_LOCALE[localePrefix] ?? DEFAULT_APP_STORE_BASE_URL;
+  const url = new URL(baseUrl);
   url.searchParams.set("pt", "128962704");
   url.searchParams.set("ct", token);
   url.searchParams.set("mt", "8");

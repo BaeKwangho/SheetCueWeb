@@ -11,7 +11,7 @@ const token = "ko_kr_dcinside_piano_001";
 const iosUrl = buildTrackingRedirectUrl(token, "ios");
 assert.equal(
   iosUrl?.toString(),
-  "https://apps.apple.com/us/app/sheetcue-pdf-score-practice/id6773944737?pt=128962704&ct=ko_kr_dcinside_piano_001&mt=8",
+  "https://apps.apple.com/kr/app/sheetcue/id6773944737?pt=128962704&ct=ko_kr_dcinside_piano_001&mt=8",
 );
 
 const androidUrl = buildTrackingRedirectUrl(token, "android");
@@ -29,7 +29,7 @@ assert.equal(
 const shortAliasIosUrl = buildTrackingRedirectUrl("ki1", "ios");
 assert.equal(
   shortAliasIosUrl?.toString(),
-  "https://apps.apple.com/us/app/sheetcue-pdf-score-practice/id6773944737?pt=128962704&ct=ko_kr_kakaotalk_instrument_community_001&mt=8",
+  "https://apps.apple.com/kr/app/sheetcue/id6773944737?pt=128962704&ct=ko_kr_kakaotalk_instrument_community_001&mt=8",
 );
 
 const threadsProfileAndroidUrl = buildTrackingRedirectUrl("ko_kr_threads_profile_001", "aos");
@@ -41,7 +41,7 @@ assert.equal(
 const threadsProfileIosUrl = buildTrackingRedirectUrl("ko_kr_threads_profile_001", "ios");
 assert.equal(
   threadsProfileIosUrl?.toString(),
-  "https://apps.apple.com/us/app/sheetcue-pdf-score-practice/id6773944737?pt=128962704&ct=ko_kr_threads_profile_001&mt=8",
+  "https://apps.apple.com/kr/app/sheetcue/id6773944737?pt=128962704&ct=ko_kr_threads_profile_001&mt=8",
 );
 
 assert.equal(extractCommunitySlug("fr_fr_pianomajeur_001"), "pianomajeur");
