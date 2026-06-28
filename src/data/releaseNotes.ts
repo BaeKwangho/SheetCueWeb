@@ -46,6 +46,29 @@ export const releaseNotesPathFor = (locale: Locale): string => (
 const entriesByLocale: Record<Locale, ReleaseNoteEntry[]> = {
     en: [
         {
+            version: "1.1.0",
+            date: "2026.06.27",
+            status: "Published",
+            title: "PDF import choices, measure editing, and cleaner playback",
+            summary: "This larger update makes import decisions clearer, adds a safer way to adjust detected measures, and polishes playback controls across phone and tablet screens.",
+            platform: "iOS, iPadOS, Android",
+            highlights: [
+                "Added a PDF import choice so you can decide how SheetCue should prepare a score before editing.",
+                "Added a measure editing screen for adjusting detected measure groups when automatic detection needs correction.",
+                "Added full-page playback support for wide PDFs, so landscape scores can use the available screen space more naturally.",
+                "Added a metronome beat indicator that shows the beat motion during practice.",
+                "Cleaned up edit cards, playback controls, layout choices, and subscription plan controls for a more consistent feel.",
+                "Improved localized wording around editing and playback order.",
+            ],
+            fixes: [
+                "Improved Android safe-area handling in landscape playback, including the flow scrub range.",
+                "Reduced score editing and library layout regressions around presets and bundled samples.",
+                "Improved practice reminder status checks and repair behavior.",
+                "Refined automatic measure detection grouping for system-style layouts.",
+            ],
+            note: "If a score imported before this update needs cleaner measure boundaries, open it in editing and review the detected measures.",
+        },
+        {
             version: "1.0.6",
             date: "2026.06.22",
             status: "Published",
@@ -143,6 +166,29 @@ const entriesByLocale: Record<Locale, ReleaseNoteEntry[]> = {
         },
     ],
     ko: [
+        {
+            version: "1.1.0",
+            date: "2026.06.27",
+            status: "공개",
+            title: "PDF 가져오기 선택, 마디 편집, 재생 화면 정리",
+            summary: "PDF를 가져올 때의 선택을 더 분명하게 만들고, 자동 감지된 마디를 직접 다듬는 흐름과 휴대폰·태블릿 재생 조작을 함께 개선했습니다.",
+            platform: "iOS, iPadOS, Android",
+            highlights: [
+                "PDF를 가져올 때 SheetCue가 악보를 어떻게 준비할지 선택할 수 있는 흐름을 추가했습니다.",
+                "자동 마디 감지가 보정이 필요할 때 감지된 마디 묶음을 조정할 수 있는 마디 편집 화면을 추가했습니다.",
+                "가로로 긴 PDF를 전체 페이지로 재생할 수 있도록 지원해 넓은 악보가 화면 공간을 더 자연스럽게 사용합니다.",
+                "연습 중 박의 흐름을 볼 수 있는 메트로놈 비트 표시를 추가했습니다.",
+                "편집 카드, 재생 조작, 화면 배치 선택, 구독 플랜 조작을 더 일관된 느낌으로 정리했습니다.",
+                "편집과 재생 순서를 설명하는 여러 언어의 문구를 더 자연스럽게 다듬었습니다.",
+            ],
+            fixes: [
+                "Android 가로 재생 화면의 안전 영역 처리와 진행 흐름 조절 범위를 개선했습니다.",
+                "프리셋과 기본 샘플 주변에서 악보 편집 및 보관함 화면 배치가 어긋날 수 있는 문제를 줄였습니다.",
+                "연습 리마인드 상태 확인과 복구 흐름을 더 안정적으로 만들었습니다.",
+                "단이 나뉜 악보에서 자동 마디 감지 묶음이 더 자연스럽게 잡히도록 조정했습니다.",
+            ],
+            note: "이전 버전에서 가져온 악보의 마디 경계가 어색하다면, 편집 화면에서 감지된 마디를 다시 확인해 주세요.",
+        },
         {
             version: "1.0.6",
             date: "2026.06.22",
@@ -242,6 +288,29 @@ const entriesByLocale: Record<Locale, ReleaseNoteEntry[]> = {
     ],
     ja: [
         {
+            version: "1.1.0",
+            date: "2026.06.27",
+            status: "公開済み",
+            title: "PDF 取り込み選択、小節編集、再生画面の整理",
+            summary: "PDF 取り込み時の選択を分かりやすくし、自動検出された小節を調整する流れと、スマートフォン・タブレットの再生操作を改善しました。",
+            platform: "iOS, iPadOS, Android",
+            highlights: [
+                "PDF を取り込むとき、SheetCue が楽譜をどう準備するか選べるようにしました。",
+                "自動小節検出に修正が必要な場合、検出された小節グループを調整できる小節編集画面を追加しました。",
+                "横に広い PDF を全ページ再生で扱えるようにし、横向きの楽譜が画面をより自然に使えるようにしました。",
+                "練習中の拍の動きが見えるメトロノームのビート表示を追加しました。",
+                "編集カード、再生操作、レイアウト選択、サブスクリプションプランの操作をより一貫した見た目に整えました。",
+                "編集と再生順を説明する各言語の文言をより自然にしました。",
+            ],
+            fixes: [
+                "Android の横向き再生画面で、安全領域と再生フローのスクラブ範囲を改善しました。",
+                "プリセットや標準サンプルまわりで、楽譜編集とライブラリ画面の配置が崩れる可能性を減らしました。",
+                "練習リマインダーの状態確認と修復の流れをより安定させました。",
+                "段組みされた楽譜で、自動小節検出のグループ分けがより自然になるよう調整しました。",
+            ],
+            note: "以前に取り込んだ楽譜の小節境界が気になる場合は、編集画面で検出された小節を確認してください。",
+        },
+        {
             version: "1.0.6",
             date: "2026.06.22",
             status: "公開済み",
@@ -339,6 +408,29 @@ const entriesByLocale: Record<Locale, ReleaseNoteEntry[]> = {
         },
     ],
     de: [
+        {
+            version: "1.1.0",
+            date: "2026.06.27",
+            status: "Veröffentlicht",
+            title: "PDF-Importwahl, Taktbearbeitung und klarere Wiedergabe",
+            summary: "Dieses größere Update macht den PDF-Import verständlicher, ergänzt eine sichere Korrektur erkannter Takte und glättet die Wiedergabesteuerung auf Telefonen und Tablets.",
+            platform: "iOS, iPadOS, Android",
+            highlights: [
+                "Beim PDF-Import kannst du jetzt wählen, wie SheetCue die Noten vor der Bearbeitung vorbereiten soll.",
+                "Eine neue Taktbearbeitung hilft, erkannte Taktgruppen anzupassen, wenn die automatische Erkennung korrigiert werden muss.",
+                "Breite PDFs können jetzt als ganze Seite wiedergegeben werden, damit Querformat-Noten den Bildschirm natürlicher nutzen.",
+                "Eine Metronom-Beat-Anzeige zeigt die Schlagbewegung während der Übung.",
+                "Bearbeitungskarten, Wiedergabesteuerung, Layout-Auswahl und Abo-Plan-Bedienelemente wirken konsistenter.",
+                "Formulierungen zu Bearbeitung und Wiedergabereihenfolge wurden in mehreren Sprachen verbessert.",
+            ],
+            fixes: [
+                "Die Android-Sicherheitsbereiche im Querformat wurden verbessert, einschließlich des Bereichs zum Scrollen durch den Ablauf.",
+                "Layout-Rückschritte bei Notenbearbeitung und Bibliothek rund um Presets und mitgelieferte Beispiele wurden reduziert.",
+                "Statusprüfung und Reparatur von Übungserinnerungen laufen stabiler.",
+                "Die automatische Takterkennung gruppiert Takte in System-Layouts natürlicher.",
+            ],
+            note: "Wenn bei einer früher importierten Partitur Taktgrenzen ungenau wirken, öffne sie in der Bearbeitung und prüfe die erkannten Takte.",
+        },
         {
             version: "1.0.6",
             date: "2026.06.22",
@@ -438,6 +530,29 @@ const entriesByLocale: Record<Locale, ReleaseNoteEntry[]> = {
     ],
     fr: [
         {
+            version: "1.1.0",
+            date: "2026.06.27",
+            status: "Publié",
+            title: "Choix d'import PDF, édition des mesures et lecture plus claire",
+            summary: "Cette mise à jour rend l'import PDF plus explicite, ajoute un moyen plus sûr d'ajuster les mesures détectées et polit les commandes de lecture sur téléphone et tablette.",
+            platform: "iOS, iPadOS, Android",
+            highlights: [
+                "Lors de l'import d'un PDF, vous pouvez choisir comment SheetCue prépare la partition avant l'édition.",
+                "Un nouvel écran d'édition des mesures permet d'ajuster les groupes détectés lorsque la détection automatique doit être corrigée.",
+                "Les PDF larges peuvent maintenant être lus en page complète, pour mieux utiliser l'espace en paysage.",
+                "Un indicateur de battement de métronome montre le mouvement du temps pendant la pratique.",
+                "Cartes d'édition, commandes de lecture, choix de mise en page et contrôles d'abonnement sont plus cohérents.",
+                "Les libellés localisés autour de l'édition et de l'ordre de lecture ont été améliorés.",
+            ],
+            fixes: [
+                "Amélioration des zones sûres Android en lecture paysage, y compris la zone de défilement du flux.",
+                "Réduction des régressions de mise en page dans l'édition de partitions et la bibliothèque, autour des préréglages et exemples inclus.",
+                "Vérification de l'état et réparation des rappels de pratique plus stables.",
+                "Regroupement automatique des mesures plus naturel pour les partitions organisées en systèmes.",
+            ],
+            note: "Si une partition importée avant cette mise à jour a des limites de mesures imprécises, ouvrez-la en édition et vérifiez les mesures détectées.",
+        },
+        {
             version: "1.0.6",
             date: "2026.06.22",
             status: "Publié",
@@ -536,6 +651,29 @@ const entriesByLocale: Record<Locale, ReleaseNoteEntry[]> = {
     ],
     es: [
         {
+            version: "1.1.0",
+            date: "2026.06.27",
+            status: "Publicado",
+            title: "Opciones de importación PDF, edición de compases y reproducción más clara",
+            summary: "Esta actualización hace más clara la importación de PDF, añade una forma más segura de ajustar compases detectados y pule los controles de reproducción en móvil y tablet.",
+            platform: "iOS, iPadOS, Android",
+            highlights: [
+                "Al importar un PDF, ahora puedes elegir cómo SheetCue prepara la partitura antes de editarla.",
+                "Se añadió una pantalla de edición de compases para ajustar grupos detectados cuando la detección automática necesita corrección.",
+                "Los PDF anchos pueden reproducirse a página completa, para aprovechar mejor el espacio en horizontal.",
+                "Se añadió un indicador de pulso del metrónomo que muestra el movimiento del tiempo durante la práctica.",
+                "Tarjetas de edición, controles de reproducción, opciones de diseño y controles de suscripción son más consistentes.",
+                "Se mejoraron los textos localizados sobre edición y orden de reproducción.",
+            ],
+            fixes: [
+                "Se mejoró el manejo de áreas seguras en Android durante reproducción horizontal, incluido el rango de desplazamiento del flujo.",
+                "Se redujeron regresiones de diseño en edición de partituras y biblioteca alrededor de presets y ejemplos incluidos.",
+                "La comprobación de estado y reparación de recordatorios de práctica es más estable.",
+                "La detección automática agrupa compases de forma más natural en partituras por sistemas.",
+            ],
+            note: "Si una partitura importada antes de esta actualización necesita límites de compás más claros, ábrela en edición y revisa los compases detectados.",
+        },
+        {
             version: "1.0.6",
             date: "2026.06.22",
             status: "Publicado",
@@ -633,6 +771,29 @@ const entriesByLocale: Record<Locale, ReleaseNoteEntry[]> = {
         },
     ],
     "zh-TW": [
+        {
+            version: "1.1.0",
+            date: "2026.06.27",
+            status: "已發布",
+            title: "PDF 匯入選擇、小節編輯與更清楚的播放",
+            summary: "這次較大的更新讓 PDF 匯入選擇更清楚，加入調整已偵測小節的方式，也整理手機與平板上的播放控制。",
+            platform: "iOS, iPadOS, Android",
+            highlights: [
+                "匯入 PDF 時，現在可以選擇 SheetCue 要如何在編輯前準備樂譜。",
+                "新增小節編輯畫面，當自動偵測需要修正時，可以調整已偵測的小節群組。",
+                "支援寬版 PDF 的整頁播放，讓橫向樂譜更自然地使用螢幕空間。",
+                "新增節拍器拍點顯示，練習時可以看到拍子的移動。",
+                "整理編輯卡片、播放控制、版面選擇與訂閱方案控制，讓整體操作更一致。",
+                "改善多語系中關於編輯與播放順序的文字。",
+            ],
+            fixes: [
+                "改善 Android 橫向播放時的安全區域處理，包含播放流程拖曳範圍。",
+                "減少預設與內建範例周邊的樂譜編輯與資料庫版面問題。",
+                "練習提醒的狀態檢查與修復流程更穩定。",
+                "針對分行系統式樂譜，自動小節偵測的群組更自然。",
+            ],
+            note: "如果更新前匯入的樂譜小節邊界不夠清楚，請在編輯畫面重新檢查已偵測的小節。",
+        },
         {
             version: "1.0.6",
             date: "2026.06.22",
